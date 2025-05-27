@@ -1,36 +1,37 @@
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Timeline;
 
 public class PlayerController : MonoBehaviour
 {
 	private CharacterController characterController;  // CharacterController型の変数
-	private Vector3 moveVelocity;  // キャラクターコントローラーを動かすためのVector3型の変数
 	[SerializeField] private Animator animator;
 	[SerializeField] private Transform verRot;  //縦の視点移動の変数(カメラに合わせる)
 	[SerializeField] private Transform horRot;  //横の視点移動の変数(プレイヤーに合わせる)
 	[SerializeField] private float moveSpeed;  //移動速度
-	[SerializeField] private float sensX = 2f;
-	[SerializeField] private float sensY = 2f;
+	[SerializeField] private float sensX = 2.0f;
+	[SerializeField] private float sensY = 2.0f;
+	[SerializeField] private float padSens = 2.0f;  //パッドの感度
+	[SerializeField] private float jumpPower;  //ジャンプ力
+	
+	private Vector3 moveVelocity;  // キャラクターコントローラーを動かすためのVector3型の変数
 	private float rotationY, rotationX;
 
-	[SerializeField] private float jumpPower;  //ジャンプ力
-
-	// Rayの長さ
-	[SerializeField] private float _rayLength = 1f;
-
-	// Rayをどれくらい身体にめり込ませるか
-	[SerializeField] private float _rayOffset;
-
-	// Rayの判定に用いるLayer
-	[SerializeField] private LayerMask _layerMask = default;
+	[SerializeField] private float _rayLength = 1f;	// Rayの長さ
+	[SerializeField] private float _rayOffset;		// Rayをどれくらい身体にめり込ませるか
+	[SerializeField] private LayerMask _layerMask;	// Rayの判定に用いるLayer
 
 	void Start()
 	{
+		// フレームレートを60に固定
+		Application.targetFrameRate = 60;
 		characterController = GetComponent<CharacterController>();
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		// ゲームの終了
 		EndGame();
@@ -45,8 +46,7 @@ public class PlayerController : MonoBehaviour
 
 	private void Camera()
 	{
-		Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X") * sensX,
-			Input.GetAxis("Mouse Y") * sensY);
+		Vector2 mouseInput = InputSystem.CameraGetAxis(sensX, sensY, padSens);
 
 		rotationX -= mouseInput.y;
 		rotationY += mouseInput.x;
@@ -63,22 +63,22 @@ public class PlayerController : MonoBehaviour
 	private void Move()
 	{
 		//Wキーがおされたら
-		if (Input.GetKey(KeyCode.W))
+		if (InputSystem.MoveUp())
 		{
 			characterController.Move(this.gameObject.transform.forward * moveSpeed * Time.deltaTime);
 		}
 		//Sキーがおされたら
-		if (Input.GetKey(KeyCode.S))
+		if (InputSystem.MoveDown())
 		{
 			characterController.Move(this.gameObject.transform.forward * -1f * moveSpeed * Time.deltaTime);
 		}
 		//Aキーがおされたら
-		if (Input.GetKey(KeyCode.A))
+		if (InputSystem.MoveLeft())
 		{
 			characterController.Move(this.gameObject.transform.right * -1 * moveSpeed * Time.deltaTime);
 		}
 		//Dキーがおされたら
-		if (Input.GetKey(KeyCode.D))
+		if (InputSystem.MoveRight())
 		{
 			characterController.Move(this.gameObject.transform.right * moveSpeed * Time.deltaTime);
 		}
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
 		if (CheckGrounded())
 		{
 			// ジャンプ
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (InputSystem.Jump())
 			{
 				moveVelocity.y = jumpPower;
 			}
