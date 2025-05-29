@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Fishing : MonoBehaviour
 {
+	[SerializeField] Transform playerHead;
 	[SerializeField] GameObject fishingRod;
 	FishingRod rod;
-	Transform playerHead;
 
 	private void Awake()
 	{
@@ -14,7 +14,7 @@ public class Fishing : MonoBehaviour
 
 	void Start()
     {
-		playerHead = transform.GetChild(0);
+
 	}
 
 
@@ -24,9 +24,16 @@ public class Fishing : MonoBehaviour
 		{
 			// ’Ş‚èŠJn
 			fishingRod.SetActive(true);
-			fishingRod.transform.position = playerHead.position + playerHead.forward * 0.5f;
+			fishingRod.transform.position = playerHead.position + new Vector3(0, 2, 0);
 			rod.FishingStart(playerHead.forward);
 		}
+
+		// ƒŠ[ƒ‹‚ğŠª‚­
+        float wh = Input.GetAxis("Mouse ScrollWheel");
+        if (wh < 0)
+        {
+            fishingRod.transform.position += transform.forward.normalized * wh * 2;
+        }
     }
 
 	public void FishingEnd(FishDataEntity fish)
