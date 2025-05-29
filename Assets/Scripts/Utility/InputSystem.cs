@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class InputSystem : MonoBehaviour
 {
+	// InputSystemのメソッドは静的にして、どこからでも呼び出せるようにする
+
+	// 移動
 	static public bool MoveUp()
 	{
 		var keyCurrent = Keyboard.current;
@@ -57,6 +60,7 @@ public class InputSystem : MonoBehaviour
 		return false;
 	}
 
+	// ジャンプ
 	static public bool Jump()
 	{
 		var keyCurrent = Keyboard.current;
@@ -70,6 +74,7 @@ public class InputSystem : MonoBehaviour
 		return false;
 	}
 
+	// カメラの回転
 	static public Vector2 CameraGetAxis(float sensX, float sensY, float padSens)
 	{
 		var keyCurrent = Keyboard.current;
@@ -83,5 +88,20 @@ public class InputSystem : MonoBehaviour
 		{
 			return new Vector2(Input.GetAxis("Mouse X") * sensX, Input.GetAxis("Mouse Y") * sensY);
 		}
+	}
+
+	// メインアイテムの使用
+	static public bool Fishing()
+	{
+		//var mouseCurrent = Mouse.current;
+		var keyCurrent = Keyboard.current;
+		var padCurrent = Gamepad.current;
+
+		if (keyCurrent != null && keyCurrent.fKey.wasPressedThisFrame ||
+			padCurrent != null && padCurrent.rightTrigger.wasPressedThisFrame)
+		{
+			return true;
+		}
+		return false;
 	}
 }
