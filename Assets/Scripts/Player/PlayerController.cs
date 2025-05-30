@@ -20,7 +20,10 @@ public class PlayerController : MonoBehaviour
 
 	[SerializeField] private float _rayLength = 1f;	// Rayの長さ
 	[SerializeField] private float _rayOffset;		// Rayをどれくらい身体にめり込ませるか
-	[SerializeField] private LayerMask _layerMask;	// Rayの判定に用いるLayer
+	[SerializeField] private LayerMask _layerMask;  // Rayの判定に用いるLayer
+
+	bool canMove;   // 移動可能かどうか
+	bool canCamera; // カメラ操作可能かどうか
 
 	void Start()
 	{
@@ -29,6 +32,8 @@ public class PlayerController : MonoBehaviour
 		characterController = GetComponent<CharacterController>();
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
+		canCamera = true; // カメラ操作可能にする
+		canMove = true;   // 移動可能にする
 	}
 
 	void FixedUpdate()
@@ -36,9 +41,10 @@ public class PlayerController : MonoBehaviour
 		// ゲームの終了
 		EndGame();
 
-		Camera();
+		if (canCamera) Camera();
 
-		Move();
+		// 移動
+		if (canMove) Move();
 
 		// 移動スピードをアニメーターに反映する
 		//animator.SetFloat("MoveSpeed", new Vector3(moveVelocity.x, 0, moveVelocity.z).magnitude);
@@ -128,5 +134,15 @@ public class PlayerController : MonoBehaviour
 #endif
 		}
 
+	}
+
+	public void SetMove(bool move)
+	{
+		canMove = move;  // 移動可能かどうかを設定
+	}
+
+	public void SetCamera(bool camera)
+	{
+		canCamera = camera;  // カメラ操作可能かどうかを設定
 	}
 }
