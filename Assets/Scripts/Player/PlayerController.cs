@@ -46,6 +46,12 @@ public class PlayerController : MonoBehaviour
 		// 移動
 		if (canMove) Move();
 
+		if (Input.GetKeyDown(KeyCode.Tab))
+		{
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
 		// 移動スピードをアニメーターに反映する
 		//animator.SetFloat("MoveSpeed", new Vector3(moveVelocity.x, 0, moveVelocity.z).magnitude);
 	}
@@ -59,7 +65,7 @@ public class PlayerController : MonoBehaviour
 		rotationY %= 360; // 絶対値が大きくなりすぎないように
 
 		// 上下の視点移動量をClamp
-		rotationX = Mathf.Clamp(rotationX, -90, 90);
+		rotationX = Mathf.Clamp(rotationX, -70, 70);
 
 		// 頭、体の向きの適用
 		verRot.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);

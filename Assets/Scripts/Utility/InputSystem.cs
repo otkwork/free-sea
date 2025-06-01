@@ -75,7 +75,7 @@ public class InputSystem : MonoBehaviour
 	}
 
 	// ƒJƒƒ‰‚Ì‰ñ“]
-	static public Vector2 CameraGetAxis(float sensX, float sensY, float padSens)
+	static public Vector2 CameraGetAxis(float sensX = 2, float sensY = 2, float padSens = 2)
 	{
 		var keyCurrent = Keyboard.current;
 		var padCurrent = Gamepad.current;

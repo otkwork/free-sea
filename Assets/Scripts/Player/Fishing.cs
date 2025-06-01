@@ -1,51 +1,95 @@
 using System.Linq.Expressions;
+using System.Security.Cryptography;
+using UnityEditor.PackageManager;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Fishing : MonoBehaviour
 {
 	[SerializeField] Transform playerHead;
+	[SerializeField] GameObject rodFloat;
+	[SerializeField] Animator rodAnime;
 	[SerializeField] GameObject fishingRod;
 	FishingRod rod;
 	PlayerController playerController;
 
-	static readonly Vector3 FloatOffset = new Vector3(0, 2, 0); // 浮きのオフセット
-	const float BeforeHitReelSpeed = 2.0f;
-	const float AfterHitReelSpeed = 0.1f;
+	static readonly Vector3 FloatOffset = new Vector3(0, 5, 0); // 浮きを投げるときのオフセット
+	readonly float[] reelSpeed =
+	{
+		0.5f,
+		1.0f,
+		1.5f
+	};
+
+	float rotationY;
+	float rotationX;
+	bool isHit;
 
 	private void Awake()
 	{
-		rod = fishingRod.GetComponent<FishingRod>();
+		rod = rodFloat.GetComponent<FishingRod>();
 		playerController = GetComponent<PlayerController>();
+		isHit = false;
 	}
-
-	void Start()
-	{
-
-	}
-
 
 	void Update()
 	{
-		// 釣り中じゃない場合浮きを飛ばす
-		if (!rod.IsFishing() && InputSystem.Fishing())
+		if (InputSystem.Fishing())
 		{
-			// 釣り開始
-			fishingRod.SetActive(true);
-			fishingRod.transform.position = playerHead.position + FloatOffset;
-			rod.FishingStart(playerHead.forward);
+			// 釣り中じゃない場合浮きを飛ばす
+			if (!rod.CanThrow())
+			{
+				// 釣り開始
+				rodAnime.SetTrigger("Throw");
+				rodFloat.transform.position = playerHead.position + FloatOffset + transform.forward * -3;
+				rodFloat.SetActive(true);
+				rod.FishingStart(playerHead.forward);
+			}
+			// 投げている最中じゃなく魚がかかっていないなら浮きを回収する
+			else if(rod.IsFishing() && !isHit)
+			{
+				rod.FishingEnd(false);
+			}
 		}
 
-		// リールを巻く
-		float wh = Input.GetAxis("Mouse ScrollWheel");
-		// 巻く速度を調整
-		wh *= rod.IsHit() ? AfterHitReelSpeed : BeforeHitReelSpeed;
+		
+		// 魚がかかった時用の機構
+        if (isHit)
+        {
+			// 画面を固定して竿だけ動かせるようにする
+			MouseRod();
 
-		if (wh < 0)
-		{
-			fishingRod.transform.position += (fishingRod.transform.position - transform.position).normalized * wh * 2;
-		}
+            // リールを巻く
+            Reel();
+        }
 	}
+
+	private void MouseRod()
+	{
+        Vector2 mouseInput = InputSystem.CameraGetAxis();
+
+        rotationX += mouseInput.y;
+        rotationY -= mouseInput.x;
+        rotationX += 0.5f;
+        rotationX = Mathf.Clamp(rotationX, -30, 30);
+        rotationY = Mathf.Clamp(rotationY, -30, 30);
+
+        // 頭、体の向きの適用
+        fishingRod.transform.localRotation = Quaternion.Euler(rotationX + 30, 0, rotationY);
+    }
+
+	private void Reel()
+	{
+        float wh = Input.GetAxis("Mouse ScrollWheel");
+        // 巻く速度を調整
+        wh *= reelSpeed[0];
+
+        if (wh < 0)
+        {
+            rodFloat.transform.position += (rodFloat.transform.position - transform.position).normalized * wh;
+        }
+    }
 
 	public void FishingEnd(bool isSuccess, FishDataEntity fish)
 	{
@@ -54,6 +98,17 @@ public class Fishing : MonoBehaviour
 		{
 			Debug.Log(fish.fishName);
 		}
+		rodAnime.enabled = true;
+		isHit = false;
+		playerController.SetCamera(true);
 		playerController.SetMove(true);
 	}
+
+	public void IsHit()
+	{
+		rodAnime.enabled = false;
+		isHit = true;
+		playerController.SetCamera(false);
+		playerController.SetMove(false);
+    }
 }
