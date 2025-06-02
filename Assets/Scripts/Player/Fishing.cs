@@ -17,14 +17,18 @@ public class Fishing : MonoBehaviour
 	static readonly Vector3 FloatOffset = new Vector3(0, 5, 0); // 浮きを投げるときのオフセット
 	readonly float[] reelSpeed =
 	{
-		0.5f,
+		1.5f,
 		1.0f,
-		1.5f
+		0.5f
 	};
 
 	float rotationY;
 	float rotationX;
 	bool isHit;
+
+	// リールの回転を取得するための変数
+	float lastAngle = 0f;
+	bool wasActive = false;
 
 	private void Awake()
 	{
@@ -35,6 +39,8 @@ public class Fishing : MonoBehaviour
 
 	void Update()
 	{
+		if (Cursor.visible) return; // カーソルが表示されている場合は何もしない(Pause)
+
 		if (InputSystem.Fishing())
 		{
 			// 釣り中じゃない場合浮きを飛ばす
@@ -81,9 +87,9 @@ public class Fishing : MonoBehaviour
 
 	private void Reel()
 	{
-        float wh = Input.GetAxis("Mouse ScrollWheel");
+        float wh = InputSystem.ReelGetAxis(ref lastAngle, ref  wasActive);
         // 巻く速度を調整
-        wh *= reelSpeed[0];
+        wh *= reelSpeed[rod.GetFishSize()];
 
         if (wh < 0)
         {

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,7 +5,8 @@ public class FishingRod : MonoBehaviour
 {
 	[SerializeField] GameObject player;
 	[SerializeField] ExcelData excelData;
-	
+	[SerializeField] HitFishMove hitFish; // かかった魚の動きのスクリプト
+
 	Fishing m_fishing;
 	FishDataEntity m_fishData;
 	Rigidbody m_rigidbody;
@@ -18,7 +18,6 @@ public class FishingRod : MonoBehaviour
 	bool m_throw;			// 浮きを投げたているかどうか
 	bool m_isFishing;       // 釣り中かどうか
 	bool m_isHit;          // 魚にヒットしたかどうか
-	bool m_canFishing;		// 釣りができる海域かどうか
 	float m_hitTime;		// 魚ヒットするまでの時間
 	float m_elapsedTime;
 
@@ -35,6 +34,9 @@ public class FishingRod : MonoBehaviour
 
 	void Update()
 	{
+		m_rigidbody.isKinematic = UnityEngine.Cursor.visible; // カーソルが表示されている場合は物理演算を無効化
+		if (UnityEngine.Cursor.visible) return; // カーソルが表示されている場合は何もしない(Pause)
+
 		// 水面に浮きが当たっているとき
 		if (m_fishData != null)
 		{
@@ -50,6 +52,8 @@ public class FishingRod : MonoBehaviour
             // 釣り中の処理
             m_elapsedTime += Time.deltaTime;
 
+			// リールを巻いて釣る方式に変更
+			/*
 			// 内部の処理がまだないので、時間経過で釣りを終了する
 			if (m_elapsedTime >= (float)m_hitTime + 15)
 			{
@@ -60,6 +64,7 @@ public class FishingRod : MonoBehaviour
 				// 釣り終了
 				FishingEnd(true);
 			}
+			*/
         }
 
 		// プレイヤーの半径5かつプレイヤーよりも低ければリセットして消える
@@ -90,12 +95,13 @@ public class FishingRod : MonoBehaviour
 			// 動きを止めて、魚のデータを取得
 			m_throw = false;
 			m_rigidbody.isKinematic = true;
+			m_isFishing = true;
 
-			// XZ両方の距離が10よりも近い場合何も釣れない
+			// XZ両方のどちらかの距離が10よりも遠い場合釣れる可能性がある
 			if (transform.position.x > 10 || transform.position.z > 10)
 			{
-				m_isFishing = true;
-				m_fishData = excelData.fish[(int)Random.Range(0, excelData.fish.Count)];
+				m_fishData = GetFishData();
+				hitFish.SetFishData(m_fishData); // 魚のデータをセット
 				SetHitTime();
 			}
 		}
@@ -104,6 +110,19 @@ public class FishingRod : MonoBehaviour
 		{
 			FishingEnd(false); // プレイヤーに当たったら釣りを終了
 		}
+	}
+
+	private FishDataEntity GetFishData()
+	{
+		// 釣りのデータを取得する
+		// ランダム(いづれテーブルを制作)に魚を選ぶ
+		// 釣り竿の距離が遠いほど良い魚がかかる可能性が上がるようにする予定
+
+		FishDataEntity fishData;
+		int randomIndex = Random.Range(0, excelData.fish.Count);
+		fishData = excelData.fish[randomIndex];
+
+		return fishData;
 	}
 
 	private void SetHitTime()
@@ -117,6 +136,7 @@ public class FishingRod : MonoBehaviour
 	public void FishingEnd(bool isSuccess)
     {
 		m_fishing.FishingEnd(isSuccess, m_fishData);
+		hitFish.FishingEnd();
 		m_throw = false;	// 投げたフラグをリセット
         m_isFishing = false; // 釣り中フラグをリセット
         m_fishData = null; // 魚のデータをリセット
@@ -140,5 +160,14 @@ public class FishingRod : MonoBehaviour
 	public bool IsHit()
 	{
 		return m_isHit;
+	}
+
+	public int GetFishSize()
+	{
+		if (m_fishData != null)
+		{
+			return m_fishData.fishSize - 1;
+		}
+		return 0; // 魚がかかっていない場合は0を返す
 	}
 }

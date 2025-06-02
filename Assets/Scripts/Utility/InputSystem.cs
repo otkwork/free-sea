@@ -12,7 +12,7 @@ public class InputSystem : MonoBehaviour
 	{
 		var keyCurrent = Keyboard.current;
 		var padCurrent = Gamepad.current;
-		
+
 		if (keyCurrent != null && keyCurrent.wKey.isPressed ||
 			padCurrent != null && padCurrent.leftStick.up.isPressed)
 		{
@@ -103,5 +103,49 @@ public class InputSystem : MonoBehaviour
 			return true;
 		}
 		return false;
+	}
+
+	// リールの巻き取り
+	static public float ReelGetAxis(ref float lastAngle, ref bool wasActive)
+	{
+		float wh = Input.GetAxis("Mouse ScrollWheel");
+		(float scroll, float newAngle, bool newActive) = GetStickScrollDelta(lastAngle, wasActive);
+
+		// 状態を更新
+		lastAngle = newAngle;
+		wasActive = newActive;
+
+		if (wh != 0)
+		{
+			return wh;
+		}
+		else if (scroll != 0f)
+		{
+			return scroll;
+		}
+		return 0f;
+	}
+
+	static private (float scrollDelta, float nextAngle, bool nextActive) GetStickScrollDelta(
+	float lastAngle,
+	bool wasActive,
+	float sensitivity = 0.005f)
+	{
+		Vector2 stick = Gamepad.current.leftStick.ReadValue();
+
+		Vector2 absStick = new Vector2(Mathf.Abs(stick.x), Mathf.Abs(stick.y));
+		if (absStick.magnitude > 0.2f)
+		{
+			float currentAngle = Mathf.Atan2(absStick.y, absStick.x) * Mathf.Rad2Deg;
+			float delta = Mathf.DeltaAngle(lastAngle, currentAngle);
+			return (delta * sensitivity, currentAngle, true);
+		}
+		else if (wasActive)
+		{
+			// スティックが離れたので状態リセット
+			return (0f, 0f, false);
+		}
+
+		return (0f, lastAngle, false);
 	}
 }

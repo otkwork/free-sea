@@ -7,4 +7,5 @@ public class FishDataEntity
 	public int hp;
 	public int exp;
 	public int price;
+	public int fishSize;
 }

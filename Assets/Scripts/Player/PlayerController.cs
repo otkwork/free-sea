@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
 	bool canMove;   // 移動可能かどうか
 	bool canCamera; // カメラ操作可能かどうか
+	bool pause;     // 一時停止中かどうか
 
 	void Start()
 	{
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
 		Cursor.visible = false;
 		canCamera = true; // カメラ操作可能にする
 		canMove = true;   // 移動可能にする
+		pause = false;
 	}
 
 	void FixedUpdate()
@@ -41,16 +43,17 @@ public class PlayerController : MonoBehaviour
 		// ゲームの終了
 		EndGame();
 
-		if (canCamera) Camera();
+		// Tabキーが押されたらカーソルを表示する
+		if (Input.GetKeyDown(KeyCode.Tab)) pause = !pause;
+		
+		Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
+		Cursor.visible = pause;
+
+		// カメラ操作
+		if (canCamera && !pause) Camera();
 
 		// 移動
-		if (canMove) Move();
-
-		if (Input.GetKeyDown(KeyCode.Tab))
-		{
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+		if (canMove && !pause) Move();
 
 		// 移動スピードをアニメーターに反映する
 		//animator.SetFloat("MoveSpeed", new Vector3(moveVelocity.x, 0, moveVelocity.z).magnitude);

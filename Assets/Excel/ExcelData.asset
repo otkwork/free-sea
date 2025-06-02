@@ -17,11 +17,14 @@ MonoBehaviour:
     hp: 10
     exp: 1
     price: 2
+    fishSize: 1
   - fishName: "\u3055\u304B\u306AB"
     hp: 15
     exp: 3
     price: 3
+    fishSize: 2
   - fishName: "\u3055\u304B\u306AC"
     hp: 30
     exp: 5
     price: 5
+    fishSize: 3
