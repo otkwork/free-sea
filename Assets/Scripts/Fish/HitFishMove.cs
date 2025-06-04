@@ -1,76 +1,118 @@
+using System.Drawing;
 using System.Security.Cryptography;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
 public class HitFishMove : MonoBehaviour
 {
-	[SerializeField] GameObject player; // プレイヤー
-	[SerializeField] GameObject rodFloat;   // 浮き
 
-	readonly Vector3 Size = new Vector3(0.35f, 0.35f, 1); // 魚のサイズ
-	readonly Vector3 HitOffset = new Vector3(0, -3f, 0); // 魚がかかったときの位置オフセット
-	const float MoveSpeed = 2f;           // 前進速度
-	const float MoveInterval = 1.0f;      // 移動の間隔
-	const float MoveAngle = 45f;          // 左右どちらかの移動角度（度）
-
+	[SerializeField] Transform lure;					// ルアー（釣り針）のTransform
+	[SerializeField] Transform player;					// プレイヤーのTransform
+	[SerializeField] float moveInterval = 1.5f;			// 左右に動く間隔（秒）
+	[SerializeField] float nextMoveTime = 5f;           // 一回の左右に動きづづける時間（秒）
+	[SerializeField] float lateralMoveDistance = 2.0f;	// 左右に動く最大距離
+	[SerializeField] float lateralMoveSpeed = 4.0f;     // 左右に動くスピード
 	FishDataEntity m_fishData; // 魚のデータ
-	Rigidbody m_rigidbody;
 
-	bool isHit;
+	readonly Vector3 Size = new Vector3(0.5f, 0.5f, 0.5f); // 魚のサイズ
+	readonly Vector3 HitOffset = new Vector3(0, -3f, 0); // 魚がかかったときの位置オフセット
 
-	float moveTimer = 0f; // 前進のタイマー
+	Quaternion m_fishingStartRot; // 釣り開始時の向き
+	private float elapsedTime = 0f;
+	private bool isMovingLaterally = false;
+	private Vector3 targetLateralPos;
+	private int lateralDir = 1; // -1: 左, 1: 右
+	private bool isfishing; // 浮きが着水したかどうか
+	private bool isHit; // 魚がかかったかどうか
+
 	void Start()
-    {
-		m_rigidbody = GetComponent<Rigidbody>();
-		isHit = false; // 初期状態ではヒットしていない
+	{
+		isfishing = false; // 初期状態ではヒットしていない
+		isHit = false;
 	}
 
-	// Update is called once per frame
+
 	void Update()
-    {
-		m_rigidbody.isKinematic = Cursor.visible; ; // カーソルが表示されている場合は物理演算を無効化
+	{
 		if (Cursor.visible) return; // カーソルが表示されている場合は何もしない(Pause)
 
-		if (!isHit) return; // 魚がかかっていない場合は何もしない
+		if (!isfishing) return; // 魚がかかっていない場合は何もしない
 
-		// 向きをプレイヤーから逃げる方向にする
-		Vector3 toPlayer = player.transform.position - transform.position;
-		Vector3 escapeDir = -toPlayer.normalized;
-		transform.rotation = Quaternion.LookRotation(escapeDir);
+		// ルアーの下を基準位置とする
+		Vector3 basePos = lure.position + HitOffset;
 
-		// 一定間隔で左右どちらかに前進
-		moveTimer += Time.deltaTime;
-		if (moveTimer >= MoveInterval)
+		if (!isMovingLaterally)
 		{
-			moveTimer = 0f;
+			// プレイヤーから逃げる方向を向く
+			transform.rotation = m_fishingStartRot;
 
-			// ランダムに左右を決定（-1 or 1）
-			int direction = Random.value < 0.5f ? -1 : 1;
+			// ルアーの下に位置する
+			transform.position = Vector3.Lerp(transform.position, basePos, 0.01f);
+			transform.position = new Vector3(transform.position.x, basePos.y, transform.position.z); // 高さは基準位置と同じにする
 
-			// 左右に少し角度をずらして前進
-			Quaternion offsetRot = Quaternion.Euler(0f, direction * MoveAngle, 0f);
-			Vector3 moveDir = offsetRot * transform.forward;
+			if (!isHit) return; // 魚がかかっていない場合は何もしない
+			elapsedTime += Time.deltaTime;
+			// 一定間隔で左右移動開始
+			if (elapsedTime > moveInterval)
+			{
+				isMovingLaterally = true;
+				elapsedTime = 0f; // 時間をリセット
 
-			transform.position += moveDir * MoveSpeed;
+				// 左右どちらか選ぶ
+				lateralDir = Random.value > 0.5f ? 1 : -1;
+				targetLateralPos = basePos + Vector3.right * lateralDir * lateralMoveDistance;
+				targetLateralPos.y = basePos.y; // 高さは基準位置と同じにする
+
+				// 横移動の方向に向く（0度:上、90度:右、-90度:左）
+				float lateralAngle = lateralDir == 1 ? 90f : -90f;
+				transform.rotation = Quaternion.Euler(0, m_fishingStartRot.eulerAngles.y + lateralAngle, 0);
+			}
 		}
+		else
+		{
+			// 横移動中の処理
+			elapsedTime += Time.deltaTime;
+			// 横方向に移動
+			transform.position = Vector3.MoveTowards(transform.position, targetLateralPos, lateralMoveSpeed * Time.deltaTime);
 
-		// Y座標をrodの位置 - 3 に固定
-		Vector3 pos = rodFloat.transform.position;
-		pos.y -= 3f;
-		transform.position = pos;
+			// 横移動中は常に左右方向を向く
+			float lateralAngle = lateralDir == 1 ? 90f : -90f;
+			transform.rotation = Quaternion.Euler(0, m_fishingStartRot.eulerAngles.y + lateralAngle, 0);
+
+			// 横移動完了判定
+			if (elapsedTime > nextMoveTime)
+			{
+				elapsedTime = 0f; // 時間をリセット
+				isMovingLaterally = false;
+			}
+		}
+	}
+
+	public void IsHit()
+	{
+		isHit = true; // 魚がかかった状態にする
 	}
 
 	// 魚がかかった時の初期設定
 	public void SetFishData(FishDataEntity fishData)
 	{
+		//==========================================//
+		// ルアーの位置に合わせて魚の種類を設定予定 //
+		//==========================================//
+
 		m_fishData = fishData;
 		transform.localScale = Size * m_fishData.fishSize; // 魚のサイズを設定
-		isHit = true; // 魚がかかった状態にする
+		isfishing = true; // 釣り状態にする
+
+		Vector3 escapeDir = (lure.position - player.position);
+		escapeDir.y = 0; // 高さを無視して水平移動にする
+		m_fishingStartRot = Quaternion.LookRotation(escapeDir);
 	}
 
 	public void FishingEnd()
 	{
 		transform.position = HitOffset;
+		isfishing = false; // 釣り状態を解除
 		isHit = false; // 魚がかかった状態を解除
 	}
 }

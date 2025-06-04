@@ -45,6 +45,7 @@ public class FishingRod : MonoBehaviour
 			{
 				m_isHit = true;
 				m_fishing.IsHit();
+				hitFish.IsHit();
 			}
 			float RodHeight = m_isHit ? HitHeight : NotHitHeight;
 
@@ -95,15 +96,11 @@ public class FishingRod : MonoBehaviour
 			// 動きを止めて、魚のデータを取得
 			m_throw = false;
 			m_rigidbody.isKinematic = true;
+			m_rigidbody.useGravity = false; // 重力を無効化
 			m_isFishing = true;
-
-			// XZ両方のどちらかの距離が10よりも遠い場合釣れる可能性がある
-			if (transform.position.x > 10 || transform.position.z > 10)
-			{
-				m_fishData = GetFishData();
-				hitFish.SetFishData(m_fishData); // 魚のデータをセット
-				SetHitTime();
-			}
+			m_fishData = GetFishData();
+			hitFish.SetFishData(m_fishData); // 魚のデータをセット
+			SetHitTime();
 		}
 
 		if (other.transform.CompareTag("Player"))
@@ -143,7 +140,8 @@ public class FishingRod : MonoBehaviour
 		m_isHit = false; // ヒットフラグをリセット
 		m_elapsedTime = 0f; // 経過時間をリセット
         m_rigidbody.isKinematic = false; // 浮きを動かせるように戻す
-        gameObject.SetActive(false); // 浮きを消す
+		m_rigidbody.useGravity = true; // 重力を有効化
+		gameObject.SetActive(false); // 浮きを消す
 		m_rigidbody.velocity = Vector3.zero;	// AddForceを0に戻す
     }
 
