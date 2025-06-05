@@ -129,7 +129,7 @@ public class InputSystem : MonoBehaviour
 	static private (float scrollDelta, float nextAngle, bool nextActive) GetStickScrollDelta(
 	float lastAngle,
 	bool wasActive,
-	float sensitivity = 0.005f)
+	float sensitivity = 0.002f)
 	{
 		Vector2 stick = Gamepad.current.leftStick.ReadValue();
 
@@ -147,5 +147,18 @@ public class InputSystem : MonoBehaviour
 		}
 
 		return (0f, lastAngle, false);
+	}
+
+	// PAUSE
+	static public bool Pause()
+	{
+		var keyCurrent = Keyboard.current;
+		var padCurrent = Gamepad.current;
+		if (keyCurrent != null && keyCurrent.tabKey.wasPressedThisFrame ||
+			padCurrent != null && padCurrent.startButton.wasPressedThisFrame)
+		{
+			return true;
+		}
+		return false;
 	}
 }

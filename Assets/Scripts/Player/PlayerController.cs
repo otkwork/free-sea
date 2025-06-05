@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour
 		// ゲームの終了
 		EndGame();
 
-		// Tabキーが押されたらカーソルを表示する
-		if (Input.GetKeyDown(KeyCode.Tab)) pause = !pause;
+		// Tabキーoptionが押されたらポーズ画面を表示/非表示にする
+		if (InputSystem.Pause()) pause = !pause;
 		
 		Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
 		Cursor.visible = pause;

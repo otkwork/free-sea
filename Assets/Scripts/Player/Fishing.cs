@@ -1,9 +1,4 @@
-using System.Linq.Expressions;
-using System.Security.Cryptography;
-using UnityEditor.PackageManager;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Fishing : MonoBehaviour
 {
@@ -11,6 +6,7 @@ public class Fishing : MonoBehaviour
 	[SerializeField] GameObject rodFloat;
 	[SerializeField] Animator rodAnime;
 	[SerializeField] GameObject fishingRod;
+	[SerializeField] HitFishMove hitFishMove;
 	FishingRod rod;
 	PlayerController playerController;
 
@@ -29,6 +25,8 @@ public class Fishing : MonoBehaviour
 	// リールの回転を取得するための変数
 	float lastAngle = 0f;
 	bool wasActive = false;
+	// リールを巻いたかどうか
+	bool isReeling = false;
 
 	private void Awake()
 	{
@@ -66,14 +64,17 @@ public class Fishing : MonoBehaviour
 			// 画面を固定して竿だけ動かせるようにする
 			MouseRod();
 
-            // リールを巻く
-            Reel();
+            // 魚が左右に動いていない時だけリールを巻く
+            if (hitFishMove.GetDir() == 0) Reel();
         }
 	}
 
 	private void MouseRod()
 	{
-        Vector2 mouseInput = InputSystem.CameraGetAxis();
+		playerHead.transform.rotation = Quaternion.LookRotation(rodFloat.transform.position);
+		transform.rotation = Quaternion.LookRotation(rodFloat.transform.position);
+
+		Vector2 mouseInput = InputSystem.CameraGetAxis();
 
         rotationX += mouseInput.y;
         rotationY -= mouseInput.x;
@@ -87,14 +88,16 @@ public class Fishing : MonoBehaviour
 
 	private void Reel()
 	{
-        float wh = InputSystem.ReelGetAxis(ref lastAngle, ref  wasActive);
+		isReeling = false;
+		float wh = InputSystem.ReelGetAxis(ref lastAngle, ref  wasActive);
         // 巻く速度を調整
         wh *= reelSpeed[rod.GetFishSize()];
 
         if (wh < 0)
         {
             rodFloat.transform.position += (rodFloat.transform.position - transform.position).normalized * wh;
-        }
+			isReeling = true;
+		}
     }
 
 	public void FishingEnd(bool isSuccess, FishDataEntity fish)
@@ -108,6 +111,11 @@ public class Fishing : MonoBehaviour
 		isHit = false;
 		playerController.SetCamera(true);
 		playerController.SetMove(true);
+	}
+
+	public bool IsReeling()
+	{
+		return isReeling;
 	}
 
 	public void IsHit()

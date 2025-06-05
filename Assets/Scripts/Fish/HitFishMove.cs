@@ -36,10 +36,14 @@ public class HitFishMove : MonoBehaviour
 	{
 		if (Cursor.visible) return; // カーソルが表示されている場合は何もしない(Pause)
 
-		if (!isfishing) return; // 魚がかかっていない場合は何もしない
-
+		if (!isfishing)
+		{
+			isMovingLaterally = false; // 釣り状態でない場合は横移動を無効にする
+			elapsedTime = 0f; // 時間をリセット
+			return; // 魚がかかっていない場合は何もしない
+		}
 		// ルアーの下を基準位置とする
-		Vector3 basePos = lure.position + HitOffset;
+		Vector3 basePos = lure.position + HitOffset + player.forward * 5;
 
 		if (!isMovingLaterally)
 		{
@@ -60,11 +64,9 @@ public class HitFishMove : MonoBehaviour
 
 				// 左右どちらか選ぶ
 				lateralDir = Random.value > 0.5f ? 1 : -1;
-				targetLateralPos = basePos + Vector3.right * lateralDir * lateralMoveDistance;
-				targetLateralPos.y = basePos.y; // 高さは基準位置と同じにする
 
-				// 横移動の方向に向く（0度:上、90度:右、-90度:左）
-				float lateralAngle = lateralDir == 1 ? 90f : -90f;
+				// 横移動の方向に向く（0度:上、45度:右、-45度:左）
+				float lateralAngle = lateralDir == 1 ? 45f : -45f;
 				transform.rotation = Quaternion.Euler(0, m_fishingStartRot.eulerAngles.y + lateralAngle, 0);
 			}
 		}
@@ -72,11 +74,15 @@ public class HitFishMove : MonoBehaviour
 		{
 			// 横移動中の処理
 			elapsedTime += Time.deltaTime;
+
+			targetLateralPos = basePos + Vector3.right * lateralDir * lateralMoveDistance;
+			targetLateralPos.y = basePos.y; // 高さは基準位置と同じにする
+			
 			// 横方向に移動
 			transform.position = Vector3.MoveTowards(transform.position, targetLateralPos, lateralMoveSpeed * Time.deltaTime);
 
 			// 横移動中は常に左右方向を向く
-			float lateralAngle = lateralDir == 1 ? 90f : -90f;
+			float lateralAngle = lateralDir == 1 ? 45f : -45f;
 			transform.rotation = Quaternion.Euler(0, m_fishingStartRot.eulerAngles.y + lateralAngle, 0);
 
 			// 横移動完了判定
@@ -114,5 +120,17 @@ public class HitFishMove : MonoBehaviour
 		transform.position = HitOffset;
 		isfishing = false; // 釣り状態を解除
 		isHit = false; // 魚がかかった状態を解除
+	}
+
+	public float GetDir()
+	{
+		// 左右のどちらか
+		if (isMovingLaterally)
+		{
+			// 1: 右, -1: 左
+			return lateralDir;
+		}
+
+		return 0;
 	}
 }

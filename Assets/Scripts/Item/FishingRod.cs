@@ -52,31 +52,9 @@ public class FishingRod : MonoBehaviour
 			transform.position = new Vector3(transform.position.x, RodHeight, transform.position.z);
             // 釣り中の処理
             m_elapsedTime += Time.deltaTime;
-
-			// リールを巻いて釣る方式に変更
-			/*
-			// 内部の処理がまだないので、時間経過で釣りを終了する
-			if (m_elapsedTime >= (float)m_hitTime + 15)
-			{
-				//--------------------//
-				//釣りの内部を制作予定//
-				//--------------------//
-
-				// 釣り終了
-				FishingEnd(true);
-			}
-			*/
         }
 
-		// プレイヤーの半径5かつプレイヤーよりも低ければリセットして消える
-
-        if (Mathf.Pow(transform.position.x - player.transform.position.x, 2) + 
-			Mathf.Pow(transform.position.z - player.transform.position.z, 2) < ResetArea &&
-			transform.position.y < player.transform.position.y)
-		{
-			FishingEnd(m_isHit);
-		}
-
+		// 海を貫通してしまったときの例外処理
 		if (transform.position.y < -10f) FishingEnd(false);
 	}
 
@@ -103,9 +81,9 @@ public class FishingRod : MonoBehaviour
 			SetHitTime();
 		}
 
-		if (other.transform.CompareTag("Player"))
+		if (other.transform.CompareTag("Player") || other.transform.CompareTag("raft"))
 		{
-			FishingEnd(false); // プレイヤーに当たったら釣りを終了
+			FishingEnd(m_isHit); // プレイヤーに当たったら釣りを終了
 		}
 	}
 
