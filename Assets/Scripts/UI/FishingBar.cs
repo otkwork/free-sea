@@ -107,11 +107,11 @@ public class FishingBar : MonoBehaviour
 		// 釣り竿の上下に応じてスライダーの値を調整
 		if (rodDir.x - RodDirMax >= 0) // 釣り竿が下向きの場合
 		{
-			m_fishingSlider.value -= DirValue * (Mathf.Abs(rodDir.x) / RodDirThreshold); // スライダーの値を減少
+			m_fishingSlider.value -= DirValue * (Mathf.Abs(rodDir.x - RodDirMax) / RodDirThreshold); // スライダーの値を減少
 		}
 		else // 釣り竿が上向きの場合
 		{
-			m_fishingSlider.value += DirValue * (Mathf.Abs(rodDir.x) / RodDirThreshold); // スライダーの値を増加
+			m_fishingSlider.value += DirValue * (Mathf.Abs(rodDir.x - RodDirMax) / RodDirThreshold); // スライダーの値を増加
 		}
 	}
 }

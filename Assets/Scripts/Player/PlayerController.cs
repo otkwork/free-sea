@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float _rayOffset;		// Rayをどれくらい身体にめり込ませるか
 	[SerializeField] private LayerMask _layerMask;  // Rayの判定に用いるLayer
 
+	[SerializeField] private GameObject pauseMenu; // ポーズメニューのUI
+
 	bool canMove;   // 移動可能かどうか
 	bool canCamera; // カメラ操作可能かどうか
 	bool pause;     // 一時停止中かどうか
@@ -48,6 +50,8 @@ public class PlayerController : MonoBehaviour
 		
 		Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
 		Cursor.visible = pause;
+
+		pauseMenu.SetActive(pause); // ポーズメニューのUIを表示/非表示にする
 
 		// カメラ操作
 		if (canCamera && !pause) Camera();
