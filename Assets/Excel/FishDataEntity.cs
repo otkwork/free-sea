@@ -8,4 +8,6 @@ public class FishDataEntity
 	public int exp;
 	public int price;
 	public int fishSize;
+	public string displayName;
+	public string fishDescription;
 }

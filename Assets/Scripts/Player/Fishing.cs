@@ -105,7 +105,7 @@ public class Fishing : MonoBehaviour
 		// ’Ş‚è¬Œ÷
 		if (isSuccess)
 		{
-			Debug.Log(fish.fishName);
+			Inventory.AddItem(fish);
 		}
 		rodAnime.enabled = true;
 		isHit = false;
