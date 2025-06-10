@@ -10,11 +10,13 @@ public class FishingRod : MonoBehaviour
 	Fishing m_fishing;
 	FishDataEntity m_fishData;
 	Rigidbody m_rigidbody;
-
+	
 	const float NotHitHeight = -1.0f;	// 魚にかかる前の浮きの高さ 
 	const float HitHeight = -1.2f;		// 魚にかかった後の浮きの高さ
-	const float ResetArea = 3f;			// 釣りをリセットするプレイヤーの範囲
 
+	private Vector3 savedVelocity;
+    private Vector3 savedAngularVelocity;
+	bool m_isPaused;        // ゲームがポーズ中かどうか
 	bool m_throw;			// 浮きを投げたているかどうか
 	bool m_isFishing;       // 釣り中かどうか
 	bool m_isHit;          // 魚にヒットしたかどうか
@@ -25,6 +27,7 @@ public class FishingRod : MonoBehaviour
 	{
 		m_fishing = player.GetComponent<Fishing>();
 		m_rigidbody = GetComponent<Rigidbody>();
+		m_isPaused = false; // 初期状態ではポーズ中ではない
 		m_throw = false;
 		m_isFishing = false;
 		m_isHit = false; // 初期状態ではヒットしていない
@@ -34,8 +37,25 @@ public class FishingRod : MonoBehaviour
 
 	void Update()
 	{
-		m_rigidbody.isKinematic = UnityEngine.Cursor.visible; // カーソルが表示されている場合は物理演算を無効化
-		if (UnityEngine.Cursor.visible) return; // カーソルが表示されている場合は何もしない(Pause)
+		if (UnityEngine.Cursor.visible)
+		{
+			// ポーズ画面に入る時に角度と速度を保存
+			if (!m_isPaused)
+			{
+				savedVelocity = m_rigidbody.velocity;
+				savedAngularVelocity = m_rigidbody.angularVelocity;
+			}
+			m_rigidbody.isKinematic = true; // カーソルが表示されている場合は物理演算を無効化
+			m_isPaused = true; // ポーズ中にカーソルが表示されたらポーズ状態にする
+			return;
+		}
+		else if (m_isPaused)
+		{
+			m_rigidbody.isKinematic = false;
+			m_rigidbody.velocity = savedVelocity;
+			m_rigidbody.angularVelocity = savedAngularVelocity;
+			m_isPaused = false;
+		}
 
 		// 水面に浮きが当たっているとき
 		if (m_fishData != null)
@@ -50,9 +70,9 @@ public class FishingRod : MonoBehaviour
 			float RodHeight = m_isHit ? HitHeight : NotHitHeight;
 
 			transform.position = new Vector3(transform.position.x, RodHeight, transform.position.z);
-            // 釣り中の処理
-            m_elapsedTime += Time.deltaTime;
-        }
+			// 釣り中の処理
+			m_elapsedTime += Time.deltaTime;
+		}
 
 		// 海を貫通してしまったときの例外処理
 		if (transform.position.y < -10f) FishingEnd(false);

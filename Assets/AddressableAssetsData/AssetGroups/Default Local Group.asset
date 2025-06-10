@@ -33,7 +33,62 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d67c137ed277324458ae88b9d17bfac4
-    m_Address: Iwashi
+    m_Address: iwashi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36d2d06d793aa1543b79021529e76e9e
+    m_Address: kasago
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f5bd0c0dbb06864490c76158e6f27ab
+    m_Address: koi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be09f517940192a4d99c10a9f9c9087a
+    m_Address: kuromaguro
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b50e3dcee78f2d4d86e6171b5292479
+    m_Address: mebaru
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d5052d9ad710d746a7be17edf7a8a3f
+    m_Address: nijimasu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efb9b7e7c91d9124c929a27c4f3ad4e4
+    m_Address: oikawa
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba79be4814c5c3f4a99c85a2edd88af2
+    m_Address: saba
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10967dbb7e8905d48a753c819436496e
+    m_Address: sake
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a608486e3d20bc4aa8903b542002888
+    m_Address: tai
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eee64a4000ae63a4d98a9f2251e6603b
+    m_Address: tara
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3447139cb86e5d249aac0fc08e133c52
+    m_Address: basu
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

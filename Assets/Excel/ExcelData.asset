@@ -13,9 +13,93 @@ MonoBehaviour:
   m_Name: ExcelData
   m_EditorClassIdentifier: 
   fish:
+  - fishName: iwashi
+    hp: 5
+    exp: 2
+    price: 2
+    fishSize: 1
+    displayName: "\u30A4\u30EF\u30B7"
+    fishDescription: "\u5E73\u5B89\u6642\u4EE3\u306B\u65E5\u672C\u7D71\u4E00\u3092\u679C\u305F\u3057\u305F\u30DE\u30EA\u30FC\u30A2\u30F3\u30C8\u30EF\u30CD\u30C3\u30C8\u304C\n\"\u30A4\u30EF\u30B7\u3092\u98DF\u3079\u306D\u3070\u6226\u306F\u3067\u304D\u306C\"\u3068\u8A00\u3044\u6B8B\u3057\u305F\u8CB4\u91CD\u306A\u8089\u6599\u7406"
+  - fishName: kuromaguro
+    hp: 100
+    exp: 100
+    price: 100
+    fishSize: 3
+    displayName: "\u30AF\u30ED\u30DE\u30B0\u30ED"
+    fishDescription: a
+  - fishName: nijimasu
+    hp: 30
+    exp: 20
+    price: 20
+    fishSize: 2
+    displayName: "\u30CB\u30B8\u30DE\u30B9"
+    fishDescription: a
+  - fishName: oikawa
+    hp: 20
+    exp: 10
+    price: 10
+    fishSize: 2
+    displayName: "\u30AA\u30A4\u30AB\u30EF"
+    fishDescription: a
+  - fishName: sake
+    hp: 50
+    exp: 30
+    price: 30
+    fishSize: 2
+    displayName: "\u30B5\u30B1"
+    fishDescription: a
+  - fishName: tai
+    hp: 80
+    exp: 50
+    price: 50
+    fishSize: 3
+    displayName: "\u30DE\u30C0\u30A4"
+    fishDescription: a
+  - fishName: koi
+    hp: 10
+    exp: 10
+    price: 10
+    fishSize: 2
+    displayName: "\u30B3\u30A4"
+    fishDescription: a
+  - fishName: basu
+    hp: 20
+    exp: 10
+    price: 10
+    fishSize: 2
+    displayName: "\u30D0\u30B9"
+    fishDescription: aa
+  - fishName: mebaru
+    hp: 35
+    exp: 20
+    price: 20
+    fishSize: 1
+    displayName: "\u30E1\u30D0\u30EB"
+    fishDescription: a
+  - fishName: tara
+    hp: 30
+    exp: 20
+    price: 20
+    fishSize: 2
+    displayName: "\u30BF\u30E9"
+    fishDescription: aa
+  - fishName: kasago
+    hp: 20
+    exp: 15
+    price: 15
+    fishSize: 1
+    displayName: "\u30AB\u30B5\u30B4"
+    fishDescription: a
+  - fishName: saba
+    hp: 30
+    exp: 15
+    price: 15
+    fishSize: 1
+    displayName: "\u30B5\u30D0"
+    fishDescription: aa
   - fishName: FuelTank
     hp: 10
-    exp: 1
+    exp: 2
     price: 2
     fishSize: 1
     displayName: "\u30DD\u30EA\u30BF\u30F3\u30AF"
