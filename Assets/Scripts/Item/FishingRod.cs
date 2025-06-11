@@ -37,6 +37,7 @@ public class FishingRod : MonoBehaviour
 
 	void Update()
 	{
+		m_rigidbody.isKinematic = UnityEngine.Cursor.visible;
 		if (UnityEngine.Cursor.visible)
 		{
 			// ポーズ画面に入る時に角度と速度を保存
@@ -45,13 +46,11 @@ public class FishingRod : MonoBehaviour
 				savedVelocity = m_rigidbody.velocity;
 				savedAngularVelocity = m_rigidbody.angularVelocity;
 			}
-			m_rigidbody.isKinematic = true; // カーソルが表示されている場合は物理演算を無効化
 			m_isPaused = true; // ポーズ中にカーソルが表示されたらポーズ状態にする
 			return;
 		}
 		else if (m_isPaused)
 		{
-			m_rigidbody.isKinematic = false;
 			m_rigidbody.velocity = savedVelocity;
 			m_rigidbody.angularVelocity = savedAngularVelocity;
 			m_isPaused = false;

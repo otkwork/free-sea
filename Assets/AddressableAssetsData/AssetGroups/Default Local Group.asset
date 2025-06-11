@@ -92,6 +92,46 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5cba98e57560a1f4b9a22dc918236fe5
+    m_Address: bora
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d5e8385b278cf545bf666e1e8ea5480
+    m_Address: same
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 175a7e5849c971841879e6235a70bce7
+    m_Address: suzuki
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 01642829729b235438fbb3802b34c737
+    m_Address: ei
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a6d73c5000c06d42b0305439d55b658
+    m_Address: utsubo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c0bbe69aff751a459d9ea052cf29ec7
+    m_Address: hamachi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ccec352b9c19ca4abffe60f16e01de1
+    m_Address: hirame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7cdde9c02dbed98419733d8f2cbf3435
+    m_Address: ikura
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a668c86dee4b19d40b3b728616cad0d9, type: 2}
   m_SchemaSet:
