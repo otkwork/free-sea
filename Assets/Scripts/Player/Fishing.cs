@@ -106,6 +106,7 @@ public class Fishing : MonoBehaviour
 		if (isSuccess)
 		{
 			Inventory.AddItem(fish);
+			VisualDictionary.AddItem(fish);
 		}
 		rodAnime.enabled = true;
 		isHit = false;

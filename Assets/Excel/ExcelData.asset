@@ -13,164 +13,203 @@ MonoBehaviour:
   m_Name: ExcelData
   m_EditorClassIdentifier: 
   fish:
-  - fishName: iwashi
+  - id: 0
+    fishName: iwashi
     hp: 5
     exp: 2
     price: 2
     fishSize: 1
     displayName: "\u30A4\u30EF\u30B7"
     fishDescription: "\u5E73\u5B89\u6642\u4EE3\u306B\u65E5\u672C\u7D71\u4E00\u3092\u679C\u305F\u3057\u305F\u30DE\u30EA\u30FC\u30A2\u30F3\u30C8\u30EF\u30CD\u30C3\u30C8\u304C\n\"\u30A4\u30EF\u30B7\u3092\u98DF\u3079\u306D\u3070\u6226\u306F\u3067\u304D\u306C\"\u3068\u8A00\u3044\u6B8B\u3057\u305F\u8CB4\u91CD\u306A\u8089\u6599\u7406"
-  - fishName: kuromaguro
+  - id: 1
+    fishName: kuromaguro
     hp: 100
     exp: 100
     price: 100
     fishSize: 3
     displayName: "\u30AF\u30ED\u30DE\u30B0\u30ED"
     fishDescription: "\u6B62\u307E\u3063\u305F\u3089\u6B7B\u3093\u3067\u3057\u307E\u3046\u30DE\u30B0\u30ED\u306B\u3068\u3063\u3066\u91E3\u308A\u4EBA\u306B\u3064\u3089\u308C\u308B\u3053\u3068\u306F\n\u6B7B\u5211\u5BA3\u544A\u306A\u306E\u3067\u306F\u306A\u3044\u304B"
-  - fishName: nijimasu
+  - id: 2
+    fishName: nijimasu
     hp: 30
     exp: 20
     price: 20
     fishSize: 2
     displayName: "\u30CB\u30B8\u30DE\u30B9"
     fishDescription: "\u91E3\u308A\u3042\u3052\u3089\u308C\u305F\u30CB\u30B8\u30DE\u30B9\u306B\u8679\u8272\u306E\u672A\u6765\u304C\u6765\u308B\u3053\u3068\u306F\u306A\u3044\u3002"
-  - fishName: oikawa
+  - id: 3
+    fishName: oikawa
     hp: 20
     exp: 10
     price: 10
     fishSize: 2
     displayName: "\u30AA\u30A4\u30AB\u30EF"
     fishDescription: "\u30AA\u30A4\u304B\u3051\u308B\u3068\u9003\u3052\u308B\u30AB\u30EF\u3044\u3044\u3084\u3064\n\u30EF\u30EF\u30C3\u3000\u30AA\u30A4\u30AB\u30EF"
-  - fishName: sake
+  - id: 4
+    fishName: sake
     hp: 50
     exp: 30
     price: 30
     fishSize: 2
     displayName: "\u30B5\u30B1"
     fishDescription: "\u4ECA\u3069\u304D\u306E\u82E5\u8005\u306F\u5207\u308A\u8EAB\u304C\u6CF3\u3044\u3067\u3044\u308B\u3068\u601D\u3063\u3066\u3044\u308B\u305D\u3046\u3060\n\u5F7C\u3089\u3068\u306E\u885D\u7A81\u306F\u30B5\u30B1\u3089\u308C\u306A\u3044"
-  - fishName: tai
+  - id: 5
+    fishName: tai
     hp: 80
     exp: 50
     price: 50
     fishSize: 3
     displayName: "\u30DE\u30C0\u30A4"
     fishDescription: "\u30BF\u30A4\u304C\u91E3\u308C\u308B\u306A\u3093\u3066\u3068\u3063\u3066\u3082\u304A\u3081\u3067\u3068\u3046\uFF01"
-  - fishName: koi
+  - id: 6
+    fishName: koi
     hp: 10
     exp: 10
     price: 10
     fishSize: 2
     displayName: "\u30B3\u30A4"
     fishDescription: "\u30B3\u30A4\u30B3\u30A4\u30B3\u30A4\u30B3\u30A4\uFF01\uFF01\n\u6765\u305F\uFF01\u30B3\u30A4\u304C\u6765\u305F\uFF01\uFF01"
-  - fishName: basu
+  - id: 7
+    fishName: basu
     hp: 20
     exp: 10
     price: 10
     fishSize: 2
     displayName: "\u30D0\u30B9"
     fishDescription: "\u30B9\u30DD\u30FC\u30C4\u30D5\u30A3\u30C3\u30B7\u30F3\u30B0\u306E\u738B\u9053\uFF01\n\u30D0\u30AB\u30B9\u30AB\u91E3\u308A\u305F\u3044\uFF5E\uFF01"
-  - fishName: mebaru
+  - id: 8
+    fishName: mebaru
     hp: 35
     exp: 20
     price: 20
     fishSize: 1
     displayName: "\u30E1\u30D0\u30EB"
     fishDescription: "\u716E\u4ED8\u3051\u306B\u3057\u3088\u3046\u3002"
-  - fishName: tara
+  - id: 9
+    fishName: tara
     hp: 30
     exp: 20
     price: 20
     fishSize: 2
     displayName: "\u30BF\u30E9"
     fishDescription: "\u30CF\u30FC\u30A4\uFF01\u30BF\u30E9\u30C1\u30E3\u30F3\u30C7\u30FC\u30B9\uFF01\n\u3053\u306E\u3042\u3068\u7167\u713C\u306B\u3055\u308C\u3066\u98DF\u3079\u3089\u308C\u308B\u3067\u30FC\u3059\uFF01\uFF01"
-  - fishName: kasago
+  - id: 10
+    fishName: kasago
     hp: 20
     exp: 15
     price: 15
     fishSize: 1
     displayName: "\u30AB\u30B5\u30B4"
     fishDescription: "\u68D8\u306B\u6BD2\u304C\u3042\u308B\u306E\u3067\u30AB\u30B5\u30B4\u540C\u58EB\u3082\u8FD1\u3065\u304F\u3053\u3068\u306F\u3067\u304D\u306A\u3044\n\u300E\u30AB\u30B5\u30B4\u306E\u30B8\u30EC\u30F3\u30DE\u300F\u2026\u89E6\u308C\u5408\u3044\u305F\u304F\u3066\u3082\u89E6\u308C\u3089\u308C\u306A\u3044\u2026\u2026"
-  - fishName: saba
+  - id: 11
+    fishName: saba
     hp: 30
     exp: 15
     price: 15
     fishSize: 1
     displayName: "\u30B5\u30D0"
     fishDescription: "\u79C1\u3043\u30B5\u30D0\u30B5\u30D0\u3057\u3066\u308B\u304B\u3089\uFF5E\n\u3068\u304B\u8A00\u3046\u304F\u305B\u306B\u3059\u3050\u8150\u308B"
-  - fishName: bora
+  - id: 12
+    fishName: bora
     hp: 20
     exp: 10
     price: 10
     fishSize: 1
     displayName: "\u30DC\u30E9"
     fishDescription: "Bola\uFF01\uFF08\u3053\u3093\u306B\u3061\u306F\uFF01\uFF09\n\u3059\u308A\u8EAB\u306B\u306A\u308B\u904B\u547D"
-  - fishName: same
+  - id: 13
+    fishName: same
     hp: 150
     exp: 150
     price: 150
     fishSize: 3
     displayName: "\u30B5\u30E1"
     fishDescription: "\u30B8\u30E7\u30FC\u30BA\u306B\u91E3\u308C\u307E\u3057\u305F\u3041\uFF5E\uFF01"
-  - fishName: suzuki
+  - id: 14
+    fishName: suzuki
     hp: 50
     exp: 20
     price: 20
     fishSize: 2
     displayName: "\u30B9\u30BA\u30AD"
     fishDescription: "\u5148\u65E5\u6607\u9032\u3057\u3001\u5BB6\u65CF\u306B\u795D\u3063\u3066\u3082\u3089\u3063\u305F\u7FCC\u65E5\u306E\u3053\u3068\u3060\u3063\u305F\u3002"
-  - fishName: ei
+  - id: 15
+    fishName: ei
     hp: 80
     exp: 50
     price: 50
     fishSize: 3
     displayName: "\u30A8\u30A4"
     fishDescription: "\u30D5\u30EA\u30B9\u30D3\u30FC\u306E\u8D77\u6E90\u306F\u5E73\u5B89\u6642\u4EE3\u306B\u5B50\u4F9B\u305F\u3061\u304C\u30A8\u30A4\u3092\u6295\u3052\u3066\n\u904A\u3093\u3067\u3044\u305F\u3053\u3068\u304B\u3089\u6765\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B(\u8AF8\u8AAC\u306A\u3057)"
-  - fishName: utsubo
+  - id: 16
+    fishName: utsubo
     hp: 90
     exp: 60
     price: 60
     fishSize: 3
     displayName: "\u30A6\u30C4\u30DC"
     fishDescription: "\u30A6\u30C4\u30DC\u306F\u305D\u306E\u5BB9\u59FF\u304B\u3089\u6050\u308D\u3057\u3044\u9B5A\u3068\u3055\u308C\u3066\u3044\u305F\u304C\u3001\n\u6839\u306F\u3068\u3063\u3066\u3082\u512A\u3057\u3044\u7537\u306E\u5B50"
-  - fishName: hamachi
+  - id: 17
+    fishName: hamachi
     hp: 30
     exp: 20
     price: 20
     fishSize: 2
     displayName: "\u30CF\u30DE\u30C1"
     fishDescription: "\u30CF\u30DE\u30C1\u30DE\u30C3\u30AF\u30A4\u30FC\u30F3\u306F\u30E1\u30B8\u30ED\u3092\u76EE\u6307\u3057\u65E5\u3005\u30C8\u30EC\u30FC\u30CB\u30F3\u30B0\u306B\n\u52B1\u3093\u3067\u3044\u305F\u306E\u306B\u306A\u3041"
-  - fishName: hirame
+  - id: 18
+    fishName: hirame
     hp: 30
     exp: 15
     price: 15
     fishSize: 2
     displayName: "\u30D2\u30E9\u30E1"
     fishDescription: "\u30AB\u30EC\u30A4"
-  - fishName: ikura
+  - id: 19
+    fishName: ikura
     hp: 10
     exp: 20
     price: 100
     fishSize: 1
     displayName: "\u30A4\u30AF\u30E9"
     fishDescription: "\u3042\u308B\u5BD2\u3044\u590F\u30DE\u30B0\u30ED\u304B\u3089\u7523\u307F\u843D\u3068\u3055\u308C\u305F\u4E00\u7C92\u306E\u30A4\u30AF\u30E9\u306F\n\u6BCD\u3092\u63A2\u3057\u3066\u6D77\u3092\u3055\u307E\u3088\u3044\u7D9A\u3051\u308B"
-  - fishName: FuelTank
+  - id: 20
+    fishName: FuelTank
     hp: 10
     exp: 2
     price: 2
     fishSize: 1
     displayName: "\u30DD\u30EA\u30BF\u30F3\u30AF"
     fishDescription: "\u5BB9\u91CF10\u30EA\u30C3\u30C8\u30EB\u306E\u30DD\u30EA\u30BF\u30F3\u30AF\n\u5E97\u54E1\u306E\u304A\u3059\u3059\u3081\u306F\u4E2D\u306E\u6CB9\u3092\u4F7F\u3063\u305F\u30A2\u30D2\u30FC\u30B8\u30E7"
-  - fishName: CoffeeCup
+  - id: 21
+    fishName: CoffeeCup
     hp: 15
     exp: 3
     price: 3
     fishSize: 2
     displayName: "\u30B3\u30FC\u30D2\u30FC\u30AB\u30C3\u30D7"
     fishDescription: "\u30E9\u30C6\u30A2\u30FC\u30C8\u307E\u3067\u63CF\u304B\u308C\u305F\u30B3\u30FC\u30D2\u30FC\u30AB\u30C3\u30D7\n\u306A\u305C\u30B3\u30FC\u30D2\u30FC\u304C\u3053\u307C\u308C\u3066\u3044\u306A\u3044\u306E\u304B\u308F\u304B\u3089\u306A\u3044"
-  - fishName: ElectricGuitar
+  - id: 22
+    fishName: ElectricGuitar
     hp: 30
     exp: 5
     price: 5
     fishSize: 3
     displayName: "\u30A8\u30EC\u30AD\u30AE\u30BF\u30FC"
     fishDescription: "\u96E8\u306B\u6FE1\u308C\u305F\u3060\u3051\u3067\u3082\u97F3\u304C\u5909\u308F\u3063\u3066\u3057\u307E\u3046\u30A8\u30EC\u30AD\u30AE\u30BF\u30FC\n\u6D77\u304B\u3089\u51FA\u3066\u304D\u3066\u307E\u3068\u3082\u306B\u5F3E\u3051\u308B\u308F\u3051\u3082\u306A\u304F"
+  - id: 23
+    fishName: tako
+    hp: 50
+    exp: 25
+    price: 25
+    fishSize: 2
+    displayName: "\u30BF\u30B3"
+    fishDescription: "\u305F\u3053"
+  - id: 24
+    fishName: kani
+    hp: 50
+    exp: 50
+    price: 50
+    fishSize: 2
+    displayName: "\u30AB\u30CB"
+    fishDescription: "\u304B\u306B"

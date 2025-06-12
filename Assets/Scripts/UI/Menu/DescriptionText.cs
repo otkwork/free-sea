@@ -20,15 +20,25 @@ public class DescriptionText : MonoBehaviour
 		fishDescriptionText.text = string.Empty;
 	}
 
-	public void SetDescription(FishDataEntity fishData)
+	public void SetDescription(FishDataEntity fishData, bool isGet = true)
 	{
 		// 魚のデータがnullでない場合のみ表示する
 		if (fishData != null)
 		{
 			fishImage.enabled = true;
 			fishImage.sprite = ImageLoader.LoadSpriteAsync(fishData.fishName).Result;
-			fishNameText.text = fishData.displayName;
-			fishDescriptionText.text = fishData.fishDescription;
+			if (!isGet)
+			{
+				fishImage.color = Color.black; // 魚を取得していない場合は黒くする
+				fishNameText.text = "???";
+				fishDescriptionText.text = "???"; // 魚を取得していない場合は説明を隠す
+			}
+			else
+			{
+				fishImage.color = Color.white; // 魚を取得している場合は白くする
+				fishNameText.text = fishData.displayName;
+				fishDescriptionText.text = fishData.fishDescription;
+			}
 		}
 		else
 		{

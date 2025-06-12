@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class FishDataEntity
 {
+	public int id;
 	public string fishName;
 	public int hp;
 	public int exp;
