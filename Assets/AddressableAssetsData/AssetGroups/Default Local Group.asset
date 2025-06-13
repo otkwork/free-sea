@@ -142,6 +142,51 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcabc5bd200fd7d4396231bc466daa67
+    m_Address: medaka
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: caef96ebd85950d409b8f092a9adbbda
+    m_Address: pengin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 068c6337dbe118949a61d720c426ab3a
+    m_Address: fugu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ddaef94616e4fb0458c81393e8d0aeea
+    m_Address: isidai
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40400b6eb955dcf449116445afd433dc
+    m_Address: shako
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f45faf420243064409bde34e67c9e23a
+    m_Address: kame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 888cc82dd099564429f091963ab6c3a6
+    m_Address: karei
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f12c76655f461c44cb6c0b55f93a12c3
+    m_Address: tyoutinankou
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a5438d6ff7f5de4cae13c2cd0ef347b
+    m_Address: a
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a668c86dee4b19d40b3b728616cad0d9, type: 2}
   m_SchemaSet:

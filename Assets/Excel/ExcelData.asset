@@ -20,7 +20,7 @@ MonoBehaviour:
     price: 2
     fishSize: 1
     displayName: "\u30A4\u30EF\u30B7"
-    fishDescription: "\u5E73\u5B89\u6642\u4EE3\u306B\u65E5\u672C\u7D71\u4E00\u3092\u679C\u305F\u3057\u305F\u30DE\u30EA\u30FC\u30A2\u30F3\u30C8\u30EF\u30CD\u30C3\u30C8\u304C\n\"\u30A4\u30EF\u30B7\u3092\u98DF\u3079\u306D\u3070\u6226\u306F\u3067\u304D\u306C\"\u3068\u8A00\u3044\u6B8B\u3057\u305F\u8CB4\u91CD\u306A\u8089\u6599\u7406"
+    fishDescription: "\u5E73\u5B89\u6642\u4EE3\u306B\u65E5\u672C\u7D71\u4E00\u3092\u679C\u305F\u3057\u305F\u30DE\u30EA\u30FC\u30A2\u30F3\u30C8\u30EF\u30CD\u30C3\u30C8\u304C\n\"\u30A4\u30EF\u30B7\u3092\u98DF\u3079\u306D\u3070\u6226\u306F\u3067\u304D\u306C\"\u3068\u8A00\u3044\u6B8B\u3057\u305F\u307B\u3069(\u8AF8\u8AAC\u306A\u3057)"
   - id: 1
     fishName: kuromaguro
     hp: 100
@@ -213,3 +213,203 @@ MonoBehaviour:
     fishSize: 2
     displayName: "\u30AB\u30CB"
     fishDescription: "\u304B\u306B"
+  - id: 25
+    fishName: tyoutinankou
+    hp: 80
+    exp: 60
+    price: 60
+    fishSize: 3
+    displayName: "\u30C1\u30E7\u30A6\u30C1\u30F3\u30A2\u30F3\u30B3\u30A6"
+    fishDescription: "\u30C1\u30E7\u30A6\u30C1\u30F3\u30C1\u30F3\u30A2\u30F3\u30B3\u30A6"
+  - id: 26
+    fishName: isidai
+    hp: 20
+    exp: 10
+    price: 10
+    fishSize: 1
+    displayName: "\u30A4\u30B7\u30C0\u30A4"
+    fishDescription: "\u30A4\u30B7\u30C0\u30A4"
+  - id: 27
+    fishName: kame
+    hp: 50
+    exp: 50
+    price: 50
+    fishSize: 3
+    displayName: "\u30AB\u30E1"
+    fishDescription: "\u30AB\u30E1\u3042\u305F\u307E"
+  - id: 28
+    fishName: pengin
+    hp: 80
+    exp: 20
+    price: 20
+    fishSize: 3
+    displayName: "\u30DA\u30F3\u30AE\u30F3"
+    fishDescription: "\u30DA\u30F3\u30AE\u30F3\u30AE\u30F3"
+  - id: 29
+    fishName: fugu
+    hp: 30
+    exp: 10
+    price: 10
+    fishSize: 2
+    displayName: "\u30D5\u30B0"
+    fishDescription: "\u30D5\u30B0"
+  - id: 30
+    fishName: medaka
+    hp: 5
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30E1\u30C0\u30AB"
+    fishDescription: "\u6307\u5B9A\u6821\u63A8\u85A6\u3067\u9032\u5B66\u3057\u305F\u30E1\u30C0\u30AB\u306F\u4ED6\u3088\u308A\u3082\u5C11\u3057\u5C0F\u3055\u3044"
+  - id: 31
+    fishName: karei
+    hp: 30
+    exp: 15
+    price: 15
+    fishSize: 2
+    displayName: "\u30AB\u30EC\u30A4"
+    fishDescription: "\u30D2\u30E9\u30E1"
+  - id: 32
+    fishName: shako
+    hp: 35
+    exp: 25
+    price: 25
+    fishSize: 1
+    displayName: "\u30B7\u30E3\u30B3"
+    fishDescription: "\u30B7\u30E3\u30B3\u30B7\u30E3\u30B3"
+  - id: 33
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 34
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 35
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 36
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 37
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 38
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 39
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 40
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 41
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 42
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 43
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 44
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 45
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 46
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 47
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 48
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 49
+    fishName: hamachi
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a

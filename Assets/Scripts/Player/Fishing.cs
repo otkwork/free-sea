@@ -76,7 +76,7 @@ public class Fishing : MonoBehaviour
 
 		Vector2 mouseInput = InputSystem.CameraGetAxis();
 
-        rotationX += mouseInput.y;
+        rotationX -= mouseInput.y;
         rotationY -= mouseInput.x;
         rotationX += 0.5f;
         rotationX = Mathf.Clamp(rotationX, -30, 30);
