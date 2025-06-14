@@ -48,7 +48,7 @@ public class Fishing : MonoBehaviour
 				rodAnime.SetTrigger("Throw");
 				rodFloat.transform.position = playerHead.position + FloatOffset + transform.forward * -3;
 				rodFloat.SetActive(true);
-				rod.FishingStart(playerHead.forward);
+				rod.FishingStart(transform.forward);
 			}
 			// “Š‚°‚Ä‚¢‚éÅ’†‚¶‚á‚È‚­‹›‚ª‚©‚©‚Á‚Ä‚¢‚È‚¢‚È‚ç•‚‚«‚ğ‰ñû‚·‚é
 			else if(rod.IsFishing() && !isHit)

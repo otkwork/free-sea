@@ -131,7 +131,11 @@ public class InputSystem : MonoBehaviour
 	bool wasActive,
 	float sensitivity = 0.002f)
 	{
-		Vector2 stick = Gamepad.current.leftStick.ReadValue();
+		Vector2 stick = new Vector2(0, 0);
+		if (Gamepad.current != null)
+		{
+			stick = Gamepad.current.leftStick.ReadValue();
+		}
 
 		Vector2 absStick = new Vector2(Mathf.Abs(stick.x), Mathf.Abs(stick.y));
 		if (absStick.magnitude > 0.2f)

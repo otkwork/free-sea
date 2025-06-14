@@ -72,9 +72,9 @@ public class VisualDictionary : MonoBehaviour
 		m_isGetFish[fish.id] = true; // 魚を取得したフラグを立てる
 	}
 
-	static public bool IsGetFish(int id)
+	public bool IsGetFish(int id)
 	{
-		if (id < 0 || id >= MaxInventorySize) return false; // 範囲外のIDは無効
+		if (id < 0 || id >= excelData.fish.Count) return false; // 範囲外のIDは無効
 		return m_isGetFish[id]; // 魚を取得したかどうかを返す
 	}
 }

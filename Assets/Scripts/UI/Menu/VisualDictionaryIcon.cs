@@ -25,7 +25,7 @@ public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointe
 		// クリックされているとき
 		if (isOnClick)
 		{
-			m_descriptionText.SetDescription(m_fishData, VisualDictionary.IsGetFish(m_fishData.id)); // 説明テキストに魚のデータを設定する
+			m_descriptionText.SetDescription(m_fishData, m_visualDictionary.IsGetFish(m_fishData.id)); // 説明テキストに魚のデータを設定する
 		}
 
 		if (m_fishData != null)
