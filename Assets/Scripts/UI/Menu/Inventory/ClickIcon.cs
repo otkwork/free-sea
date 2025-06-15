@@ -11,19 +11,23 @@ public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
 	bool isOnClick;
 
-	private void Start()
+    private void Awake()
+    {
+        m_inventory = GetComponentInParent<Inventory>(); // 親のインベントリを取得
+		m_image = GetComponent<UnityEngine.UI.Image>();
+		m_fishImage = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>(); // 子オブジェクトのFishImageを取得
+    }
+
+    private void Start()
 	{
 		m_fishData = null; // 初期状態では魚のデータはなし
 		isOnClick = false;
-		m_inventory = GetComponentInParent<Inventory>(); // 親のインベントリを取得
-		m_image = GetComponent<UnityEngine.UI.Image>();
-		m_fishImage = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>(); // 子オブジェクトのFishImageを取得
 	}
 
 	void Update()
 	{
-		// クリックされているとき
-		if (isOnClick)
+        // クリックされているとき
+        if (isOnClick)
 		{
 			m_descriptionText.SetDescription(m_fishData); // 説明テキストに魚のデータを設定する
 		}
@@ -44,6 +48,11 @@ public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 		m_fishData = fishData;
 	}
 
+	public FishDataEntity GetClickData()
+	{
+		return m_fishData;
+	}
+
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		if (!isOnClick) m_image.color = Color.yellow;
@@ -61,8 +70,14 @@ public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 		m_inventory.SetClickIcon(gameObject); // クリックされたアイコンをインベントリに設定する
 	}
 
-	// クリックされたアイコンだけをクリック状態にしてそれ以外を解除する
-	public void SetClick(bool isClick)
+    public void OnDisable()
+    {
+        isOnClick = false;
+        m_image.color = Color.white;
+    }
+
+    // クリックされたアイコンだけをクリック状態にしてそれ以外を解除する
+    public void SetClick(bool isClick)
 	{
 		// 自分がクリックされたとき
 		if (isClick)

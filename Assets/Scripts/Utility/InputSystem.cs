@@ -60,20 +60,6 @@ public class InputSystem : MonoBehaviour
 		return false;
 	}
 
-	// ƒWƒƒƒ“ƒv
-	static public bool Jump()
-	{
-		var keyCurrent = Keyboard.current;
-		var padCurrent = Gamepad.current;
-
-		if (keyCurrent != null && keyCurrent.spaceKey.wasPressedThisFrame ||
-			padCurrent != null && padCurrent.aButton.wasPressedThisFrame)
-		{
-			return true;
-		}
-		return false;
-	}
-
 	// ƒJƒƒ‰‚Ì‰ñ“]
 	static public Vector2 CameraGetAxis(float sensX = 2, float sensY = 2, float padSens = 2)
 	{

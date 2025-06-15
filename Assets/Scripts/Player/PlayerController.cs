@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float sensX = 2.0f;
 	[SerializeField] private float sensY = 2.0f;
 	[SerializeField] private float padSens = 2.0f;  //パッドの感度
-	[SerializeField] private float jumpPower;  //ジャンプ力
 	
 	private Vector3 moveVelocity;  // キャラクターコントローラーを動かすためのVector3型の変数
 	private float rotationY, rotationX;
@@ -37,7 +36,7 @@ public class PlayerController : MonoBehaviour
 		Cursor.visible = false;
 		canCamera = true; // カメラ操作可能にする
 		canMove = true;   // 移動可能にする
-		pause = false;
+		pause = true;
 	}
 
 	void FixedUpdate()
@@ -102,21 +101,8 @@ public class PlayerController : MonoBehaviour
 			characterController.Move(this.gameObject.transform.right * moveSpeed * Time.deltaTime);
 		}
 
-		// 接地しているとき
-		if (CheckGrounded())
-		{
-			// ジャンプ
-			if (InputSystem.Jump())
-			{
-				moveVelocity.y = jumpPower;
-			}
-		}
-		// 空中にいる時
-		else
-		{
-			// 重力をかける
-			moveVelocity.y += Physics.gravity.y * Time.deltaTime;
-		}
+		// 重力をかける
+		moveVelocity.y += Physics.gravity.y * Time.deltaTime;
 
 		// キャラクターを動かす
 		characterController.Move(moveVelocity * Time.deltaTime);

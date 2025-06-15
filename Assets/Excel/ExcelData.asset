@@ -278,53 +278,53 @@ MonoBehaviour:
     displayName: "\u30B7\u30E3\u30B3"
     fishDescription: "\u30B7\u30E3\u30B3\u30B7\u30E3\u30B3"
   - id: 33
-    fishName: a
+    fishName: arowana
     hp: 1
     exp: 1
     price: 1
     fishSize: 1
-    displayName: a
-    fishDescription: a
+    displayName: "\u30A2\u30ED\u30EF\u30CA"
+    fishDescription: "\u30A2\u30ED\u30EF\u30CA"
   - id: 34
-    fishName: a
+    fishName: beta
     hp: 1
     exp: 1
     price: 1
     fishSize: 1
-    displayName: a
-    fishDescription: a
+    displayName: "\u30D9\u30BF"
+    fishDescription: "\u30D9\u30BF"
   - id: 35
-    fishName: a
+    fishName: nanyouhagi
     hp: 1
     exp: 1
     price: 1
     fishSize: 1
-    displayName: a
-    fishDescription: a
+    displayName: "\u30CA\u30F3\u30E8\u30A6\u30CF\u30AE"
+    fishDescription: "\u30CA\u30F3\u30E8\u30A6\u30CF\u30AE"
   - id: 36
-    fishName: a
+    fishName: neontetora
     hp: 1
     exp: 1
     price: 1
     fishSize: 1
-    displayName: a
-    fishDescription: a
+    displayName: "\u30CD\u30AA\u30F3\u30C6\u30C8\u30E9"
+    fishDescription: "\u30CD\u30AA\u30F3\u30C6\u30C8\u30E9"
   - id: 37
-    fishName: a
+    fishName: guppi
     hp: 1
     exp: 1
     price: 1
     fishSize: 1
-    displayName: a
-    fishDescription: a
+    displayName: "\u30B0\u30C3\u30D4\u30FC"
+    fishDescription: "\u30B0\u30C3\u30D4\u30FC"
   - id: 38
-    fishName: a
+    fishName: tyoutyouuo
     hp: 1
     exp: 1
     price: 1
     fishSize: 1
-    displayName: a
-    fishDescription: a
+    displayName: "\u30C1\u30E7\u30A6\u30C1\u30E7\u30A6\u30A6\u30AA"
+    fishDescription: "\u30C1\u30E7\u30A6\u30C1\u30E7\u30A6\u30A6\u30AA"
   - id: 39
     fishName: a
     hp: 1

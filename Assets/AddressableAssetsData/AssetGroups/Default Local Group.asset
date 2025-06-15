@@ -187,6 +187,36 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 956fe2e5f4d89c643a9d9b59eb737a2e
+    m_Address: arowana
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40666e9e30cb3d141ba1939b3a35068c
+    m_Address: beta
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bdcf195728bc6184d858e7260db3028d
+    m_Address: nanyouhagi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ddc2ff58aaa0e741bcde0b3b371442a
+    m_Address: neontetora
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f5a9050f36834647b6d33b92abc8fcf
+    m_Address: guppi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 165970f4dde1fec48a2fbe3641df5bbc
+    m_Address: tyoutyouuo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a668c86dee4b19d40b3b728616cad0d9, type: 2}
   m_SchemaSet:

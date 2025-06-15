@@ -11,14 +11,14 @@ public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointe
 
 	bool isOnClick;
 
-	private void Start()
-	{
-		m_fishData = null; // 初期状態では魚のデータはなし
-		isOnClick = false;
-		m_visualDictionary = GetComponentInParent<VisualDictionary>(); // 親のインベントリを取得
+    private void Awake()
+    {
+        m_visualDictionary = GetComponentInParent<VisualDictionary>(); // 親のインベントリを取得
 		m_image = GetComponent<UnityEngine.UI.Image>();
 		m_fishImage = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>(); // 子オブジェクトのFishImageを取得
-	}
+		isOnClick = false;
+    }
+
 
 	void Update()
 	{
@@ -56,9 +56,14 @@ public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointe
 	{
 		m_visualDictionary.SetClickIcon(gameObject); // クリックされたアイコンを図鑑に設定する
 	}
+    public void OnDisable()
+    {
+        isOnClick = false;
+		m_image.color = Color.white;
+    }
 
-	// クリックされたアイコンだけをクリック状態にしてそれ以外を解除する
-	public void SetClick(bool isClick)
+    // クリックされたアイコンだけをクリック状態にしてそれ以外を解除する
+    public void SetClick(bool isClick)
 	{
 		// 自分がクリックされたとき
 		if (isClick)

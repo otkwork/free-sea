@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Inventory : MonoBehaviour
 {
 	static List<FishDataEntity> fishDataList = new List<FishDataEntity>();
+	static FishDataEntity clickIconData;
 	[SerializeField] GameObject[] fishDataObjects; // UIに表示するための魚データオブジェクト  
 	ClickIcon[] clickIcons = new ClickIcon[MaxInventorySize]; // 各魚データオブジェクトに対応するクリックアイコン
 
@@ -12,6 +14,7 @@ public class Inventory : MonoBehaviour
 	// Start is called before the first frame update  
 	void Start()
 	{
+		clickIconData = null;
 		for (int i = 0; i < MaxInventorySize; ++i)
 		{
 			clickIcons[i] = fishDataObjects[i].GetComponent<ClickIcon>();
@@ -30,6 +33,10 @@ public class Inventory : MonoBehaviour
 				// クリックアイコンにデータを設定する
 				clickIcons[i].SetFishData(fishDataList[i]); // クリックアイコンに魚データを設定
 			}
+			else
+			{
+                clickIcons[i].SetFishData(null);
+			}
 		}
 	}
 
@@ -38,7 +45,18 @@ public class Inventory : MonoBehaviour
 		for (int i = 0; i < MaxInventorySize; ++i)
 		{
 			// 押されたアイコンだけをクリック状態にする
-			clickIcons[i].SetClick(fishDataObjects[i] == icon);
+			if (icon != null && fishDataObjects[i] == icon)
+			{
+				clickIcons[i].SetClick(true);
+				if (icon.TryGetComponent(out ClickIcon clickIcon))
+				{
+					clickIconData = clickIcon.GetClickData();
+                }
+            }
+			else
+			{
+				clickIcons[i].SetClick(false);
+			}
 		}
 	}
 
@@ -51,14 +69,12 @@ public class Inventory : MonoBehaviour
 		fishDataList.Add(item);
 	}
 	// アイテムを削除するメソッド  
-	static public void RemoveItem(FishDataEntity item)
+	static public void SellItem()
 	{
-		if (fishDataList.Count <= 0) return; // インベントリが空の場合は何もしない
-		fishDataList.Remove(item);
-	}
-	// アイテムを取得するメソッド  
-	static public FishDataEntity GetItems(int index)
-	{
-		return fishDataList[index];
+		if (clickIconData == null) return; // インベントリが空の場合は何もしない
+		Money.AddMoney(clickIconData.price);
+
+		fishDataList.Remove(clickIconData);
+		clickIconData = null;
 	}
 }
