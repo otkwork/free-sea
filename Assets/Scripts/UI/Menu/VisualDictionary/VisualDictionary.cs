@@ -20,9 +20,9 @@ public class VisualDictionary : MonoBehaviour
 		m_isGetFish = new bool[excelData.fish.Count]; // 魚の数だけ取得フラグを初期化
 		m_prevStartNum = m_page.PageIndex; // 一フレーム前のページ数
 
-		for (int i = 0; i < MaxInventorySize; ++i)
+		for (int i = 0; i < m_isGetFish.Length; ++i)
 		{
-			m_isGetFish[i] = false; // 初期状態では魚を取得していない
+			m_isGetFish[i] = true; // 初期状態では魚を取得していない
 		}
 
 		for (int i = 0; i < MaxInventorySize; ++i)

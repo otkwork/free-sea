@@ -217,6 +217,61 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 968943f457b71ef448fe7dbd57a419c7
+    m_Address: sayori
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 796e4c43b50d7f342a2bdf5ae5ee4909
+    m_Address: sango
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 173bae78624a4654795ed883531bba32
+    m_Address: rabuka
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4d49822929f11174589bd6220a806ef1
+    m_Address: pirania
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b587d0463be9eba4e9e5c463b6c433e1
+    m_Address: burugiru
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29629290e13880445ac982561a5bff82
+    m_Address: enzerufish
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4b83b253424ede74483de7bf818dedf9
+    m_Address: manbou
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 104724b31645c0f47b37d60ad6688e91
+    m_Address: fukahire
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4b144dca61e84f44929366f5b719320
+    m_Address: namazu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d731ad7c815929045b2e2295dd14185c
+    m_Address: tatunootoshigo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1056529b810338345a4c74c49016c252
+    m_Address: kumanomi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a668c86dee4b19d40b3b728616cad0d9, type: 2}
   m_SchemaSet:

@@ -45,4 +45,9 @@ public class DescriptionText : MonoBehaviour
 			ReSetDescription();
 		}
 	}
+
+	public void OnDisable()
+	{
+		ReSetDescription();
+	}
 }
