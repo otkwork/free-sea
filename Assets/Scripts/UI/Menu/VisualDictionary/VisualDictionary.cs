@@ -8,6 +8,7 @@ public class VisualDictionary : MonoBehaviour
 	static bool[] m_isGetFish; // 魚を取得したかどうかのフラグ
 	[SerializeField] GameObject[] fishDataObjects; // UIに表示するための魚データオブジェクト  
 	[SerializeField] VisualDictionaryPage m_page; // ページ管理のためのVisualDictionaryPageスクリプト
+	[SerializeField] DescriptionText m_descriptionText; // 説明テキストを表示するためのDescriptionTextスクリプト
 	VisualDictionaryIcon[] clickIcons = new VisualDictionaryIcon[MaxInventorySize]; // 各魚データオブジェクトに対応するクリックアイコン
 	Image[] iconFishImage = new Image[MaxInventorySize]; // 各アイコンに表示する魚の画像
 
@@ -50,6 +51,7 @@ public class VisualDictionary : MonoBehaviour
 			{
 				clickIcons[i].SetFishData(excelData.fish[j]); // 新しい魚データを設定
 				iconFishImage[i].sprite = ImageLoader.LoadSpriteAsync(excelData.fish[j].fishName).Result; // 魚の画像をロードして表示
+				SetClickIcon(null); // クリック状態をリセット
 			}
 			iconFishImage[i].color = m_isGetFish[j] ? Color.white : Color.black; // 魚を取得している場合は白、していない場合は黒に設定
 		}
@@ -61,8 +63,9 @@ public class VisualDictionary : MonoBehaviour
 		for (int i = 0; i < MaxInventorySize; ++i)
 		{
 			// 押されたアイコンだけをクリック状態にする
-			clickIcons[i].SetClick(fishDataObjects[i] == icon);
+			clickIcons[i].SetClick(icon != null && fishDataObjects[i] == icon);
 		}
+		if (icon == null) m_descriptionText.ReSetDescription();
 	}
 
 

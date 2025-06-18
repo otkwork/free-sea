@@ -34,7 +34,7 @@ public class HitFishMove : MonoBehaviour
 
 	void Update()
 	{
-		if (Cursor.visible) return; // カーソルが表示されている場合は何もしない(Pause)
+		if (PlayerController.IsPause()) return; // カーソルが表示されている場合は何もしない(Pause)
 
 		if (!isfishing)
 		{

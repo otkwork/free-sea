@@ -1614,8 +1614,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: -111}
-  m_SizeDelta: {x: 400, y: 75}
+  m_AnchoredPosition: {x: 190, y: -111}
+  m_SizeDelta: {x: 420, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &86715291
 MonoBehaviour:
@@ -6462,6 +6462,7 @@ GameObject:
   - component: {fileID: 298210020}
   - component: {fileID: 298210019}
   - component: {fileID: 298210023}
+  - component: {fileID: 298210024}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -6488,11 +6489,6 @@ MonoBehaviour:
   sensX: 2
   sensY: 2
   padSens: 2
-  _rayLength: 1
-  _rayOffset: 0.1
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 1
   pauseMenu: {fileID: 716936181}
 --- !u!143 &298210020
 CharacterController:
@@ -6553,6 +6549,20 @@ MonoBehaviour:
   rodAnime: {fileID: 1166292807}
   fishingRod: {fileID: 177940965}
   hitFishMove: {fileID: 1654989974}
+--- !u!114 &298210024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298210018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638fedee38389ef44abcf4c57bf87837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ground: {fileID: 1535753029537761721, guid: 042bcbf0c43d96e4aad9ab8718e0276d,
+    type: 3}
 --- !u!1001 &303921427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23910,8 +23920,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: -111}
-  m_SizeDelta: {x: 400, y: 75}
+  m_AnchoredPosition: {x: 190, y: -111}
+  m_SizeDelta: {x: 420, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1317203151
 MonoBehaviour:
@@ -31394,6 +31404,7 @@ MonoBehaviour:
   - {fileID: 234882114}
   - {fileID: 4172732780896923112}
   m_page: {fileID: 1959971568}
+  m_descriptionText: {fileID: 242472276}
 --- !u!1 &1762007267 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b2fdb43dd95820479f65a802d0cc22d,
@@ -34330,7 +34341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1916340450
 Transform:
   m_ObjectHideFlags: 0

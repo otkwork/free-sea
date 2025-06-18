@@ -1,7 +1,4 @@
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Timeline;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,15 +14,11 @@ public class PlayerController : MonoBehaviour
 	private Vector3 moveVelocity;  // キャラクターコントローラーを動かすためのVector3型の変数
 	private float rotationY, rotationX;
 
-	[SerializeField] private float _rayLength = 1f;	// Rayの長さ
-	[SerializeField] private float _rayOffset;		// Rayをどれくらい身体にめり込ませるか
-	[SerializeField] private LayerMask _layerMask;  // Rayの判定に用いるLayer
-
 	[SerializeField] private GameObject pauseMenu; // ポーズメニューのUI
 
 	bool canMove;   // 移動可能かどうか
 	bool canCamera; // カメラ操作可能かどうか
-	bool pause;     // 一時停止中かどうか
+	static bool pause;     // 一時停止中かどうか
 
 	void Start()
 	{
@@ -108,17 +101,6 @@ public class PlayerController : MonoBehaviour
 		characterController.Move(moveVelocity * Time.deltaTime);
 	}
 
-	private bool CheckGrounded()
-	{
-		// 放つ光線の初期位置と姿勢
-		// 若干身体にめり込ませた位置から発射しないと正しく判定できない時がある
-		var ray = new Ray(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
-
-		// Raycastがhitするかどうかで判定
-		// レイヤの指定を忘れずに
-		return Physics.Raycast(ray, _rayLength, _layerMask);
-	}
-
 	//ゲーム終了
 	private void EndGame()
 	{
@@ -143,5 +125,10 @@ public class PlayerController : MonoBehaviour
 	public void SetCamera(bool camera)
 	{
 		canCamera = camera;  // カメラ操作可能かどうかを設定
+	}
+
+	public static bool IsPause()
+	{
+		return pause;  // 現在のポーズ状態を返す
 	}
 }

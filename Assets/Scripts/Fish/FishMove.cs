@@ -27,7 +27,7 @@ public class FishMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (Cursor.visible) return; // カーソルが表示されている場合は何もしない(Pause)
+		if (PlayerController.IsPause()) return; // カーソルが表示されている場合は何もしない(Pause)
 
 		m_elapsedTime += Time.deltaTime;
         // 向いている方向に進む

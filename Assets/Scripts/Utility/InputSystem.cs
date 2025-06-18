@@ -151,4 +151,19 @@ public class InputSystem : MonoBehaviour
 		}
 		return false;
 	}
+
+	// マウスカーソルをパッドで操作できるようにする
+	static public Vector2 MouseGetAxis(float sensX = 2, float sensY = 2, float padSens = 2)
+	{
+		var keyCurrent = Keyboard.current;
+		var padCurrent = Gamepad.current;
+		if (padCurrent != null && padCurrent.rightStick.ReadValue() != Vector2.zero)
+		{
+			return padCurrent.rightStick.ReadValue() * padSens;
+		}
+		else
+		{
+			return new Vector2(Input.GetAxis("Mouse X") * sensX, Input.GetAxis("Mouse Y") * sensY);
+		}
+	}
 }
