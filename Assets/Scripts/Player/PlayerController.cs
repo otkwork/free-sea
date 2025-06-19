@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,15 +19,15 @@ public class PlayerController : MonoBehaviour
 
 	bool canMove;   // 移動可能かどうか
 	bool canCamera; // カメラ操作可能かどうか
-	static bool pause;     // 一時停止中かどうか
+	static bool pause;     // 一時停止中かどうか,およびポーズ画面にしたのがキーボードかどうか
 
 	void Start()
 	{
 		// フレームレートを60に固定
 		Application.targetFrameRate = 60;
 		characterController = GetComponent<CharacterController>();
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 		canCamera = true; // カメラ操作可能にする
 		canMove = true;   // 移動可能にする
 		pause = true;
@@ -38,10 +39,13 @@ public class PlayerController : MonoBehaviour
 		EndGame();
 
 		// Tabキーoptionが押されたらポーズ画面を表示/非表示にする
-		if (InputSystem.Pause()) pause = !pause;
-		
-		Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
-		Cursor.visible = pause;
+		if (InputSystem.Pause())
+		{
+			pause = !pause;
+			
+			Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
+			Cursor.visible = pause;
+		}
 
 		pauseMenu.SetActive(pause); // ポーズメニューのUIを表示/非表示にする
 
@@ -76,22 +80,22 @@ public class PlayerController : MonoBehaviour
 		//Wキーがおされたら
 		if (InputSystem.MoveUp())
 		{
-			characterController.Move(this.gameObject.transform.forward * moveSpeed * Time.deltaTime);
+			characterController.Move(gameObject.transform.forward * moveSpeed * Time.deltaTime);
 		}
 		//Sキーがおされたら
 		if (InputSystem.MoveDown())
 		{
-			characterController.Move(this.gameObject.transform.forward * -1f * moveSpeed * Time.deltaTime);
+			characterController.Move(gameObject.transform.forward * -1f * moveSpeed * Time.deltaTime);
 		}
 		//Aキーがおされたら
 		if (InputSystem.MoveLeft())
 		{
-			characterController.Move(this.gameObject.transform.right * -1 * moveSpeed * Time.deltaTime);
+			characterController.Move(gameObject.transform.right * -1 * moveSpeed * Time.deltaTime);
 		}
 		//Dキーがおされたら
 		if (InputSystem.MoveRight())
 		{
-			characterController.Move(this.gameObject.transform.right * moveSpeed * Time.deltaTime);
+			characterController.Move(gameObject.transform.right * moveSpeed * Time.deltaTime);
 		}
 
 		// 重力をかける

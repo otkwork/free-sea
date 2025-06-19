@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Inventory : MonoBehaviour
 	ClickIcon[] clickIcons = new ClickIcon[MaxInventorySize]; // 各魚データオブジェクトに対応するクリックアイコン
 
 	const int MaxInventorySize = 25; // 表示インベントリの最大サイズ  
+
+	private int m_padIconIndex = 0; // パッドの時選択されているアイコンのインデックス
 
 	// Start is called before the first frame update  
 	void Start()
@@ -38,8 +41,43 @@ public class Inventory : MonoBehaviour
                 clickIcons[i].SetFishData(null);
 			}
 		}
+
+		// 選択中のインデックスのアイコンの色を変える
+		for (int i = 0; i < MaxInventorySize; ++i)
+		{
+			clickIcons[i].SetOnMouse(i == m_padIconIndex);
+		}
+
+		SelectIcon(); // パッドでアイコンを選択するメソッドを呼び出す
 	}
 
+	private void SelectIcon()
+	{
+		// パッドの入力によるアイコン選択
+		if (InputSystem.GetInputPadButtonDown("Up"))
+		{
+			m_padIconIndex = (m_padIconIndex - 5 + MaxInventorySize) % MaxInventorySize; // 上に移動
+		}
+		else if (InputSystem.GetInputPadButtonDown("Down"))
+		{
+			m_padIconIndex = (m_padIconIndex + 5) % MaxInventorySize; // 下に移動
+		}
+		else if (InputSystem.GetInputPadButtonDown("Left"))
+		{
+			m_padIconIndex = (m_padIconIndex - 1 + MaxInventorySize) % MaxInventorySize; // 左に移動
+		}
+		else if (InputSystem.GetInputPadButtonDown("Right"))
+		{
+			m_padIconIndex = (m_padIconIndex + 1) % MaxInventorySize; // 右に移動
+		}
+
+		// 決定
+		if (InputSystem.GetInputPadButtonDown("Decide"))
+		{
+			SetClickIcon(fishDataObjects[m_padIconIndex]); // 選択されたアイコンをクリック状態にする
+		}
+	
+	}
 	public void SetClickIcon(GameObject icon)
 	{
 		for (int i = 0; i < MaxInventorySize; ++i)

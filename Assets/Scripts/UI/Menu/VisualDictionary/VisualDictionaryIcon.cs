@@ -42,13 +42,13 @@ public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointe
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		if (!isOnClick) m_image.color = Color.yellow;
+		SetOnMouse(true); // マウスがアイコンの上にあるときは色を変える
 	}
 
 	// マウスが離れたとき
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		if (!isOnClick) m_image.color = Color.white;
+		SetOnMouse(false);
 	}
 
 	// クリックされたときに呼ばれる
@@ -82,6 +82,21 @@ public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointe
 		{
 			isOnClick = false; // クリック状態を解除
 			m_image.color = Color.white; // 色を元に戻す
+		}
+	}
+
+	public void SetOnMouse(bool onMouse)
+	{
+		if (isOnClick) return; // クリック状態のときは何もしない
+
+		// マウスがアイコンの上にあるとき
+		if (onMouse)
+		{
+			m_image.color = Color.yellow;
+		}
+		else
+		{
+			m_image.color = Color.white;
 		}
 	}
 }

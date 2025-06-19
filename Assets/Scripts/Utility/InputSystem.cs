@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -142,8 +140,10 @@ public class InputSystem : MonoBehaviour
 	// PAUSE
 	static public bool Pause()
 	{
+		// ポーズ画面,キーボードかどうか
 		var keyCurrent = Keyboard.current;
 		var padCurrent = Gamepad.current;
+
 		if (keyCurrent != null && keyCurrent.tabKey.wasPressedThisFrame ||
 			padCurrent != null && padCurrent.startButton.wasPressedThisFrame)
 		{
@@ -152,18 +152,23 @@ public class InputSystem : MonoBehaviour
 		return false;
 	}
 
-	// マウスカーソルをパッドで操作できるようにする
-	static public Vector2 MouseGetAxis(float sensX = 2, float sensY = 2, float padSens = 2)
+	static public bool GetInputPadButtonDown(string isButton)
 	{
-		var keyCurrent = Keyboard.current;
 		var padCurrent = Gamepad.current;
-		if (padCurrent != null && padCurrent.rightStick.ReadValue() != Vector2.zero)
+		if (padCurrent != null)
 		{
-			return padCurrent.rightStick.ReadValue() * padSens;
+			var dpad = padCurrent.dpad;
+
+			if (dpad.left.wasPressedThisFrame && isButton == "Left") return true;
+			if (dpad.right.wasPressedThisFrame && isButton == "Right") return true;
+			if (dpad.up.wasPressedThisFrame && isButton == "Up") return true;
+			if (dpad.down.wasPressedThisFrame && isButton == "Down") return true;
+			if (padCurrent.buttonSouth.wasPressedThisFrame && isButton == "Decide") return true; // 決定ボタン
+			if (padCurrent.buttonEast.wasPressedThisFrame && isButton == "Next") return true; // 次のページへ
+			if (padCurrent.buttonWest.wasPressedThisFrame && isButton == "Prev") return true; // 前のページへ
+			if (padCurrent.leftShoulder.wasPressedThisFrame && isButton == "LB") return true; // 左ショルダーボタン
+			if (padCurrent.rightShoulder.wasPressedThisFrame && isButton == "RB") return true; // 右ショルダーボタン
 		}
-		else
-		{
-			return new Vector2(Input.GetAxis("Mouse X") * sensX, Input.GetAxis("Mouse Y") * sensY);
-		}
+		return false;
 	}
 }

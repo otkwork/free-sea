@@ -22,10 +22,23 @@ public class Menu : MonoBehaviour
         m_menuPage[(int)m_startMenu].SetActive(true);
     }
 
-    private void Start()
-    {
-        
-    }
+	private void Update()
+	{
+		if (InputSystem.GetInputPadButtonDown("LB"))
+		{
+			// 左ボタンで前のページへ
+			MenuType type = (MenuType)(((int)m_startMenu - 1 + (int)MenuType.Length) % (int)MenuType.Length);
+			SetMenu(type);
+			m_startMenu = type;
+		}
+		else if (InputSystem.GetInputPadButtonDown("RB"))
+		{
+			// 右ボタンで次のページへ
+			MenuType type = (MenuType)(((int)m_startMenu + 1) % (int)MenuType.Length);
+			SetMenu(type);
+			m_startMenu = type;
+		}
+	}
 
     public void SetMenu(MenuType type)
     {

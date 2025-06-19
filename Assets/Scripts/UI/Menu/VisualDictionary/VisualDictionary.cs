@@ -13,7 +13,9 @@ public class VisualDictionary : MonoBehaviour
 	Image[] iconFishImage = new Image[MaxInventorySize]; // 各アイコンに表示する魚の画像
 
 	public const int MaxInventorySize = 25; // 表示インベントリの最大サイズ
-	private int m_prevStartNum; // 開始番号
+	private int m_prevStartNum; // ページの開始番号
+
+	private int m_padIconIndex = 0; // パッドの時選択されているアイコンのインデックス
 
 	// Start is called before the first frame update  
 	void Start()
@@ -56,6 +58,56 @@ public class VisualDictionary : MonoBehaviour
 			iconFishImage[i].color = m_isGetFish[j] ? Color.white : Color.black; // 魚を取得している場合は白、していない場合は黒に設定
 		}
 		m_prevStartNum = m_page.PageIndex; // 一フレーム前のページ数を更新
+
+
+		// 選択中のインデックスのアイコンの色を変える
+		for (int i = 0; i < MaxInventorySize; ++i)
+		{
+			clickIcons[i].SetOnMouse(i == m_padIconIndex);
+		}
+
+		SelectIcon(); // パッドでアイコンを選択するメソッドを呼び出す
+	}
+
+	private void SelectIcon()
+	{
+		// パッドの入力によるアイコン選択
+		if (InputSystem.GetInputPadButtonDown("Up"))
+		{
+			m_padIconIndex = (m_padIconIndex - 5 + MaxInventorySize) % MaxInventorySize; // 上に移動
+		}
+		else if (InputSystem.GetInputPadButtonDown("Down"))
+		{
+			m_padIconIndex = (m_padIconIndex + 5) % MaxInventorySize; // 下に移動
+		}
+		else if (InputSystem.GetInputPadButtonDown("Left"))
+		{
+			m_padIconIndex = (m_padIconIndex - 1 + MaxInventorySize) % MaxInventorySize; // 左に移動
+		}
+		else if (InputSystem.GetInputPadButtonDown("Right"))
+		{
+			m_padIconIndex = (m_padIconIndex + 1) % MaxInventorySize; // 右に移動
+		}
+
+		// 決定
+		if (InputSystem.GetInputPadButtonDown("Decide"))
+		{
+			SetClickIcon(fishDataObjects[m_padIconIndex]); // 選択されたアイコンをクリック状態にする
+		}
+
+		// 次のページへ
+		if (InputSystem.GetInputPadButtonDown("Next"))
+		{
+			m_page.NextPage(); // 次のページへ移動
+			m_padIconIndex = 0; // アイコン選択をリセット
+		}
+
+		// 前のページへ
+		if (InputSystem.GetInputPadButtonDown("Prev"))
+		{
+			m_page.PrevPage(); // 前のページへ移動
+			m_padIconIndex = 0; // アイコン選択をリセット
+		}
 	}
 
 	public void SetClickIcon(GameObject icon)
