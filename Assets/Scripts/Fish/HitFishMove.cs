@@ -45,6 +45,10 @@ public class HitFishMove : MonoBehaviour
 		// ルアーの下を基準位置とする
 		Vector3 basePos = lure.position + HitOffset + player.forward * 5;
 
+		Vector3 escapeDir = (lure.position - player.position);
+		escapeDir.y = 0; // 高さを無視して水平移動にする
+		m_fishingStartRot = Quaternion.LookRotation(escapeDir);
+
 		if (!isMovingLaterally)
 		{
 			// プレイヤーから逃げる方向を向く
@@ -109,10 +113,6 @@ public class HitFishMove : MonoBehaviour
 		m_fishData = fishData;
 		transform.localScale = Size * m_fishData.fishSize; // 魚のサイズを設定
 		isfishing = true; // 釣り状態にする
-
-		Vector3 escapeDir = (lure.position - player.position);
-		escapeDir.y = 0; // 高さを無視して水平移動にする
-		m_fishingStartRot = Quaternion.LookRotation(escapeDir);
 	}
 
 	public void FishingEnd()

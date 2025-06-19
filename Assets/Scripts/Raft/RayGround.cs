@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class RayGround : MonoBehaviour
 {
+	[SerializeField] Transform groundParent;
 	[SerializeField] GameObject m_ground;	// 設置する地面オブジェクト
+	GameObject[] m_startGround = new GameObject[(int)AroundWall.WallType.Length]; // 初期の地面オブジェクト
+							  
 	// レイの最大距離
 	const float rayDistance = 100f;
 	const float SetGroundHeight = -0.8f; // 設置する地面の高さ（Y座標）
 
 	private void Start()
 	{
-		GridObjectManager.Initialize();
+		for (int i = 0; i < m_startGround.Length; ++i)
+		{
+			m_startGround[i] = groundParent.GetChild(i).gameObject;
+		}
+		GridObjectManager.Initialize(m_startGround);
 	}
 
 	void Update()
@@ -35,19 +42,17 @@ public class RayGround : MonoBehaviour
 
 		if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, waterMask))
 		{
-			Debug.Log(hit.transform.name);
 			// ヒットしたワールド座標をグリッド座標（整数化）に変換（XZ平面）
 			Vector3 hitPos = hit.point;
-			Vector2Int gridPos = new Vector2Int(OddRound(hitPos.x), OddRound(hitPos.z));
+			Vector2Int gridPos = new Vector2Int(GridObjectManager.OddRound(hitPos.x), GridObjectManager.OddRound(hitPos.z));
 
 			// 上下左右にオブジェクトがあるか判定
 			bool hasNeighbor = GridObjectManager.HasNeighborObject(gridPos);
 
 			if (hasNeighbor)
 			{
-				Debug.Log($"グリッド座標 {gridPos} の上下左右にオブジェクトがあります");
-				Instantiate(m_ground, new Vector3(gridPos.x, SetGroundHeight, gridPos.y), Quaternion.identity);
-				GridObjectManager.AddObject(gridPos); // グリッド座標に地面オブジェクトを登録
+			    GameObject ground = Instantiate(m_ground, new Vector3(gridPos.x, SetGroundHeight, gridPos.y), Quaternion.identity, groundParent);
+				GridObjectManager.AddObject(gridPos, ground); // グリッド座標に地面オブジェクトを登録
 			}
 			else
 			{
@@ -60,23 +65,5 @@ public class RayGround : MonoBehaviour
 		}
 
 		Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red, 2f); // Rayを可視化
-	}
-
-	private int OddRound(float value)
-	{
-		int rounded = Mathf.RoundToInt(value);
-		// 偶数なら1足して奇数化（または-1でもOK）
-		if (rounded % 2 == 0)
-		{
-			// valueがroundedより大きければ+1、小さければ-1（近い方の奇数に寄せる）
-			if (value >= rounded)
-				return rounded + 1;
-			else
-				return rounded - 1;
-		}
-		else
-		{
-			return rounded;
-		}
 	}
 }

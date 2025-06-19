@@ -1,4 +1,6 @@
+using TreeEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Fishing : MonoBehaviour
 {
@@ -71,8 +73,18 @@ public class Fishing : MonoBehaviour
 
 	private void MouseRod()
 	{
-		playerHead.transform.rotation = Quaternion.LookRotation(rodFloat.transform.position);
-		transform.rotation = Quaternion.LookRotation(rodFloat.transform.position);
+		Vector3 bodyTargetPos = new Vector3(rodFloat.transform.position.x, transform.position.y, rodFloat.transform.position.z);
+		transform.LookAt(bodyTargetPos);
+
+		// 2. 頭（bodyの正面から上下のみでターゲットを見る）
+		// 世界空間でターゲットへの方向ベクトル
+		Vector3 dirToTarget = rodFloat.transform.position - playerHead.position;
+		// bodyのローカル空間に変換
+		Vector3 localDir = transform.InverseTransformDirection(dirToTarget);
+		// X軸回転量を計算
+		float angleX = Mathf.Atan2(-localDir.y, localDir.z) * Mathf.Rad2Deg;
+		// 頭をX軸だけ回転
+		playerHead.localRotation = Quaternion.Euler(angleX, 0f, 0f);
 
 		Vector2 mouseInput = InputSystem.CameraGetAxis();
 
