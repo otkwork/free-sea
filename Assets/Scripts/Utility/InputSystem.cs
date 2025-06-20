@@ -152,22 +152,23 @@ public class InputSystem : MonoBehaviour
 		return false;
 	}
 
-	static public bool GetInputPadButtonDown(string isButton)
+	static public bool GetInputMenuButtonDown(string isButton)
 	{
 		var padCurrent = Gamepad.current;
 		if (padCurrent != null)
 		{
 			var dpad = padCurrent.dpad;
+			var key = Keyboard.current;
 
-			if (dpad.left.wasPressedThisFrame && isButton == "Left") return true;
-			if (dpad.right.wasPressedThisFrame && isButton == "Right") return true;
-			if (dpad.up.wasPressedThisFrame && isButton == "Up") return true;
-			if (dpad.down.wasPressedThisFrame && isButton == "Down") return true;
-			if (padCurrent.buttonSouth.wasPressedThisFrame && isButton == "Decide") return true; // 決定ボタン
-			if (padCurrent.buttonEast.wasPressedThisFrame && isButton == "Next") return true; // 次のページへ
-			if (padCurrent.buttonWest.wasPressedThisFrame && isButton == "Prev") return true; // 前のページへ
-			if (padCurrent.leftShoulder.wasPressedThisFrame && isButton == "LB") return true; // 左ショルダーボタン
-			if (padCurrent.rightShoulder.wasPressedThisFrame && isButton == "RB") return true; // 右ショルダーボタン
+			if ((dpad.left.wasPressedThisFrame || key.leftArrowKey.wasPressedThisFrame) && isButton == "Left") return true;
+			if ((dpad.right.wasPressedThisFrame || key.rightArrowKey.wasPressedThisFrame) && isButton == "Right") return true;
+			if ((dpad.up.wasPressedThisFrame || key.upArrowKey.wasPressedThisFrame) && isButton == "Up") return true;
+			if ((dpad.down.wasPressedThisFrame || key.downArrowKey.wasPressedThisFrame) && isButton == "Down") return true;
+			if ((padCurrent.buttonSouth.wasPressedThisFrame || key.enterKey.wasPressedThisFrame) && isButton == "Decide") return true; // 決定ボタン
+			if ((padCurrent.buttonEast.wasPressedThisFrame || key.dKey.wasPressedThisFrame) && isButton == "Next") return true; // 次のページへ
+			if ((padCurrent.buttonWest.wasPressedThisFrame || key.aKey.wasPressedThisFrame) && isButton == "Prev") return true; // 前のページへ
+			if ((padCurrent.leftShoulder.wasPressedThisFrame || key.qKey.wasPressedThisFrame) && isButton == "LB") return true; // 左ショルダーボタン
+			if ((padCurrent.rightShoulder.wasPressedThisFrame || key.eKey.wasPressedThisFrame) && isButton == "RB") return true; // 右ショルダーボタン
 		}
 		return false;
 	}

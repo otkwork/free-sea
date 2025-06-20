@@ -24,14 +24,14 @@ public class Menu : MonoBehaviour
 
 	private void Update()
 	{
-		if (InputSystem.GetInputPadButtonDown("LB"))
+		if (InputSystem.GetInputMenuButtonDown("LB"))
 		{
 			// 左ボタンで前のページへ
 			MenuType type = (MenuType)(((int)m_startMenu - 1 + (int)MenuType.Length) % (int)MenuType.Length);
 			SetMenu(type);
 			m_startMenu = type;
 		}
-		else if (InputSystem.GetInputPadButtonDown("RB"))
+		else if (InputSystem.GetInputMenuButtonDown("RB"))
 		{
 			// 右ボタンで次のページへ
 			MenuType type = (MenuType)(((int)m_startMenu + 1) % (int)MenuType.Length);

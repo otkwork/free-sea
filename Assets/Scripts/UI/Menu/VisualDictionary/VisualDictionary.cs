@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class VisualDictionary : MonoBehaviour
 {
+	[SerializeField] bool m_isDebugFishData = false; // デバッグモードのフラグ
 	[SerializeField] ExcelData excelData; // Excelからの魚データを取得するためのExcelDataスクリプト
 
 	static bool[] m_isGetFish; // 魚を取得したかどうかのフラグ
@@ -25,7 +26,7 @@ public class VisualDictionary : MonoBehaviour
 
 		for (int i = 0; i < m_isGetFish.Length; ++i)
 		{
-			m_isGetFish[i] = true; // 初期状態では魚を取得していない
+			m_isGetFish[i] = m_isDebugFishData; // 初期状態では魚を取得していない
 		}
 
 		for (int i = 0; i < MaxInventorySize; ++i)
@@ -72,38 +73,38 @@ public class VisualDictionary : MonoBehaviour
 	private void SelectIcon()
 	{
 		// パッドの入力によるアイコン選択
-		if (InputSystem.GetInputPadButtonDown("Up"))
+		if (InputSystem.GetInputMenuButtonDown("Up"))
 		{
 			m_padIconIndex = (m_padIconIndex - 5 + MaxInventorySize) % MaxInventorySize; // 上に移動
 		}
-		else if (InputSystem.GetInputPadButtonDown("Down"))
+		else if (InputSystem.GetInputMenuButtonDown("Down"))
 		{
 			m_padIconIndex = (m_padIconIndex + 5) % MaxInventorySize; // 下に移動
 		}
-		else if (InputSystem.GetInputPadButtonDown("Left"))
+		else if (InputSystem.GetInputMenuButtonDown("Left"))
 		{
 			m_padIconIndex = (m_padIconIndex - 1 + MaxInventorySize) % MaxInventorySize; // 左に移動
 		}
-		else if (InputSystem.GetInputPadButtonDown("Right"))
+		else if (InputSystem.GetInputMenuButtonDown("Right"))
 		{
 			m_padIconIndex = (m_padIconIndex + 1) % MaxInventorySize; // 右に移動
 		}
 
 		// 決定
-		if (InputSystem.GetInputPadButtonDown("Decide"))
+		if (InputSystem.GetInputMenuButtonDown("Decide"))
 		{
 			SetClickIcon(fishDataObjects[m_padIconIndex]); // 選択されたアイコンをクリック状態にする
 		}
 
 		// 次のページへ
-		if (InputSystem.GetInputPadButtonDown("Next"))
+		if (InputSystem.GetInputMenuButtonDown("Next"))
 		{
 			m_page.NextPage(); // 次のページへ移動
 			m_padIconIndex = 0; // アイコン選択をリセット
 		}
 
 		// 前のページへ
-		if (InputSystem.GetInputPadButtonDown("Prev"))
+		if (InputSystem.GetInputMenuButtonDown("Prev"))
 		{
 			m_page.PrevPage(); // 前のページへ移動
 			m_padIconIndex = 0; // アイコン選択をリセット

@@ -414,3 +414,403 @@ MonoBehaviour:
     fishSize: 1
     displayName: "\u30E9\u30D6\u30AB"
     fishDescription: "\u30E9\u30D6\u30AB\u306E\u540D\u524D\u306F\u304B\u308F\u3044\u3089\u3057\u3044\u304C\u6F22\u5B57\u3067\u66F8\u304F\u3068\"\u7F85\u9C76\"\u306B\u306A\u308B\n\u3053\u3063\u3061\u306E\u65B9\u304C\u898B\u305F\u76EE\u3068\u3042\u3063\u3066\u3044\u308B"
+  - id: 50
+    fishName: kujira
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30AF\u30B8\u30E9"
+    fishDescription: a
+  - id: 51
+    fishName: tobiuo
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30C8\u30D3\u30A6\u30AA"
+    fishDescription: a
+  - id: 52
+    fishName: tinanago
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30C1\u30F3\u30A2\u30CA\u30B4"
+    fishDescription: a
+  - id: 53
+    fishName: bonbe
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30DC\u30F3\u30D9"
+    fishDescription: a
+  - id: 54
+    fishName: water
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u5929\u7136\u6C34\u7D20\u6C34"
+    fishDescription: a
+  - id: 55
+    fishName: kakifurai
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30AB\u30AD\u30D5\u30E9\u30A4"
+    fishDescription: a
+  - id: 56
+    fishName: kurione
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30AF\u30EA\u30AA\u30CD"
+    fishDescription: a
+  - id: 57
+    fishName: harisenbon
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30CF\u30EA\u30BB\u30F3\u30DC\u30F3"
+    fishDescription: aa
+  - id: 58
+    fishName: kajiki
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30AB\u30B8\u30AD"
+    fishDescription: a
+  - id: 59
+    fishName: noribentou
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u6D77\u82D4\u5F01\u5F53"
+    fishDescription: a
+  - id: 60
+    fishName: zarigani
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30B6\u30EA\u30AC\u30CB"
+    fishDescription: a
+  - id: 61
+    fishName: robusuta
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30ED\u30D6\u30B9\u30BF\u30FC"
+    fishDescription: aa
+  - id: 62
+    fishName: ika
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30A4\u30AB"
+    fishDescription: a
+  - id: 63
+    fishName: jinbeizame
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30B8\u30F3\u30D9\u30A4\u30B6\u30E1"
+    fishDescription: a
+  - id: 64
+    fishName: nagagutu
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u9577\u9774"
+    fishDescription: a
+  - id: 65
+    fishName: sakekirimi
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30B5\u30B1\u306E\u5207\u308A\u8EAB"
+    fishDescription: a
+  - id: 66
+    fishName: kurage
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30AF\u30E9\u30B2"
+    fishDescription: a
+  - id: 67
+    fishName: umihebi
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30A6\u30DF\u30D8\u30D3"
+    fishDescription: a
+  - id: 68
+    fishName: kaeru
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30AB\u30A8\u30EB"
+    fishDescription: a
+  - id: 69
+    fishName: kawahagi
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30AB\u30EF\u30CF\u30AE"
+    fishDescription: a
+  - id: 70
+    fishName: shati
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30B7\u30E3\u30C1"
+    fishDescription: aa
+  - id: 71
+    fishName: oriduru
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u6298\u308A\u9DB4"
+    fishDescription: a
+  - id: 72
+    fishName: kousyudenwa
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u516C\u8846\u96FB\u8A71"
+    fishDescription: a
+  - id: 73
+    fishName: randoseru
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30E9\u30F3\u30C9\u30BB\u30EB"
+    fishDescription: a
+  - id: 74
+    fishName: puranaria
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30D7\u30E9\u30CA\u30EA\u30A2"
+    fishDescription: a
+  - id: 75
+    fishName: uparupa
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30A6\u30FC\u30D1\u30FC\u30EB\u30FC\u30D1\u30FC"
+    fishDescription: a
+  - id: 76
+    fishName: takosan
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30BF\u30B3\u3055\u3093\u30A6\u30A3\u30F3\u30CA\u30FC"
+    fishDescription: a
+  - id: 77
+    fishName: sakaban
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30B5\u30AB\u30D0\u30F3\u30D0\u30B9\u30D4\u30B9"
+    fishDescription: a
+  - id: 78
+    fishName: funamori
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u8239\u76DB\u308A"
+    fishDescription: a
+  - id: 79
+    fishName: paseri
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30D1\u30BB\u30EA"
+    fishDescription: a
+  - id: 80
+    fishName: sakefureku
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30B5\u30B1\u30D5\u30EC\u30FC\u30AF"
+    fishDescription: a
+  - id: 81
+    fishName: nihonsyu
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u65E5\u672C\u9152"
+    fishDescription: a
+  - id: 82
+    fishName: munieru
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30B5\u30B1\u306E\u30E0\u30CB\u30A8\u30EB"
+    fishDescription: a
+  - id: 83
+    fishName: nessi
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30CD\u30C3\u30B7\u30FC"
+    fishDescription: a
+  - id: 84
+    fishName: ryuuguunotukai
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30EA\u30E5\u30A6\u30B0\u30A6\u30CE\u30C4\u30AB\u30A4"
+    fishDescription: a
+  - id: 85
+    fishName: wakame
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30EF\u30AB\u30E1"
+    fishDescription: a
+  - id: 86
+    fishName: iruka
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30A4\u30EB\u30AB"
+    fishDescription: a
+  - id: 87
+    fishName: dojou
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30C9\u30B8\u30E7\u30A6"
+    fishDescription: a
+  - id: 88
+    fishName: hamo
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30CF\u30E2"
+    fishDescription: a
+  - id: 89
+    fishName: nishin
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u30CB\u30B7\u30F3"
+    fishDescription: a
+  - id: 90
+    fishName: kazunoko
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: "\u6570\u306E\u5B50"
+    fishDescription: a
+  - id: 91
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 92
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 93
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 94
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 95
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 96
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 97
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 98
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a
+  - id: 99
+    fishName: a
+    hp: 1
+    exp: 1
+    price: 1
+    fishSize: 1
+    displayName: a
+    fishDescription: a

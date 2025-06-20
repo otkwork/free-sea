@@ -54,25 +54,25 @@ public class Inventory : MonoBehaviour
 	private void SelectIcon()
 	{
 		// パッドの入力によるアイコン選択
-		if (InputSystem.GetInputPadButtonDown("Up"))
+		if (InputSystem.GetInputMenuButtonDown("Up"))
 		{
 			m_padIconIndex = (m_padIconIndex - 5 + MaxInventorySize) % MaxInventorySize; // 上に移動
 		}
-		else if (InputSystem.GetInputPadButtonDown("Down"))
+		else if (InputSystem.GetInputMenuButtonDown("Down"))
 		{
 			m_padIconIndex = (m_padIconIndex + 5) % MaxInventorySize; // 下に移動
 		}
-		else if (InputSystem.GetInputPadButtonDown("Left"))
+		else if (InputSystem.GetInputMenuButtonDown("Left"))
 		{
 			m_padIconIndex = (m_padIconIndex - 1 + MaxInventorySize) % MaxInventorySize; // 左に移動
 		}
-		else if (InputSystem.GetInputPadButtonDown("Right"))
+		else if (InputSystem.GetInputMenuButtonDown("Right"))
 		{
 			m_padIconIndex = (m_padIconIndex + 1) % MaxInventorySize; // 右に移動
 		}
 
 		// 決定
-		if (InputSystem.GetInputPadButtonDown("Decide"))
+		if (InputSystem.GetInputMenuButtonDown("Decide"))
 		{
 			SetClickIcon(fishDataObjects[m_padIconIndex]); // 選択されたアイコンをクリック状態にする
 		}
