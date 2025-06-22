@@ -462,6 +462,71 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d713089fca067b94aa2ba1778f6903d5
+    m_Address: hamo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a6c0d57b8ac09d4cb861dd3d816bb86
+    m_Address: kazunoko
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b64d6c78cfb381d41956e74d12b2177f
+    m_Address: dojou
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 541074d3b2da95640bafe89757fd78ca
+    m_Address: nishin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 81bf49f3872fafa478886c75e7267414
+    m_Address: kanban
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 596b60b34a507e34e82989d360340250
+    m_Address: kiku
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb91d4c0da8ee1940b35b7f5a2245ae5
+    m_Address: tegami
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47fbaf546a316b242bd869f3c5e0f0a0
+    m_Address: unagi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91c734b7a37bb364d89b2b120b284c96
+    m_Address: aji
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0370d1014d1dc748aedb99bd2bde9f9
+    m_Address: anago
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 182d947dcafaa5f459b6cc5bef5c1c58
+    m_Address: hotate
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c39aadef74ac98d4cbea82317a5c3899
+    m_Address: katsuo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdb28130ec2e32947a7ef077614e99a6
+    m_Address: kisu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a668c86dee4b19d40b3b728616cad0d9, type: 2}
   m_SchemaSet:

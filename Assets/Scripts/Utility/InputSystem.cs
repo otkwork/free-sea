@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class InputSystem : MonoBehaviour
 {
@@ -154,22 +155,38 @@ public class InputSystem : MonoBehaviour
 
 	static public bool GetInputMenuButtonDown(string isButton)
 	{
-		var padCurrent = Gamepad.current;
-		if (padCurrent != null)
-		{
-			var dpad = padCurrent.dpad;
-			var key = Keyboard.current;
+        var padCurrent = Gamepad.current;
+        var key = Keyboard.current;
 
-			if ((dpad.left.wasPressedThisFrame || key.leftArrowKey.wasPressedThisFrame) && isButton == "Left") return true;
-			if ((dpad.right.wasPressedThisFrame || key.rightArrowKey.wasPressedThisFrame) && isButton == "Right") return true;
-			if ((dpad.up.wasPressedThisFrame || key.upArrowKey.wasPressedThisFrame) && isButton == "Up") return true;
-			if ((dpad.down.wasPressedThisFrame || key.downArrowKey.wasPressedThisFrame) && isButton == "Down") return true;
-			if ((padCurrent.buttonSouth.wasPressedThisFrame || key.enterKey.wasPressedThisFrame) && isButton == "Decide") return true; // 決定ボタン
-			if ((padCurrent.buttonEast.wasPressedThisFrame || key.dKey.wasPressedThisFrame) && isButton == "Next") return true; // 次のページへ
-			if ((padCurrent.buttonWest.wasPressedThisFrame || key.aKey.wasPressedThisFrame) && isButton == "Prev") return true; // 前のページへ
-			if ((padCurrent.leftShoulder.wasPressedThisFrame || key.qKey.wasPressedThisFrame) && isButton == "LB") return true; // 左ショルダーボタン
-			if ((padCurrent.rightShoulder.wasPressedThisFrame || key.eKey.wasPressedThisFrame) && isButton == "RB") return true; // 右ショルダーボタン
-		}
-		return false;
-	}
+        // パッド優先、つながっていればキーボードは無視
+        if (padCurrent != null)
+        {
+            var dpad = padCurrent.dpad;
+
+            if (dpad.left.wasPressedThisFrame && isButton == "Left") return true;
+            if (dpad.right.wasPressedThisFrame && isButton == "Right") return true;
+            if (dpad.up.wasPressedThisFrame && isButton == "Up") return true;
+            if (dpad.down.wasPressedThisFrame && isButton == "Down") return true;
+            if (padCurrent.buttonSouth.wasPressedThisFrame && isButton == "Decide") return true;
+            if (padCurrent.buttonEast.wasPressedThisFrame && isButton == "Next") return true;
+            if (padCurrent.buttonWest.wasPressedThisFrame && isButton == "Prev") return true;
+            if (padCurrent.leftShoulder.wasPressedThisFrame && isButton == "LB") return true;
+            if (padCurrent.rightShoulder.wasPressedThisFrame && isButton == "RB") return true;
+        }
+        // パッドがないときだけキーボードを見る
+        else if (key != null)
+        {
+            if (key.leftArrowKey.wasPressedThisFrame && isButton == "Left") return true;
+            if (key.rightArrowKey.wasPressedThisFrame && isButton == "Right") return true;
+            if (key.upArrowKey.wasPressedThisFrame && isButton == "Up") return true;
+            if (key.downArrowKey.wasPressedThisFrame && isButton == "Down") return true;
+            if (key.enterKey.wasPressedThisFrame && isButton == "Decide") return true;
+            if (key.dKey.wasPressedThisFrame && isButton == "Next") return true;
+            if (key.aKey.wasPressedThisFrame && isButton == "Prev") return true;
+            if (key.qKey.wasPressedThisFrame && isButton == "LB") return true;
+            if (key.eKey.wasPressedThisFrame && isButton == "RB") return true;
+        }
+
+        return false;
+    }
 }
