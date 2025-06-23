@@ -76,7 +76,11 @@ public class Inventory : MonoBehaviour
 		{
 			SetClickIcon(fishDataObjects[m_padIconIndex]); // 選択されたアイコンをクリック状態にする
 		}
-	
+
+		if (InputSystem.GetInputMenuButtonDown("Sell"))
+		{
+			SellItem(); // アイテムを売る
+		}
 	}
 	public void SetClickIcon(GameObject icon)
 	{

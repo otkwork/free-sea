@@ -6,6 +6,9 @@ public class FishingRod : MonoBehaviour
 	[SerializeField] GameObject player;
 	[SerializeField] ExcelData excelData;
 	[SerializeField] HitFishMove hitFish; // かかった魚の動きのスクリプト
+	[SerializeField] float fishEndDistance = 3; // プレイヤーとの距離がこれ以上近づいたら釣りを終了する距離
+	[SerializeField] float fishStartDistance = 15; // 釣り開始時は必ずこれ以上の距離から始まるようにする
+	[SerializeField] float fishStartMoveSpeed = 7; // 釣り開始時にプレイヤーから離れる速度
 
 	Fishing m_fishing;
 	FishDataEntity m_fishData;
@@ -20,6 +23,7 @@ public class FishingRod : MonoBehaviour
 	bool m_throw;			// 浮きを投げたているかどうか
 	bool m_isFishing;       // 釣り中かどうか
 	bool m_isHit;          // 魚にヒットしたかどうか
+	bool m_setDistance;		// プレイヤーとの距離を調整するためのフラグ
 	float m_hitTime;		// 魚ヒットするまでの時間
 	float m_elapsedTime;
 
@@ -31,6 +35,7 @@ public class FishingRod : MonoBehaviour
 		m_throw = false;
 		m_isFishing = false;
 		m_isHit = false; // 初期状態ではヒットしていない
+		m_setDistance = false;
 		m_elapsedTime = 0f;
 		gameObject.SetActive(false); // 初期状態では浮きを非表示にする
 	}
@@ -38,7 +43,7 @@ public class FishingRod : MonoBehaviour
 	void Update()
 	{
 		//////m_rigidbody.isKinematic = UnityEngine.Cursor.visible; // カーソルが表示されているときは物理演算を無効化
-		if (UnityEngine.Cursor.visible)
+		if (PlayerController.IsPause())
 		{
 			// ポーズ画面に入る時に角度と速度を保存
 			if (!m_isPaused)
@@ -65,9 +70,18 @@ public class FishingRod : MonoBehaviour
 		// 水面に浮きが当たっているとき
 		if (m_fishData != null)
 		{
+			Vector2 floatPos = new(transform.position.x, transform.position.z);
+			Vector2 playerPos = new(player.transform.position.x, player.transform.position.z);
+			
 			// ヒットしたら高さを下げる
 			if (!m_isHit && m_elapsedTime >= (float)m_hitTime)
 			{
+				// かかった時にプレイヤーとの距離が近すぎる場合にプレイヤーから離すフラグを立てる
+				if (Vector2.Distance(floatPos, playerPos) < fishStartDistance)
+				{
+					m_setDistance = true;
+				}
+
 				m_isHit = true;
 				m_fishing.IsHit();
 				hitFish.IsHit();
@@ -77,6 +91,28 @@ public class FishingRod : MonoBehaviour
 			transform.position = new Vector3(transform.position.x, RodHeight, transform.position.z);
 			// 釣り中の処理
 			m_elapsedTime += Time.deltaTime;
+
+			// 釣り開始時にプレイヤーとの距離を調整する
+			if (m_setDistance)
+			{
+				// 一定距離話すまで繰り返す
+				if (Vector2.Distance(floatPos, playerPos) < fishStartDistance)
+				{
+					transform.Translate(hitFish.transform.forward * Time.deltaTime * fishStartMoveSpeed); // プレイヤーから離れるように浮きを動かす
+					hitFish.SetStartPos();
+					return; // プレイヤーとの距離を調整している間は他の処理を行わない
+				}
+				else
+				{
+					m_setDistance = false; // 一定距離話したらフラグをリセット
+				}
+			}
+
+			// プレイヤーが一定距離にいる時は釣りを終了する
+			if (m_isHit && Vector2.Distance(floatPos, playerPos) < fishEndDistance)
+			{
+				FishingEnd(m_isHit);
+			}
 		}
 
 		// 海を貫通してしまったときの例外処理
@@ -106,7 +142,7 @@ public class FishingRod : MonoBehaviour
 			SetHitTime();
 		}
 
-		if (other.transform.CompareTag("Player") || other.transform.CompareTag("raft"))
+		if (other.transform.CompareTag("Player"))
 		{
 			FishingEnd(m_isHit); // プレイヤーに当たったら釣りを終了
 		}

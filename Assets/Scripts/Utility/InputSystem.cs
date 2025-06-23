@@ -172,9 +172,10 @@ public class InputSystem : MonoBehaviour
             if (padCurrent.buttonWest.wasPressedThisFrame && isButton == "Prev") return true;
             if (padCurrent.leftShoulder.wasPressedThisFrame && isButton == "LB") return true;
             if (padCurrent.rightShoulder.wasPressedThisFrame && isButton == "RB") return true;
+			if (padCurrent.buttonNorth.wasPressedThisFrame && isButton == "Sell") return true;
         }
         // パッドがないときだけキーボードを見る
-        else if (key != null)
+        if (key != null)
         {
             if (key.leftArrowKey.wasPressedThisFrame && isButton == "Left") return true;
             if (key.rightArrowKey.wasPressedThisFrame && isButton == "Right") return true;
@@ -185,7 +186,8 @@ public class InputSystem : MonoBehaviour
             if (key.aKey.wasPressedThisFrame && isButton == "Prev") return true;
             if (key.qKey.wasPressedThisFrame && isButton == "LB") return true;
             if (key.eKey.wasPressedThisFrame && isButton == "RB") return true;
-        }
+			if (key.xKey.wasPressedThisFrame && isButton == "Sell") return true;
+		}
 
         return false;
     }

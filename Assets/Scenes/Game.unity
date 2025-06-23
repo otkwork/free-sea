@@ -19185,6 +19185,9 @@ MonoBehaviour:
   player: {fileID: 298210018}
   excelData: {fileID: 11400000, guid: 01db52cf7042ec341976a8ab658e0456, type: 2}
   hitFish: {fileID: 1654989974}
+  fishEndDistance: 3
+  fishStartDistance: 15
+  fishStartMoveSpeed: 10
 --- !u!1 &1029652246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b2fdb43dd95820479f65a802d0cc22d,

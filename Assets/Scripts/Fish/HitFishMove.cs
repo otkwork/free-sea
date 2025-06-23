@@ -8,8 +8,6 @@ public class HitFishMove : MonoBehaviour
 
 	[SerializeField] Transform lure;					// ルアー（釣り針）のTransform
 	[SerializeField] Transform player;					// プレイヤーのTransform
-	[SerializeField] float moveInterval = 1.5f;			// 左右に動く間隔（秒）
-	[SerializeField] float nextMoveTime = 5f;           // 一回の左右に動きづづける時間（秒）
 	[SerializeField] float lateralMoveDistance = 2.0f;	// 左右に動く最大距離
 	[SerializeField] float lateralMoveSpeed = 4.0f;     // 左右に動くスピード
 	FishDataEntity m_fishData; // 魚のデータ
@@ -61,7 +59,7 @@ public class HitFishMove : MonoBehaviour
 			if (!isHit) return; // 魚がかかっていない場合は何もしない
 			elapsedTime += Time.deltaTime;
 			// 一定間隔で左右移動開始
-			if (elapsedTime > moveInterval)
+			if (elapsedTime > m_fishData.moveInterval)
 			{
 				isMovingLaterally = true;
 				elapsedTime = 0f; // 時間をリセット
@@ -90,7 +88,7 @@ public class HitFishMove : MonoBehaviour
 			transform.rotation = Quaternion.Euler(0, m_fishingStartRot.eulerAngles.y + lateralAngle, 0);
 
 			// 横移動完了判定
-			if (elapsedTime > nextMoveTime)
+			if (elapsedTime > m_fishData.nextMoveTime)
 			{
 				elapsedTime = 0f; // 時間をリセット
 				isMovingLaterally = false;
@@ -132,5 +130,15 @@ public class HitFishMove : MonoBehaviour
 		}
 
 		return 0;
+	}
+
+	public void SetStartPos()
+	{
+		// 釣り開始時このコードを通る時は魚の位置をルアーの位置から少し前方に設定する
+		transform.position = lure.position + HitOffset + player.forward * 5;
+		m_fishingStartRot = Quaternion.LookRotation(lure.position - player.position);
+		transform.rotation = m_fishingStartRot; // プレイヤーから逃げる方向を向く
+		isMovingLaterally = false; // 横移動を無効にする
+		elapsedTime = 0f; // 時間をリセット
 	}
 }
