@@ -4,12 +4,12 @@ using UnityEngine.EventSystems;
 public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
 	[SerializeField] private DescriptionText m_descriptionText; // 説明テキストを表示するためのコンポーネント
-	FishDataEntity m_fishData;          // アイコンに表示するデータ
-	Inventory m_inventory;				// アイコンが所属するインベントリ
-	UnityEngine.UI.Image m_image;		// アイコンを押されたときに色を変えるためのImage
-	UnityEngine.UI.Image m_fishImage;	// アイコンに表示する魚の画像
-
-	bool isOnClick;
+	private FishDataEntity m_fishData;          // アイコンに表示するデータ
+	private Inventory m_inventory;				// アイコンが所属するインベントリ
+	private UnityEngine.UI.Image m_image;		// アイコンを押されたときに色を変えるためのImage
+	private UnityEngine.UI.Image m_fishImage;	// アイコンに表示する魚の画像
+	
+	private bool m_isOnClick;
 
     private void Awake()
     {
@@ -21,13 +21,13 @@ public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     private void Start()
 	{
 		m_fishData = null; // 初期状態では魚のデータはなし
-		isOnClick = false;
+        m_isOnClick = false;
 	}
 
 	void Update()
 	{
         // クリックされているとき
-        if (isOnClick)
+        if (m_isOnClick)
 		{
 			m_descriptionText.SetDescription(m_fishData); // 説明テキストに魚のデータを設定する
 		}
@@ -72,7 +72,7 @@ public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     public void OnDisable()
     {
-        isOnClick = false;
+        m_isOnClick = false;
         m_image.color = Color.white;
     }
 
@@ -82,11 +82,11 @@ public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 		// 自分がクリックされたとき
 		if (isClick)
 		{
-			isOnClick = !isOnClick; // クリック状態をトグルする
-			m_image.color = isOnClick ? Color.red : Color.white; // クリック時の処理（例: 色を変える）
+            m_isOnClick = !m_isOnClick; // クリック状態をトグルする
+			m_image.color = m_isOnClick ? Color.blue : Color.white; // クリック時の処理（例: 色を変える）
 
 			// 自分自身をクリックしてクリック状態を解除した場合
-			if (!isOnClick)
+			if (!m_isOnClick)
 			{
 				m_descriptionText.ReSetDescription(); // 説明テキストをリセット
 			}
@@ -94,7 +94,7 @@ public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 		// 他のアイコンがクリックされたとき
 		else
 		{
-			isOnClick = false; // クリック状態を解除
+            m_isOnClick = false; // クリック状態を解除
 			m_image.color = Color.white; // 色を元に戻す
 		}
 	}
@@ -102,7 +102,7 @@ public class ClickIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
 	public void SetOnMouse(bool onMouse)
 	{
-		if (isOnClick) return; // クリック状態のときは何もしない
+		if (m_isOnClick) return; // クリック状態のときは何もしない
 
 		// マウスがアイコンの上にあるとき
 		if (onMouse)

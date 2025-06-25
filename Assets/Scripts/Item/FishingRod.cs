@@ -1,37 +1,36 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FishingRod : MonoBehaviour
 {
-	[SerializeField] GameObject player;
-	[SerializeField] ExcelData excelData;
-	[SerializeField] HitFishMove hitFish; // かかった魚の動きのスクリプト
-	[SerializeField] float fishEndDistance = 3; // プレイヤーとの距離がこれ以上近づいたら釣りを終了する距離
-	[SerializeField] float fishStartDistance = 15; // 釣り開始時は必ずこれ以上の距離から始まるようにする
-	[SerializeField] float fishStartMoveSpeed = 7; // 釣り開始時にプレイヤーから離れる速度
-
-	Fishing m_fishing;
-	FishDataEntity m_fishData;
-	Rigidbody m_rigidbody;
+	[SerializeField] private GameObject m_player;
+	[SerializeField] private ExcelData m_excelData;
+	[SerializeField] private HitFishMove m_hitFish; // かかった魚の動きのスクリプト
+	[SerializeField] private float m_fishEndDistance = 3; // プレイヤーとの距離がこれ以上近づいたら釣りを終了する距離
+	[SerializeField] private float m_fishStartDistance = 15; // 釣り開始時は必ずこれ以上の距離から始まるようにする
+	[SerializeField] private float m_fishStartMoveSpeed = 7; // 釣り開始時にプレイヤーから離れる速度
+	private Fishing m_fishing;
+	private FishDataEntity m_fishData;
+	private Rigidbody m_rigidbody;
 	
-	const float NotHitHeight = -1.0f;	// 魚にかかる前の浮きの高さ 
-	const float HitHeight = -1.2f;      // 魚にかかった後の浮きの高さ
-	const float FishMaxDistance = 75;	// いい魚が釣れる比較距離の最大値
-									  
-	// ポーズ中に保存するための変数
-	private Vector3 savedVelocity;
-    private Vector3 savedAngularVelocity;
-	bool m_isPaused;        // ゲームがポーズ中かどうか
-	bool m_throw;			// 浮きを投げたているかどうか
-	bool m_isFishing;       // 釣り中かどうか
-	bool m_isHit;          // 魚にヒットしたかどうか
-	bool m_setDistance;		// プレイヤーとの距離を調整するためのフラグ
-	float m_hitTime;		// 魚ヒットするまでの時間
-	float m_elapsedTime;
+	private const float NotHitHeight = -1.0f;	// 魚にかかる前の浮きの高さ 
+	private const float HitHeight = -1.2f;      // 魚にかかった後の浮きの高さ
+	private const float FishMaxDistance = 75;   // いい魚が釣れる比較距離の最大値
+    private const int MaxFishData = 100; // 魚の最大数
+
+    // ポーズ中に保存するための変数
+    private Vector3 m_savedVelocity;
+    private Vector3 m_savedAngularVelocity;
+	private float m_hitTime;		// 魚ヒットするまでの時間
+	private float m_elapsedTime;
+	private bool m_isPaused;        // ゲームがポーズ中かどうか
+	private bool m_throw;			// 浮きを投げたているかどうか
+	private bool m_isFishing;       // 釣り中かどうか
+	private bool m_isHit;          // 魚にヒットしたかどうか
+	private bool m_setDistance;		// プレイヤーとの距離を調整するためのフラグ
 
 	void Start()
 	{
-		m_fishing = player.GetComponent<Fishing>();
+		m_fishing = m_player.GetComponent<Fishing>();
 		m_rigidbody = GetComponent<Rigidbody>();
 		m_isPaused = false; // 初期状態ではポーズ中ではない
 		m_throw = false;
@@ -50,8 +49,8 @@ public class FishingRod : MonoBehaviour
 			// ポーズ画面に入る時に角度と速度を保存
 			if (!m_isPaused)
 			{
-				savedVelocity = m_rigidbody.velocity;
-				savedAngularVelocity = m_rigidbody.angularVelocity;
+                m_savedVelocity = m_rigidbody.velocity;
+                m_savedAngularVelocity = m_rigidbody.angularVelocity;
 			}
 			m_rigidbody.isKinematic = true;
 			m_isPaused = true; // ポーズ中にカーソルが表示されたらポーズ状態にする
@@ -60,8 +59,8 @@ public class FishingRod : MonoBehaviour
 		else if (m_isPaused)
 		{
 			m_rigidbody.isKinematic = false;
-			m_rigidbody.velocity = savedVelocity;
-			m_rigidbody.angularVelocity = savedAngularVelocity;
+			m_rigidbody.velocity = m_savedVelocity;
+			m_rigidbody.angularVelocity = m_savedAngularVelocity;
 			m_isPaused = false;
 		}
 		else
@@ -73,20 +72,20 @@ public class FishingRod : MonoBehaviour
 		if (m_fishData != null)
 		{
 			Vector2 floatPos = new(transform.position.x, transform.position.z);
-			Vector2 playerPos = new(player.transform.position.x, player.transform.position.z);
+			Vector2 playerPos = new(m_player.transform.position.x, m_player.transform.position.z);
 			
 			// ヒットしたら高さを下げる
 			if (!m_isHit && m_elapsedTime >= (float)m_hitTime)
 			{
 				// かかった時にプレイヤーとの距離が近すぎる場合にプレイヤーから離すフラグを立てる
-				if (Vector2.Distance(floatPos, playerPos) < fishStartDistance)
+				if (Vector2.Distance(floatPos, playerPos) < m_fishStartDistance)
 				{
 					m_setDistance = true;
 				}
 
 				m_isHit = true;
 				m_fishing.IsHit();
-				hitFish.IsHit();
+                m_hitFish.IsHit();
 			}
 			float RodHeight = m_isHit ? HitHeight : NotHitHeight;
 
@@ -98,10 +97,10 @@ public class FishingRod : MonoBehaviour
 			if (m_setDistance)
 			{
 				// 一定距離話すまで繰り返す
-				if (Vector2.Distance(floatPos, playerPos) < fishStartDistance)
+				if (Vector2.Distance(floatPos, playerPos) < m_fishStartDistance)
 				{
-					transform.Translate(hitFish.transform.forward * Time.deltaTime * fishStartMoveSpeed); // プレイヤーから離れるように浮きを動かす
-					hitFish.SetStartPos();
+					transform.Translate(m_hitFish.transform.forward * Time.deltaTime * m_fishStartMoveSpeed); // プレイヤーから離れるように浮きを動かす
+                    m_hitFish.SetStartPos();
 					return; // プレイヤーとの距離を調整している間は他の処理を行わない
 				}
 				else
@@ -111,7 +110,7 @@ public class FishingRod : MonoBehaviour
 			}
 
 			// プレイヤーが一定距離にいる時は釣りを終了する
-			if (m_isHit && Vector2.Distance(floatPos, playerPos) < fishEndDistance)
+			if (m_isHit && Vector2.Distance(floatPos, playerPos) < m_fishEndDistance)
 			{
 				FishingEnd(m_isHit);
 			}
@@ -140,7 +139,7 @@ public class FishingRod : MonoBehaviour
 			m_rigidbody.useGravity = false; // 重力を無効化
 			m_isFishing = true;
 			m_fishData = GetFishData();
-			hitFish.SetFishData(m_fishData); // 魚のデータをセット
+            m_hitFish.SetFishData(m_fishData); // 魚のデータをセット
 			SetHitTime();
 		}
 
@@ -152,16 +151,19 @@ public class FishingRod : MonoBehaviour
 
 	private FishDataEntity GetFishData()
 	{
-		// 釣りのデータを取得する
-		// ランダム(いづれテーブルを制作)に魚を選ぶ
-		// 釣り竿の距離が遠いほど良い魚がかかる可能性が上がるようにする予定
+		// 釣り竿の距離が遠いほど良い魚がかかる可能性が上がるようにする
 
-		FishDataEntity fishData;
-		int randomIndex = Random.Range(0, excelData.fish.Count);
-		randomIndex = 100;
-		fishData = excelData.fish[randomIndex];
+		// 一番離れている方向を取得
+		float maxDir = Mathf.Max(Mathf.Abs(transform.position.x), Mathf.Abs(transform.position.z));
 
-		return fishData;
+		int fishMaxNum = MaxFishData / (int)(FishMaxDistance / maxDir);
+		if (fishMaxNum > MaxFishData) fishMaxNum = MaxFishData;
+
+		// ハンマーを足した分の最大数
+		int randomIndex = Random.Range(0, fishMaxNum + 1);
+		// 今出せる最大数の値ならハンマーに変換する
+		if (randomIndex == fishMaxNum) randomIndex = MaxFishData;
+		return m_excelData.fish[randomIndex]; ;
 	}
 
 	private void SetHitTime()
@@ -175,7 +177,7 @@ public class FishingRod : MonoBehaviour
 	public void FishingEnd(bool isSuccess)
     {
 		m_fishing.FishingEnd(isSuccess, m_fishData);
-		hitFish.FishingEnd();
+        m_hitFish.FishingEnd();
 		m_isPaused = false; // ポーズ状態をリセット
 		m_throw = false;	// 投げたフラグをリセット
         m_isFishing = false; // 釣り中フラグをリセット

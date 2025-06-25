@@ -3,34 +3,34 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	private CharacterController characterController;  // CharacterController型の変数
-	[SerializeField] private Animator animator;
-	[SerializeField] private Transform verRot;  //縦の視点移動の変数(カメラに合わせる)
-	[SerializeField] private Transform horRot;  //横の視点移動の変数(プレイヤーに合わせる)
-	[SerializeField] private float moveSpeed;  //移動速度
-	[SerializeField] private float sensX = 2.0f;
-	[SerializeField] private float sensY = 2.0f;
-	[SerializeField] private float padSens = 2.0f;  //パッドの感度
+	[SerializeField] private Transform m_verRot;  //縦の視点移動の変数(カメラに合わせる)
+	[SerializeField] private Transform m_horRot;  //横の視点移動の変数(プレイヤーに合わせる)
+	[SerializeField] private float m_moveSpeed = 5.0f;  //移動速度
+	[SerializeField] private float m_sensX = 2.0f;
+	[SerializeField] private float m_sensY = 2.0f;
+	[SerializeField] private float m_padSens = 2.0f;  //パッドの感度
+	private CharacterController m_characterController;  // CharacterController型の変数
 	
-	private Vector3 moveVelocity;  // キャラクターコントローラーを動かすためのVector3型の変数
-	private float rotationY, rotationX;
+	private Vector3 m_moveVelocity;  // キャラクターコントローラーを動かすためのVector3型の変数
+	private float m_rotationY, m_rotationX;
 
-	[SerializeField] private GameObject pauseMenu; // ポーズメニューのUI
+	// メニュー
+	[SerializeField] private GameObject m_pauseMenu; // ポーズメニューのUI
 
-	bool canMove;   // 移動可能かどうか
-	bool canCamera; // カメラ操作可能かどうか
-	static bool pause;     // 一時停止中かどうか,およびポーズ画面にしたのがキーボードかどうか
+	private static bool m_pause;     // 一時停止中かどうか,およびポーズ画面にしたのがキーボードかどうか
+	private bool m_canMove;   // 移動可能かどうか
+	private bool m_canCamera; // カメラ操作可能かどうか
 
 	void Start()
 	{
 		// フレームレートを60に固定
 		Application.targetFrameRate = 60;
-		characterController = GetComponent<CharacterController>();
+        m_characterController = GetComponent<CharacterController>();
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
-		canCamera = true; // カメラ操作可能にする
-		canMove = true;   // 移動可能にする
-		pause = true;
+        m_canCamera = true; // カメラ操作可能にする
+        m_canMove = true;   // 移動可能にする
+        m_pause = true;
 	}
 
 	void FixedUpdate()
@@ -41,19 +41,19 @@ public class PlayerController : MonoBehaviour
 		// Tabキーoptionが押されたらポーズ画面を表示/非表示にする
 		if (InputSystem.Pause())
 		{
-			pause = !pause;
+            m_pause = !m_pause;
 			
-			Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
-			Cursor.visible = pause;
+			Cursor.lockState = m_pause ? CursorLockMode.None : CursorLockMode.Locked;
+			Cursor.visible = m_pause;
 		}
 
-		pauseMenu.SetActive(pause); // ポーズメニューのUIを表示/非表示にする
+        m_pauseMenu.SetActive(m_pause); // ポーズメニューのUIを表示/非表示にする
 
 		// カメラ操作
-		if (canCamera && !pause) Camera();
+		if (m_canCamera && !m_pause) Camera();
 
 		// 移動
-		if (canMove && !pause) Move();
+		if (m_canMove && !m_pause) Move();
 
 		// 移動スピードをアニメーターに反映する
 		//animator.SetFloat("MoveSpeed", new Vector3(moveVelocity.x, 0, moveVelocity.z).magnitude);
@@ -61,18 +61,18 @@ public class PlayerController : MonoBehaviour
 
 	private void Camera()
 	{
-		Vector2 mouseInput = InputSystem.CameraGetAxis(sensX, sensY, padSens);
+		Vector2 mouseInput = InputSystem.CameraGetAxis(m_sensX, m_sensY, m_padSens);
 
-		rotationX -= mouseInput.y;
-		rotationY += mouseInput.x;
-		rotationY %= 360; // 絶対値が大きくなりすぎないように
+        m_rotationX -= mouseInput.y;
+        m_rotationY += mouseInput.x;
+        m_rotationY %= 360; // 絶対値が大きくなりすぎないように
 
-		// 上下の視点移動量をClamp
-		rotationX = Mathf.Clamp(rotationX, -70, 70);
+        // 上下の視点移動量をClamp
+        m_rotationX = Mathf.Clamp(m_rotationX, -70, 70);
 
-		// 頭、体の向きの適用
-		verRot.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-		horRot.transform.localRotation = Quaternion.Euler(0, rotationY, 0);
+        // 頭、体の向きの適用
+        m_verRot.transform.localRotation = Quaternion.Euler(m_rotationX, 0, 0);
+        m_horRot.transform.localRotation = Quaternion.Euler(0, m_rotationY, 0);
 	}
 
 	private void Move()
@@ -80,29 +80,29 @@ public class PlayerController : MonoBehaviour
 		//Wキーがおされたら
 		if (InputSystem.MoveUp())
 		{
-			characterController.Move(gameObject.transform.forward * moveSpeed * Time.deltaTime);
+            m_characterController.Move(gameObject.transform.forward * m_moveSpeed * Time.deltaTime);
 		}
 		//Sキーがおされたら
 		if (InputSystem.MoveDown())
 		{
-			characterController.Move(gameObject.transform.forward * -1f * moveSpeed * Time.deltaTime);
+            m_characterController.Move(gameObject.transform.forward * -1f * m_moveSpeed * Time.deltaTime);
 		}
 		//Aキーがおされたら
 		if (InputSystem.MoveLeft())
 		{
-			characterController.Move(gameObject.transform.right * -1 * moveSpeed * Time.deltaTime);
+            m_characterController.Move(gameObject.transform.right * -1 * m_moveSpeed * Time.deltaTime);
 		}
 		//Dキーがおされたら
 		if (InputSystem.MoveRight())
 		{
-			characterController.Move(gameObject.transform.right * moveSpeed * Time.deltaTime);
+            m_characterController.Move(gameObject.transform.right * m_moveSpeed * Time.deltaTime);
 		}
 
-		// 重力をかける
-		moveVelocity.y += Physics.gravity.y * Time.deltaTime;
+        // 重力をかける
+        m_moveVelocity.y += Physics.gravity.y * Time.deltaTime;
 
-		// キャラクターを動かす
-		characterController.Move(moveVelocity * Time.deltaTime);
+        // キャラクターを動かす
+        m_characterController.Move(m_moveVelocity * Time.deltaTime);
 	}
 
 	//ゲーム終了
@@ -123,16 +123,16 @@ public class PlayerController : MonoBehaviour
 
 	public void SetMove(bool move)
 	{
-		canMove = move;  // 移動可能かどうかを設定
+        m_canMove = move;  // 移動可能かどうかを設定
 	}
 
 	public void SetCamera(bool camera)
 	{
-		canCamera = camera;  // カメラ操作可能かどうかを設定
+        m_canCamera = camera;  // カメラ操作可能かどうかを設定
 	}
 
 	public static bool IsPause()
 	{
-		return pause;  // 現在のポーズ状態を返す
+		return m_pause;  // 現在のポーズ状態を返す
 	}
 }

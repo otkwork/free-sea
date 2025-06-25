@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MenuChangeButton : MonoBehaviour
 {
-    [SerializeField] Menu m_menu;
-    [SerializeField] Menu.MenuType m_type;
+    [SerializeField] private Menu m_menu;
+    [SerializeField] private Menu.MenuType m_type;
 
 	// クリックされたときに呼ばれるメソッド
 	public void OnClick()

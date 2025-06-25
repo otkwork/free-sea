@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField] GameObject[] m_menuPage = new GameObject[(int)MenuType.Length];
+    [SerializeField] MenuType m_startMenu;
+
     public enum MenuType
     {
         Visualdictionary,   // ê}ä”
@@ -9,9 +12,6 @@ public class Menu : MonoBehaviour
 
         Length
     }
-
-    [SerializeField] GameObject[] m_menuPage = new GameObject[(int)MenuType.Length];
-    [SerializeField] MenuType m_startMenu;
 
     private void Awake()
     {

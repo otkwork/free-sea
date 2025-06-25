@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class SellButton : MonoBehaviour
 {
+    [SerializeField] private Inventory m_inventory;
     public void Sell()
     {
-        Inventory.SellItem();
+        m_inventory.SellItem();
     }
 }

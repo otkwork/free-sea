@@ -4,26 +4,26 @@ using UnityEngine.EventSystems;
 public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
 	[SerializeField] private DescriptionText m_descriptionText; // 説明テキストを表示するためのコンポーネント
-	FishDataEntity m_fishData;          // アイコンに表示するデータ
-	VisualDictionary m_visualDictionary;// アイコンが所属する図鑑
-	UnityEngine.UI.Image m_image;       // アイコンを押されたときに色を変えるためのImage
-	UnityEngine.UI.Image m_fishImage;   // アイコンに表示する魚の画像
+	private FishDataEntity m_fishData;          // アイコンに表示するデータ
+	private VisualDictionary m_visualDictionary;// アイコンが所属する図鑑
+	private UnityEngine.UI.Image m_image;       // アイコンを押されたときに色を変えるためのImage
+	private UnityEngine.UI.Image m_fishImage;   // アイコンに表示する魚の画像
 
-	bool isOnClick;
+	private bool m_isOnClick;
 
     private void Awake()
     {
         m_visualDictionary = GetComponentInParent<VisualDictionary>(); // 親のインベントリを取得
 		m_image = GetComponent<UnityEngine.UI.Image>();
 		m_fishImage = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>(); // 子オブジェクトのFishImageを取得
-		isOnClick = false;
+        m_isOnClick = false;
     }
 
 
 	void Update()
 	{
 		// クリックされているとき
-		if (isOnClick)
+		if (m_isOnClick)
 		{
 			m_descriptionText.SetDescription(m_fishData, m_visualDictionary.IsGetFish(m_fishData.id)); // 説明テキストに魚のデータを設定する
 		}
@@ -58,7 +58,7 @@ public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointe
 	}
     public void OnDisable()
     {
-        isOnClick = false;
+        m_isOnClick = false;
 		m_image.color = Color.white;
     }
 
@@ -68,11 +68,11 @@ public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointe
 		// 自分がクリックされたとき
 		if (isClick)
 		{
-			isOnClick = !isOnClick; // クリック状態をトグルする
-			m_image.color = isOnClick ? Color.red : Color.white; // クリック時の処理（例: 色を変える）
+            m_isOnClick = !m_isOnClick; // クリック状態をトグルする
+			m_image.color = m_isOnClick ? Color.blue : Color.white; // クリック時の処理（例: 色を変える）
 
 			// 自分自身をクリックしてクリック状態を解除した場合
-			if (!isOnClick)
+			if (!m_isOnClick)
 			{
 				m_descriptionText.ReSetDescription(); // 説明テキストをリセット
 			}
@@ -80,14 +80,14 @@ public class VisualDictionaryIcon : MonoBehaviour, IPointerClickHandler, IPointe
 		// 他のアイコンがクリックされたとき
 		else
 		{
-			isOnClick = false; // クリック状態を解除
+            m_isOnClick = false; // クリック状態を解除
 			m_image.color = Color.white; // 色を元に戻す
 		}
 	}
 
 	public void SetOnMouse(bool onMouse)
 	{
-		if (isOnClick) return; // クリック状態のときは何もしない
+		if (m_isOnClick) return; // クリック状態のときは何もしない
 
 		// マウスがアイコンの上にあるとき
 		if (onMouse)

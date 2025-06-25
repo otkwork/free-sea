@@ -1,25 +1,25 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-	static List<FishDataEntity> fishDataList = new List<FishDataEntity>();
-	static FishDataEntity clickIconData;
-	[SerializeField] GameObject[] fishDataObjects; // UIに表示するための魚データオブジェクト  
-	ClickIcon[] clickIcons = new ClickIcon[MaxInventorySize]; // 各魚データオブジェクトに対応するクリックアイコン
-
-	const int MaxInventorySize = 25; // 表示インベントリの最大サイズ  
+	[SerializeField] private DescriptionText m_descriptionText;
+	[SerializeField] private GameObject[] m_fishDataObjects; // UIに表示するための魚データオブジェクト  
+	private static List<FishDataEntity> m_fishDataList = new List<FishDataEntity>();
+	private static FishDataEntity m_clickIconData;
+	private ClickIcon[] m_clickIcons = new ClickIcon[MaxInventorySize]; // 各魚データオブジェクトに対応するクリックアイコン
+	
+	private const int MaxInventorySize = 25; // 表示インベントリの最大サイズ  
 
 	private int m_padIconIndex = 0; // パッドの時選択されているアイコンのインデックス
 
 	// Start is called before the first frame update  
 	void Start()
 	{
-		clickIconData = null;
+        m_clickIconData = null;
 		for (int i = 0; i < MaxInventorySize; ++i)
 		{
-			clickIcons[i] = fishDataObjects[i].GetComponent<ClickIcon>();
+            m_clickIcons[i] = m_fishDataObjects[i].GetComponent<ClickIcon>();
 		}
 	}
 
@@ -30,21 +30,21 @@ public class Inventory : MonoBehaviour
 		for (int i = 0; i < MaxInventorySize; ++i)
 		{
 			// 魚のデータがある場合表示する  
-			if (i < fishDataList.Count)
+			if (i < m_fishDataList.Count)
 			{
-				// クリックアイコンにデータを設定する
-				clickIcons[i].SetFishData(fishDataList[i]); // クリックアイコンに魚データを設定
+                // クリックアイコンにデータを設定する
+                m_clickIcons[i].SetFishData(m_fishDataList[i]); // クリックアイコンに魚データを設定
 			}
 			else
 			{
-                clickIcons[i].SetFishData(null);
+                m_clickIcons[i].SetFishData(null);
 			}
 		}
 
 		// 選択中のインデックスのアイコンの色を変える
 		for (int i = 0; i < MaxInventorySize; ++i)
 		{
-			clickIcons[i].SetOnMouse(i == m_padIconIndex);
+            m_clickIcons[i].SetOnMouse(i == m_padIconIndex);
 		}
 
 		SelectIcon(); // パッドでアイコンを選択するメソッドを呼び出す
@@ -73,7 +73,7 @@ public class Inventory : MonoBehaviour
 		// 決定
 		if (InputSystem.GetInputMenuButtonDown("Decide"))
 		{
-			SetClickIcon(fishDataObjects[m_padIconIndex]); // 選択されたアイコンをクリック状態にする
+			SetClickIcon(m_fishDataObjects[m_padIconIndex]); // 選択されたアイコンをクリック状態にする
 		}
 
 		if (InputSystem.GetInputMenuButtonDown("Sell"))
@@ -86,17 +86,17 @@ public class Inventory : MonoBehaviour
 		for (int i = 0; i < MaxInventorySize; ++i)
 		{
 			// 押されたアイコンだけをクリック状態にする
-			if (icon != null && fishDataObjects[i] == icon)
+			if (icon != null && m_fishDataObjects[i] == icon)
 			{
-				clickIcons[i].SetClick(true);
+				m_clickIcons[i].SetClick(true);
 				if (icon.TryGetComponent(out ClickIcon clickIcon))
 				{
-					clickIconData = clickIcon.GetClickData();
+                    m_clickIconData = clickIcon.GetClickData();
                 }
             }
 			else
 			{
-				clickIcons[i].SetClick(false);
+				m_clickIcons[i].SetClick(false);
 			}
 		}
 	}
@@ -106,16 +106,19 @@ public class Inventory : MonoBehaviour
 	static public void AddItem(FishDataEntity item)
 	{
 		// インベントリのサイズが最大に達している場合は追加しない
-		if (fishDataList.Count >= MaxInventorySize) return;
-		fishDataList.Add(item);
+		if (m_fishDataList.Count >= MaxInventorySize) return;
+        m_fishDataList.Add(item);
 	}
 	// アイテムを削除するメソッド  
-	static public void SellItem()
+	public void SellItem()
 	{
-		if (clickIconData == null) return; // インベントリが空の場合は何もしない
-		Money.AddMoney(clickIconData.price);
+		if (m_clickIconData == null) return; // インベントリが空の場合は何もしない
+		Money.AddMoney(m_clickIconData.price);
 
-		fishDataList.Remove(clickIconData);
-		clickIconData = null;
-	}
+        m_fishDataList.Remove(m_clickIconData);
+        m_clickIconData = null;
+
+		SetClickIcon(null); // 選択状態を全部消す
+        m_descriptionText.ReSetDescription();	// 説明文消す
+    }
 }

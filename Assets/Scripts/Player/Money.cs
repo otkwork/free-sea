@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class Money : MonoBehaviour
 {
-    TextMeshProUGUI m_moneyText;
+    private TextMeshProUGUI m_moneyText;
+    
+    private const int StartMoney = 100;
 
-    const int StartMoney = 100;
     static private int m_money;
     private int m_displayMoney;
     // Start is called before the first frame update

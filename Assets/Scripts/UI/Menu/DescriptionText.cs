@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class DescriptionText : MonoBehaviour
 {
-	[SerializeField] Image fishImage;
-	[SerializeField] TextMeshProUGUI fishNameText;
-	[SerializeField] TextMeshProUGUI fishDescriptionText;
+	[SerializeField] Image m_fishImage;
+	[SerializeField] TextMeshProUGUI m_fishNameText;
+	[SerializeField] TextMeshProUGUI m_fishDescriptionText;
 
 	private void Start()
 	{
@@ -15,9 +15,9 @@ public class DescriptionText : MonoBehaviour
 
 	public void ReSetDescription()
 	{
-		fishImage.enabled = false;
-		fishNameText.text = string.Empty;
-		fishDescriptionText.text = string.Empty;
+        m_fishImage.enabled = false;
+        m_fishNameText.text = string.Empty;
+        m_fishDescriptionText.text = string.Empty;
 	}
 
 	public void SetDescription(FishDataEntity fishData, bool isGet = true)
@@ -25,19 +25,19 @@ public class DescriptionText : MonoBehaviour
 		// 魚のデータがnullでない場合のみ表示する
 		if (fishData != null)
 		{
-			fishImage.enabled = true;
-			fishImage.sprite = ImageLoader.LoadSpriteAsync(fishData.fishName).Result;
+            m_fishImage.enabled = true;
+            m_fishImage.sprite = ImageLoader.LoadSpriteAsync(fishData.fishName).Result;
 			if (!isGet)
 			{
-				fishImage.color = Color.black; // 魚を取得していない場合は黒くする
-				fishNameText.text = "???";
-				fishDescriptionText.text = "???"; // 魚を取得していない場合は説明を隠す
+                m_fishImage.color = Color.black; // 魚を取得していない場合は黒くする
+                m_fishNameText.text = "???";
+                m_fishDescriptionText.text = "???"; // 魚を取得していない場合は説明を隠す
 			}
 			else
 			{
-				fishImage.color = Color.white; // 魚を取得している場合は白くする
-				fishNameText.text = fishData.displayName;
-				fishDescriptionText.text = fishData.fishDescription;
+                m_fishImage.color = Color.white; // 魚を取得している場合は白くする
+                m_fishNameText.text = fishData.displayName;
+                m_fishDescriptionText.text = fishData.fishDescription;
 			}
 		}
 		else

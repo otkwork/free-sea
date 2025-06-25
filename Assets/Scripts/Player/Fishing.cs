@@ -1,55 +1,54 @@
-using TreeEditor;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Fishing : MonoBehaviour
 {
-	[SerializeField] Transform playerHead;
-	[SerializeField] GameObject rodFloat;
-	[SerializeField] Animator rodAnime;
-	[SerializeField] GameObject fishingRod;
-	[SerializeField] HitFishMove hitFishMove;
-	FishingRod rod;
-	PlayerController playerController;
+	[SerializeField] private Transform m_playerHead;
+	[SerializeField] private GameObject m_rodFloat;
+	[SerializeField] private Animator m_rodAnime;
+	[SerializeField] private GameObject m_rodGrip;
+	[SerializeField] private HitFishMove m_hitFishMove;
+	private FishingRod m_rod;
+	private PlayerController m_playerController;
 
-	static readonly Vector3 FloatOffset = new Vector3(0, 5, 0); // 浮きを投げるときのオフセット
-	const int HammerId = 100; // ハンマーのID
-	readonly float[] reelSpeed =
+	private static readonly Vector3 FloatOffset = new Vector3(0, 5, 0); // 浮きを投げるときのオフセット
+	private const int HammerId = 100; // ハンマーのID
+	private readonly float[] ReelSpeed =
 	{
 		1.5f,
 		1.0f,
 		0.5f
 	};
 
-	private float rotationY;
-	private float rotationX;
-	private bool isHit;
+	private float m_rotationY;
+	private float m_rotationX;
+	private bool m_isHit;
 
 	// リールの回転を取得するための変数
-	private float lastAngle = 0f;
-	private bool wasActive = false;
+	private float m_lastAngle = 0f;
+	private bool m_wasActive = false;
+
 	// リールを巻いたかどうか
-	private bool isReeling = false;
+	private bool m_isReeling = false;
 
 	private void Awake()
 	{
-		rod = rodFloat.GetComponent<FishingRod>();
-		playerController = GetComponent<PlayerController>();
-		isHit = false;
+        m_rod = m_rodFloat.GetComponent<FishingRod>();
+        m_playerController = GetComponent<PlayerController>();
+        m_isHit = false;
 	}
 
 	void Update()
 	{
 		if (SelectItem.GetItemType() != SelectItem.ItemType.FishingRod)
 		{
-			rodAnime.gameObject.SetActive(false); // 釣り竿を選択していない場合はアニメーションを無効にする
-			rodFloat.SetActive(false); // 浮きを非表示にする
-			rod.FishingEnd(false); // 釣りを終了する
+            m_rodAnime.gameObject.SetActive(false); // 釣り竿を選択していない場合はアニメーションを無効にする
+            m_rodFloat.SetActive(false); // 浮きを非表示にする
+            m_rod.FishingEnd(false); // 釣りを終了する
 			return; // 釣り竿を選択していない場合は何もしない
 		}
 		else
 		{
-			rodAnime.gameObject.SetActive(true); // 釣り竿を選択している場合はアニメーションを有効にする
+            m_rodAnime.gameObject.SetActive(true); // 釣り竿を選択している場合はアニメーションを有効にする
 		}
 
 		if (PlayerController.IsPause()) return; // ポーズ中は何もしない
@@ -57,71 +56,71 @@ public class Fishing : MonoBehaviour
 		if (InputSystem.UseItem())
 		{
 			// 釣り中じゃない場合浮きを飛ばす
-			if (!rod.CanThrow())
+			if (!m_rod.CanThrow())
 			{
-				// 釣り開始
-				rodAnime.SetTrigger("Throw");
-				rodFloat.transform.position = playerHead.position + FloatOffset + transform.forward * -3;
-				rodFloat.SetActive(true);
-				rod.FishingStart(transform.forward);
+                // 釣り開始
+                m_rodAnime.SetTrigger("Throw");
+                m_rodFloat.transform.position = m_playerHead.position + FloatOffset + transform.forward * -3;
+                m_rodFloat.SetActive(true);
+                m_rod.FishingStart(transform.forward);
 			}
 			// 投げている最中じゃなく魚がかかっていないなら浮きを回収する
-			else if(rod.IsFishing() && !isHit)
+			else if(m_rod.IsFishing() && !m_isHit)
 			{
-				rod.FishingEnd(false);
+                m_rod.FishingEnd(false);
 			}
 		}
 
 		
 		// 魚がかかった時用の機構
-        if (isHit)
+        if (m_isHit)
         {
 			// 画面を固定して竿だけ動かせるようにする
 			MouseRod();
 
             // 魚が左右に動いていない時だけリールを巻く
-            if (hitFishMove.GetDir() == 0) Reel();
+            if (m_hitFishMove.GetDir() == 0) Reel();
         }
 	}
 
 	private void MouseRod()
 	{
-		Vector3 bodyTargetPos = new Vector3(rodFloat.transform.position.x, transform.position.y, rodFloat.transform.position.z);
+		Vector3 bodyTargetPos = new Vector3(m_rodFloat.transform.position.x, transform.position.y, m_rodFloat.transform.position.z);
 		transform.LookAt(bodyTargetPos);
 
 		// 2. 頭（bodyの正面から上下のみでターゲットを見る）
 		// 世界空間でターゲットへの方向ベクトル
-		Vector3 dirToTarget = rodFloat.transform.position - playerHead.position;
+		Vector3 dirToTarget = m_rodFloat.transform.position - m_playerHead.position;
 		// bodyのローカル空間に変換
 		Vector3 localDir = transform.InverseTransformDirection(dirToTarget);
 		// X軸回転量を計算
 		float angleX = Mathf.Atan2(-localDir.y, localDir.z) * Mathf.Rad2Deg;
-		// 頭をX軸だけ回転
-		playerHead.localRotation = Quaternion.Euler(angleX, 0f, 0f);
+        // 頭をX軸だけ回転
+        m_playerHead.localRotation = Quaternion.Euler(angleX, 0f, 0f);
 
 		Vector2 mouseInput = InputSystem.CameraGetAxis();
 
-        rotationX -= mouseInput.y;
-        rotationY -= mouseInput.x;
-        rotationX += 0.5f;
-        rotationX = Mathf.Clamp(rotationX, -30, 30);
-        rotationY = Mathf.Clamp(rotationY, -30, 30);
+        m_rotationX -= mouseInput.y;
+        m_rotationY -= mouseInput.x;
+        m_rotationX += 0.5f;
+        m_rotationX = Mathf.Clamp(m_rotationX, -30, 30);
+        m_rotationY = Mathf.Clamp(m_rotationY, -30, 30);
 
         // 頭、体の向きの適用
-        fishingRod.transform.localRotation = Quaternion.Euler(rotationX + 30, 0, rotationY);
+        m_rodGrip.transform.localRotation = Quaternion.Euler(m_rotationX + 30, 0, m_rotationY);
     }
 
 	private void Reel()
 	{
-		isReeling = false;
-		float wh = InputSystem.ReelGetAxis(ref lastAngle, ref  wasActive);
+        m_isReeling = false;
+		float wh = InputSystem.ReelGetAxis(ref m_lastAngle, ref m_wasActive);
         // 巻く速度を調整
-        wh *= reelSpeed[rod.GetFishSize()];
+        wh *= ReelSpeed[m_rod.GetFishSize()];
 
         if (wh < 0)
         {
-            rodFloat.transform.position += (rodFloat.transform.position - transform.position).normalized * wh;
-			isReeling = true;
+            m_rodFloat.transform.position += (m_rodFloat.transform.position - transform.position).normalized * wh;
+            m_isReeling = true;
 		}
     }
 
@@ -141,22 +140,22 @@ public class Fishing : MonoBehaviour
 				SelectItem.SetHammer();
 			}
 		}
-		rodAnime.enabled = true;
-		isHit = false;
-		playerController.SetCamera(true);
-		playerController.SetMove(true);
+        m_rodAnime.enabled = true;
+        m_isHit = false;
+        m_playerController.SetCamera(true);
+        m_playerController.SetMove(true);
 	}
 
 	public bool IsReeling()
 	{
-		return isReeling;
+		return m_isReeling;
 	}
 
 	public void IsHit()
 	{
-		rodAnime.enabled = false;
-		isHit = true;
-		playerController.SetCamera(false);
-		playerController.SetMove(false);
+        m_rodAnime.enabled = false;
+        m_isHit = true;
+        m_playerController.SetCamera(false);
+        m_playerController.SetMove(false);
     }
 }

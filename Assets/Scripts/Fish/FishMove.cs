@@ -1,18 +1,17 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class FishMove : MonoBehaviour
 {
-    [SerializeField] FishingRod rodFloat;
-    const float Speed = 2f;
+    [SerializeField] private FishingRod m_rodFloat;
+    private const float Speed = 2f;
 
-    Vector3 m_startPos;
-	Quaternion m_startRot;
-	Vector3 m_rotation;
-    float m_changeRotation;
-    float m_elapsedTime;
-    bool m_flipFish;
-	bool m_isReturnFish; // 魚が逃げているかどうか
+    private Vector3 m_startPos;
+	private Quaternion m_startRot;
+	private Vector3 m_rotation;
+    private float m_changeRotation;
+    private float m_elapsedTime;
+    private bool m_flipFish;
+    private bool m_isReturnFish; // 魚が逃げているかどうか
 
 	void Start()
     {
@@ -33,11 +32,11 @@ public class FishMove : MonoBehaviour
         // 向いている方向に進む
         transform.position += transform.forward * Speed * Time.deltaTime;
         // 魚がかかったらそれ以外の魚を逃がす
-        if (rodFloat.IsHit() && !m_isReturnFish)
+        if (m_rodFloat.IsHit() && !m_isReturnFish)
         {
 			m_isReturnFish = true; // 魚が逃げている状態にする
 			// ターゲットの位置と自分の位置を基に反対方向を計算
-			Vector3 dir = rodFloat.transform.position - transform.position;
+			Vector3 dir = m_rodFloat.transform.position - transform.position;
 			Vector3 oppositionDir = -dir;
 			oppositionDir = new Vector3(oppositionDir.x, 0, oppositionDir.z).normalized; // 水平方向に限定
 
@@ -49,7 +48,7 @@ public class FishMove : MonoBehaviour
         // 釣り中
         if (m_isReturnFish)
         {
-            if (!rodFloat.IsFishing())
+            if (!m_rodFloat.IsFishing())
             {
                 m_isReturnFish = false;
                 transform.position = m_startPos;
