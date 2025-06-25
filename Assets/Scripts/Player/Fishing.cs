@@ -13,6 +13,7 @@ public class Fishing : MonoBehaviour
 	PlayerController playerController;
 
 	static readonly Vector3 FloatOffset = new Vector3(0, 5, 0); // 浮きを投げるときのオフセット
+	const int HammerId = 100; // ハンマーのID
 	readonly float[] reelSpeed =
 	{
 		1.5f,
@@ -20,15 +21,15 @@ public class Fishing : MonoBehaviour
 		0.5f
 	};
 
-	float rotationY;
-	float rotationX;
-	bool isHit;
+	private float rotationY;
+	private float rotationX;
+	private bool isHit;
 
 	// リールの回転を取得するための変数
-	float lastAngle = 0f;
-	bool wasActive = false;
+	private float lastAngle = 0f;
+	private bool wasActive = false;
 	// リールを巻いたかどうか
-	bool isReeling = false;
+	private bool isReeling = false;
 
 	private void Awake()
 	{
@@ -39,9 +40,21 @@ public class Fishing : MonoBehaviour
 
 	void Update()
 	{
-		if (PlayerController.IsPause()) return; // カーソルが表示されている場合は何もしない(Pause)
+		if (SelectItem.GetItemType() != SelectItem.ItemType.FishingRod)
+		{
+			rodAnime.gameObject.SetActive(false); // 釣り竿を選択していない場合はアニメーションを無効にする
+			rodFloat.SetActive(false); // 浮きを非表示にする
+			rod.FishingEnd(false); // 釣りを終了する
+			return; // 釣り竿を選択していない場合は何もしない
+		}
+		else
+		{
+			rodAnime.gameObject.SetActive(true); // 釣り竿を選択している場合はアニメーションを有効にする
+		}
 
-		if (InputSystem.Fishing())
+		if (PlayerController.IsPause()) return; // ポーズ中は何もしない
+
+		if (InputSystem.UseItem())
 		{
 			// 釣り中じゃない場合浮きを飛ばす
 			if (!rod.CanThrow())
@@ -114,11 +127,19 @@ public class Fishing : MonoBehaviour
 
 	public void FishingEnd(bool isSuccess, FishDataEntity fish)
 	{
-		// 釣り成功
+		// 釣り成功してハンマーのIDじゃない場合
 		if (isSuccess)
 		{
-			Inventory.AddItem(fish);
-			VisualDictionary.AddItem(fish);
+			if (fish.id != HammerId)
+			{
+				Inventory.AddItem(fish);
+				VisualDictionary.AddItem(fish);
+			}
+			// 釣れたのがハンマーの場合
+			else
+			{
+				SelectItem.SetHammer();
+			}
 		}
 		rodAnime.enabled = true;
 		isHit = false;

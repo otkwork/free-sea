@@ -15,8 +15,10 @@ public class FishingRod : MonoBehaviour
 	Rigidbody m_rigidbody;
 	
 	const float NotHitHeight = -1.0f;	// 魚にかかる前の浮きの高さ 
-	const float HitHeight = -1.2f;		// 魚にかかった後の浮きの高さ
-
+	const float HitHeight = -1.2f;      // 魚にかかった後の浮きの高さ
+	const float FishMaxDistance = 75;	// いい魚が釣れる比較距離の最大値
+									  
+	// ポーズ中に保存するための変数
 	private Vector3 savedVelocity;
     private Vector3 savedAngularVelocity;
 	bool m_isPaused;        // ゲームがポーズ中かどうか
@@ -42,7 +44,7 @@ public class FishingRod : MonoBehaviour
 
 	void Update()
 	{
-		//////m_rigidbody.isKinematic = UnityEngine.Cursor.visible; // カーソルが表示されているときは物理演算を無効化
+		if (SelectItem.GetItemType() != SelectItem.ItemType.FishingRod) return; // 釣り竿を選択していない場合は何もしない
 		if (PlayerController.IsPause())
 		{
 			// ポーズ画面に入る時に角度と速度を保存
@@ -156,6 +158,7 @@ public class FishingRod : MonoBehaviour
 
 		FishDataEntity fishData;
 		int randomIndex = Random.Range(0, excelData.fish.Count);
+		randomIndex = 100;
 		fishData = excelData.fish[randomIndex];
 
 		return fishData;
@@ -173,6 +176,7 @@ public class FishingRod : MonoBehaviour
     {
 		m_fishing.FishingEnd(isSuccess, m_fishData);
 		hitFish.FishingEnd();
+		m_isPaused = false; // ポーズ状態をリセット
 		m_throw = false;	// 投げたフラグをリセット
         m_isFishing = false; // 釣り中フラグをリセット
         m_fishData = null; // 魚のデータをリセット

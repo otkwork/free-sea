@@ -32,6 +32,7 @@ public class HitFishMove : MonoBehaviour
 
 	void Update()
 	{
+		if (SelectItem.GetItemType() != SelectItem.ItemType.FishingRod) return; // 釣り竿を選択していない場合は何もしない
 		if (PlayerController.IsPause()) return; // カーソルが表示されている場合は何もしない(Pause)
 
 		if (!isfishing)

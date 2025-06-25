@@ -29,6 +29,7 @@ public class FishingBar : MonoBehaviour
 	void Update()
 	{
 		if (PlayerController.IsPause()) return; // カーソルが表示されている場合は何もしない(Pause)
+		if (SelectItem.GetItemType() != SelectItem.ItemType.FishingRod) return; // 釣り竿を選択していない場合は何もしない
 
 		if (m_rodFloat.IsHit())
 		{

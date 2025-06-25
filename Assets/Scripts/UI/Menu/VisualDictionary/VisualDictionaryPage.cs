@@ -7,19 +7,22 @@ public class VisualDictionaryPage : MonoBehaviour
 	[SerializeField] TextMeshProUGUI pageText; // ページ数を表示するためのテキスト
 
 	const int StartPage = 1; // ページの開始番号
+	int m_fishAmount; // 魚の総数
 	private int m_pageIndex; // 現在のページ数
 
 	private void Awake()
 	{
 		m_pageIndex = StartPage; // 初期ページは1
+		m_fishAmount = excelData.fish.Count - 1; // ハンマーの分を除いた魚の総数
 	}
 
 	private void Update()
 	{
 		// ページ数を更新する
-		int maxPage = excelData.fish.Count % VisualDictionary.MaxInventorySize == 0 ?
-			excelData.fish.Count / VisualDictionary.MaxInventorySize :
-			excelData.fish.Count / VisualDictionary.MaxInventorySize + 1;
+		// ハンマーの分を考慮して-1する
+		int maxPage = m_fishAmount % VisualDictionary.MaxInventorySize == 0 ?
+			m_fishAmount / VisualDictionary.MaxInventorySize :
+			m_fishAmount / VisualDictionary.MaxInventorySize + 1;
 
 		pageText.text = $"{m_pageIndex} / {maxPage}";
 	}

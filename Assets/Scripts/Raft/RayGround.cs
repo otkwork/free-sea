@@ -3,7 +3,8 @@ using UnityEngine;
 public class RayGround : MonoBehaviour
 {
 	[SerializeField] Transform groundParent;
-	[SerializeField] GameObject m_ground;	// 設置する地面オブジェクト
+	[SerializeField] GameObject m_ground;   // 設置する地面オブジェクト
+	[SerializeField] Animator hammerAnime; // ハンマーのアニメーション
 	GameObject[] m_startGround = new GameObject[(int)AroundWall.WallType.Length]; // 初期の地面オブジェクト
 							  
 	// レイの最大距離
@@ -12,6 +13,8 @@ public class RayGround : MonoBehaviour
 
 	private void Start()
 	{
+		hammerAnime.gameObject.SetActive(false); // ハンマーを非表示にする
+
 		for (int i = 0; i < m_startGround.Length; ++i)
 		{
 			m_startGround[i] = groundParent.GetChild(i).gameObject;
@@ -21,10 +24,20 @@ public class RayGround : MonoBehaviour
 
 	void Update()
 	{
+		if (SelectItem.GetItemType() != SelectItem.ItemType.Hammer)
+		{
+			hammerAnime.gameObject.SetActive(false); // ハンマーを選択していない場合は無効にする
+			return; // ハンマーを選択していない場合は何もしない	
+		}
+		else
+		{
+			hammerAnime.gameObject.SetActive(true); // ハンマーを選択している場合は有効にする
+		}
+
 		if (PlayerController.IsPause()) return; // カーソルが表示されている場合は何もしない(Pause)
 		
 		// マウス左クリックでRay発射
-		if (Input.GetMouseButtonDown(0))
+		if (InputSystem.UseItem())
 		{
 			CheckRay();
 		}
@@ -51,7 +64,8 @@ public class RayGround : MonoBehaviour
 
 			if (hasNeighbor)
 			{
-			    GameObject ground = Instantiate(m_ground, new Vector3(gridPos.x, SetGroundHeight, gridPos.y), Quaternion.identity, groundParent);
+				hammerAnime.SetTrigger("Create"); // ハンマーのアニメーションを再生
+				GameObject ground = Instantiate(m_ground, new Vector3(gridPos.x, SetGroundHeight, gridPos.y), Quaternion.identity, groundParent);
 				GridObjectManager.AddObject(gridPos, ground); // グリッド座標に地面オブジェクトを登録
 			}
 			else

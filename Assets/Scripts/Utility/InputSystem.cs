@@ -76,13 +76,12 @@ public class InputSystem : MonoBehaviour
 	}
 
 	// メインアイテムの使用
-	static public bool Fishing()
+	static public bool UseItem()
 	{
-		//var mouseCurrent = Mouse.current;
-		var keyCurrent = Keyboard.current;
+		var mouseCurrent = Mouse.current;
 		var padCurrent = Gamepad.current;
 
-		if (keyCurrent != null && keyCurrent.fKey.wasPressedThisFrame ||
+		if (mouseCurrent != null && mouseCurrent.leftButton.wasPressedThisFrame ||
 			padCurrent != null && padCurrent.rightTrigger.wasPressedThisFrame)
 		{
 			return true;

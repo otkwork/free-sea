@@ -71,7 +71,7 @@ public class GridObjectManager
 	}
 
 
-	public static int OddRound(float value)
+	static public int OddRound(float value)
 	{
 		int rounded = Mathf.RoundToInt(value);
 		// ‹ô”‚È‚ç1‘«‚µ‚ÄŠï”‰»i‚Ü‚½‚Í-1‚Å‚àOKj
