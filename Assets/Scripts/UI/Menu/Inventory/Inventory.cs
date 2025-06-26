@@ -101,13 +101,12 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-
 	// アイテムを追加するメソッド  
-	static public void AddItem(FishDataEntity item)
+	static public void AddItem(FishDataEntity fish)
 	{
 		// インベントリのサイズが最大に達している場合は追加しない
 		if (m_fishDataList.Count >= MaxInventorySize) return;
-        m_fishDataList.Add(item);
+        m_fishDataList.Add(fish);
 	}
 	// アイテムを削除するメソッド  
 	public void SellItem()

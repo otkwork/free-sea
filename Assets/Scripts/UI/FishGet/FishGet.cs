@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public class FishGet : MonoBehaviour
 {
@@ -32,14 +33,15 @@ public class FishGet : MonoBehaviour
 				m_elapsedTime = 0.0f;
 				m_backGround.SetActive(false);
 			}
-		}
-	}
+        }
+    }
 
 	public void FishingEnd(FishDataEntity fishData)
 	{
-		m_isActive = true;
+        m_isActive = true;
 		m_backGround.SetActive(true);
-		m_fishImage.sprite = ImageLoader.LoadSpriteAsync(fishData.fishName).Result;
+		ImageLoader.LoadSpriteAsync(fishData.fishName).Completed += op =>
+        m_fishImage.sprite = op.Result;
 		m_fishName.text = fishData.displayName;
 	}
 }

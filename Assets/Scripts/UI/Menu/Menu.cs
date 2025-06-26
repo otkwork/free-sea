@@ -16,22 +16,14 @@ public class Menu : MonoBehaviour
 
     private void Awake()
     {
-		for (int i = 0; i < (int)MenuType.Length; ++i)
-		{
-			m_menuPage[i].SetActive(true);
-		}
-	}
+        for (int i = 0; i < (int)MenuType.Length; ++i)
+        {
+            m_menuPage[i].SetActive(false);
+        }
+        m_menuPage[(int)m_startMenu].SetActive(true);
+    }
 
-	private void Start()
-	{
-		for (int i = 0; i < (int)MenuType.Length; ++i)
-		{
-			m_menuPage[i].SetActive(false);
-		}
-		m_menuPage[(int)m_startMenu].SetActive(true);
-	}
-
-	private void Update()
+    private void Update()
 	{
 		if (InputSystem.GetInputMenuButtonDown("LB"))
 		{

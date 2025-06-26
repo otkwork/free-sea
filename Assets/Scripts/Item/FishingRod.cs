@@ -155,6 +155,7 @@ public class FishingRod : MonoBehaviour
 
 		// ˆê”Ô—£‚ê‚Ä‚¢‚é•ûŒü‚ðŽæ“¾
 		float maxDir = Mathf.Max(Mathf.Abs(transform.position.x), Mathf.Abs(transform.position.z));
+		if (maxDir >= FishMaxDistance) maxDir = FishMaxDistance;
 
 		int fishMaxNum = MaxFishData / (int)(FishMaxDistance / maxDir);
 		if (fishMaxNum > MaxFishData) fishMaxNum = MaxFishData;
