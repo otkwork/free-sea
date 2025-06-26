@@ -1,3 +1,6 @@
+using System.Runtime.CompilerServices;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RayGround : MonoBehaviour
@@ -11,9 +14,12 @@ public class RayGround : MonoBehaviour
 	private const float RayDistance = 10f;
 	private const float SetGroundHeight = -0.8f; // 設置する地面の高さ（Y座標）
 
+	private static int m_haveGround;	// 所持しているいかだの数
+
 	private void Start()
 	{
         m_hammerAnime.gameObject.SetActive(false); // ハンマーを非表示にする
+		m_haveGround = 0; // 所持しているいかだの数を初期化
 
 		for (int i = 0; i < m_startGround.Length; ++i)
 		{
@@ -37,7 +43,7 @@ public class RayGround : MonoBehaviour
 		if (PlayerController.IsPause()) return; // カーソルが表示されている場合は何もしない(Pause)
 		
 		// マウス左クリックでRay発射
-		if (InputSystem.UseItem())
+		if (InputSystem.UseItem() && m_haveGround > 0)
 		{
 			CheckRay();
 		}
@@ -67,17 +73,20 @@ public class RayGround : MonoBehaviour
                 m_hammerAnime.SetTrigger("Create"); // ハンマーのアニメーションを再生
 				GameObject ground = Instantiate(m_ground, new Vector3(gridPos.x, SetGroundHeight, gridPos.y), Quaternion.identity, m_groundParent);
 				GridObjectManager.AddObject(gridPos, ground); // グリッド座標に地面オブジェクトを登録
+				m_haveGround--; // 所持しているいかだの数を減らす
 			}
-			else
-			{
-				Debug.Log($"グリッド座標 {gridPos} の上下左右にオブジェクトはありません");
-			}
-		}
-		else
-		{
-			Debug.Log("Rayがオブジェクトにヒットしませんでした");
 		}
 
 		Debug.DrawRay(ray.origin, ray.direction * RayDistance, Color.blue, 2f); // Rayを可視化
+	}
+
+	static public void AddGround(int num)
+	{
+		m_haveGround += num; // 所持しているいかだの数を増やす
+	}
+
+	static public int GetHaveGround()
+	{
+		return m_haveGround;	// 所持しているいかだの数を返す
 	}
 }

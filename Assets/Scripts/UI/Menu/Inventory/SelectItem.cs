@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +15,9 @@ public class SelectItem : MonoBehaviour
 	}
 	
 	[SerializeField] private SelectItemIcon[] m_selectItem; // アイテムの画像を格納する配列
+	[SerializeField] private TextMeshProUGUI m_haveGourndText; // 所持しているいかだの数を表示するテキスト
+	
+	private const int MaxDisplayNum = 99999; // 表示上限の定数
 
 	static private int m_selectItemIndex;
 	static private bool m_isHaveHammer; // ハンマーを持っているかどうか
@@ -26,6 +31,15 @@ public class SelectItem : MonoBehaviour
 		{
 			m_selectItem[i].SetClick(m_selectItem[i].GetItemType() == (ItemType)m_selectItemIndex); // 初期状態で釣り竿を選択状態にする
 		}
+	}
+
+	private void Update()
+	{
+		int displayNum = RayGround.GetHaveGround(); // 所持しているいかだの数を取得
+		
+		// 表示上限を超えた場合表示を99999にする
+		if (displayNum > MaxDisplayNum) displayNum = MaxDisplayNum;
+		m_haveGourndText.text = "×\n" + displayNum.ToString(); // 所持しているいかだの数を更新
 	}
 
 	public void Select(GameObject icon)

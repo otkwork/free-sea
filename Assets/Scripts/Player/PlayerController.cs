@@ -26,11 +26,11 @@ public class PlayerController : MonoBehaviour
 		// フレームレートを60に固定
 		Application.targetFrameRate = 60;
         m_characterController = GetComponent<CharacterController>();
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
         m_canCamera = true; // カメラ操作可能にする
         m_canMove = true;   // 移動可能にする
-        m_pause = true;
+        m_pause = false;
 	}
 
 	void FixedUpdate()

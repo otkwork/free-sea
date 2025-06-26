@@ -7,6 +7,7 @@ public class Fishing : MonoBehaviour
 	[SerializeField] private Animator m_rodAnime;
 	[SerializeField] private GameObject m_rodGrip;
 	[SerializeField] private HitFishMove m_hitFishMove;
+	[SerializeField] private FishGet m_fishGet;  // 釣り成功時に画面に表示する魚の情報を管理するスクリプト
 	private FishingRod m_rod;
 	private PlayerController m_playerController;
 
@@ -129,6 +130,9 @@ public class Fishing : MonoBehaviour
 		// 釣り成功してハンマーのIDじゃない場合
 		if (isSuccess)
 		{
+			// 画面に表示する
+			m_fishGet.FishingEnd(fish);
+
 			if (fish.id != HammerId)
 			{
 				Inventory.AddItem(fish);

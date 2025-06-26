@@ -4,9 +4,10 @@ using UnityEngine.UI;
 
 public class DescriptionText : MonoBehaviour
 {
-	[SerializeField] Image m_fishImage;
-	[SerializeField] TextMeshProUGUI m_fishNameText;
-	[SerializeField] TextMeshProUGUI m_fishDescriptionText;
+	[SerializeField] private Image m_fishImage;
+	[SerializeField] private TextMeshProUGUI m_fishNameText;
+	[SerializeField] private TextMeshProUGUI m_fishPriceText;
+	[SerializeField] private TextMeshProUGUI m_fishDescriptionText;
 
 	private void Start()
 	{
@@ -17,7 +18,8 @@ public class DescriptionText : MonoBehaviour
 	{
         m_fishImage.enabled = false;
         m_fishNameText.text = string.Empty;
-        m_fishDescriptionText.text = string.Empty;
+		m_fishPriceText.text = string.Empty; // 価格のテキストもリセット
+		m_fishDescriptionText.text = string.Empty;
 	}
 
 	public void SetDescription(FishDataEntity fishData, bool isGet = true)
@@ -31,13 +33,15 @@ public class DescriptionText : MonoBehaviour
 			{
                 m_fishImage.color = Color.black; // 魚を取得していない場合は黒くする
                 m_fishNameText.text = "???";
-                m_fishDescriptionText.text = "???"; // 魚を取得していない場合は説明を隠す
+				m_fishPriceText.text = "???"; // 価格も隠す
+				m_fishDescriptionText.text = "???"; // 魚を取得していない場合は説明を隠す
 			}
 			else
 			{
                 m_fishImage.color = Color.white; // 魚を取得している場合は白くする
                 m_fishNameText.text = fishData.displayName;
-                m_fishDescriptionText.text = fishData.fishDescription;
+				m_fishPriceText.text = "$" + fishData.price.ToString(); // 価格を表示
+				m_fishDescriptionText.text = fishData.fishDescription;
 			}
 		}
 		else

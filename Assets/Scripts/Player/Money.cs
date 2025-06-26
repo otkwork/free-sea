@@ -27,7 +27,7 @@ public class Money : MonoBehaviour
             // ·Šz‚Ì‘å‚«‚³‚É‚æ‚Á‚Ä‰ÁZ—Ê‚ğ•Ï‚¦‚é
             m_displayMoney += m_displayMoney < m_money ? 1 : -1;
         }
-        m_moneyText.text = m_displayMoney.ToString();
+        m_moneyText.text = "$" + m_displayMoney.ToString();
     }
 
     static public void AddMoney(int value)
@@ -40,8 +40,8 @@ public class Money : MonoBehaviour
         m_money -= value;
     }
 
-    static public int money
-    {
-        get { return m_money; }
-    }
+    static public int GetMoney()
+	{
+        return m_money;
+	}
 }
