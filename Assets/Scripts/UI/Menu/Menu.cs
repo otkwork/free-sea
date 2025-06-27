@@ -28,16 +28,12 @@ public class Menu : MonoBehaviour
 		if (InputSystem.GetInputMenuButtonDown("LB"))
 		{
 			// 左ボタンで前のページへ
-			MenuType type = (MenuType)(((int)m_startMenu - 1 + (int)MenuType.Length) % (int)MenuType.Length);
-			SetMenu(type);
-			m_startMenu = type;
+			LeftPage();
 		}
 		else if (InputSystem.GetInputMenuButtonDown("RB"))
 		{
 			// 右ボタンで次のページへ
-			MenuType type = (MenuType)(((int)m_startMenu + 1) % (int)MenuType.Length);
-			SetMenu(type);
-			m_startMenu = type;
+			RightPage();
 		}
 	}
 
@@ -48,5 +44,20 @@ public class Menu : MonoBehaviour
             // 選択したページ以外をfalseにする
             m_menuPage[i].SetActive(type == (MenuType)i);
         }
-    }
+		m_startMenu = type; // 現在のページを更新
+	}
+
+	public void RightPage()
+	{
+		MenuType type = (MenuType)(((int)m_startMenu + 1) % (int)MenuType.Length);
+		SetMenu(type);
+		m_startMenu = type;
+	}
+
+	public void LeftPage()
+	{
+		MenuType type = (MenuType)(((int)m_startMenu - 1 + (int)MenuType.Length) % (int)MenuType.Length);
+		SetMenu(type);
+		m_startMenu = type;
+	}
 }

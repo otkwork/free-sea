@@ -1,5 +1,7 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class InputSystem : MonoBehaviour
 {
@@ -156,35 +158,39 @@ public class InputSystem : MonoBehaviour
         var padCurrent = Gamepad.current;
         var key = Keyboard.current;
 
-        // パッド優先、つながっていればキーボードは無視
+        // パッド
         if (padCurrent != null)
         {
             var dpad = padCurrent.dpad;
 
             if (dpad.left.wasPressedThisFrame && isButton == "Left") return true;
-            if (dpad.right.wasPressedThisFrame && isButton == "Right") return true;
-            if (dpad.up.wasPressedThisFrame && isButton == "Up") return true;
-            if (dpad.down.wasPressedThisFrame && isButton == "Down") return true;
-            if (padCurrent.buttonSouth.wasPressedThisFrame && isButton == "Decide") return true;
-            if (padCurrent.buttonEast.wasPressedThisFrame && isButton == "Next") return true;
-            if (padCurrent.buttonWest.wasPressedThisFrame && isButton == "Prev") return true;
-            if (padCurrent.leftShoulder.wasPressedThisFrame && isButton == "LB") return true;
-            if (padCurrent.rightShoulder.wasPressedThisFrame && isButton == "RB") return true;
-			if (padCurrent.buttonNorth.wasPressedThisFrame && isButton == "Sell") return true;
-        }
-        // パッドがないときだけキーボードを見る
+			else if (dpad.right.wasPressedThisFrame && isButton == "Right") return true;
+			else if (dpad.up.wasPressedThisFrame && isButton == "Up") return true;
+			else if (dpad.down.wasPressedThisFrame && isButton == "Down") return true;
+			else if (padCurrent.buttonSouth.wasPressedThisFrame && isButton == "Decide") return true;
+			else if (padCurrent.rightShoulder.wasPressedThisFrame && isButton == "Next") return true;
+			else if (padCurrent.leftShoulder.wasPressedThisFrame && isButton == "Prev") return true;
+			else if (padCurrent.leftTrigger.wasPressedThisFrame && isButton == "LB") return true;
+			else if (padCurrent.rightTrigger.wasPressedThisFrame && isButton == "RB") return true;
+			else if (padCurrent.buttonNorth.wasPressedThisFrame && isButton == "Sell") return true;
+			else if (padCurrent.buttonEast.wasPressedThisFrame && isButton == "ChangeItem") return true;
+			else if (padCurrent.allControls.Any(c => c is ButtonControl button && button.wasPressedThisFrame) && isButton == "Any") return true;
+		}
+        // キーボード
         if (key != null)
         {
             if (key.leftArrowKey.wasPressedThisFrame && isButton == "Left") return true;
-            if (key.rightArrowKey.wasPressedThisFrame && isButton == "Right") return true;
-            if (key.upArrowKey.wasPressedThisFrame && isButton == "Up") return true;
-            if (key.downArrowKey.wasPressedThisFrame && isButton == "Down") return true;
-            if (key.enterKey.wasPressedThisFrame && isButton == "Decide") return true;
-            if (key.dKey.wasPressedThisFrame && isButton == "Next") return true;
-            if (key.aKey.wasPressedThisFrame && isButton == "Prev") return true;
-            if (key.qKey.wasPressedThisFrame && isButton == "LB") return true;
-            if (key.eKey.wasPressedThisFrame && isButton == "RB") return true;
-			if (key.xKey.wasPressedThisFrame && isButton == "Sell") return true;
+			else if (key.rightArrowKey.wasPressedThisFrame && isButton == "Right") return true;
+			else if (key.upArrowKey.wasPressedThisFrame && isButton == "Up") return true;
+			else if (key.downArrowKey.wasPressedThisFrame && isButton == "Down") return true;
+			else if (key.enterKey.wasPressedThisFrame && isButton == "Decide") return true;
+			else if (key.dKey.wasPressedThisFrame && isButton == "Next") return true;
+			else if (key.aKey.wasPressedThisFrame && isButton == "Prev") return true;
+			else if (key.qKey.wasPressedThisFrame && isButton == "LB") return true;
+			else if (key.eKey.wasPressedThisFrame && isButton == "RB") return true;
+			else if (key.xKey.wasPressedThisFrame && isButton == "Sell") return true;
+			else if (key.cKey.wasPressedThisFrame && isButton == "ChangeItem") return true;
+			else if (key.anyKey.wasPressedThisFrame && isButton == "Any") return true; // 任意のキーが押された場合
 		}
 
         return false;

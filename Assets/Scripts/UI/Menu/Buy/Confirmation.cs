@@ -4,7 +4,7 @@ public class Confirmation : MonoBehaviour
 {
 	[SerializeField] private GameObject m_confirmationPanel; // 確認パネルのGameObject
 
-	private bool m_isPanelOpen; // パネルが開いているかどうかのフラグ
+	private static bool m_isPanelOpen; // パネルが開いているかどうかのフラグ
 
 	// Start is called before the first frame update
 	void Start()

@@ -75,7 +75,7 @@ public class HitFishMove : MonoBehaviour
             // ‰¡ˆÚ“®’†‚Ìˆ—
             m_elapsedTime += Time.deltaTime;
 
-            m_targetLateralPos = basePos + Vector3.right * m_lateralDir * m_lateralMoveDistance;
+            m_targetLateralPos = basePos + transform.right * m_lateralDir * m_lateralMoveDistance;
             m_targetLateralPos.y = basePos.y; // ‚‚³‚ÍŠî€ˆÊ’u‚Æ“¯‚¶‚É‚·‚é
 			
 			// ‰¡•ûŒü‚ÉˆÚ“®

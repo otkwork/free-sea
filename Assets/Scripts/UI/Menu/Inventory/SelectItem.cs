@@ -40,6 +40,19 @@ public class SelectItem : MonoBehaviour
 		// 表示上限を超えた場合表示を99999にする
 		if (displayNum > MaxDisplayNum) displayNum = MaxDisplayNum;
 		m_haveGourndText.text = "×\n" + displayNum.ToString(); // 所持しているいかだの数を更新
+
+		if (InputSystem.GetInputMenuButtonDown("ChangeItem"))
+		{
+			// 今選択しているアイテムと違うアイテムを選択する
+			m_selectItemIndex = m_selectItemIndex == (int)ItemType.FishingRod ? 
+				(int)ItemType.Hammer : 
+				(int)ItemType.FishingRod;
+			
+			for (int i = 0; i < (int)ItemType.Length; i++)
+			{
+				m_selectItem[i].SetClick(m_selectItemIndex == i); // 選択したアイテムをハイライト
+			}
+		}
 	}
 
 	public void Select(GameObject icon)

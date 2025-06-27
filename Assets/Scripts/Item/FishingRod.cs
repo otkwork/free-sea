@@ -18,13 +18,13 @@ public class FishingRod : MonoBehaviour
     private const int MaxFishData = 100; // 魚の最大数
 
     // ポーズ中に保存するための変数
+	static private bool m_isFishing;       // 釣り中かどうか
     private Vector3 m_savedVelocity;
     private Vector3 m_savedAngularVelocity;
 	private float m_hitTime;		// 魚ヒットするまでの時間
 	private float m_elapsedTime;
 	private bool m_isPaused;        // ゲームがポーズ中かどうか
 	private bool m_throw;			// 浮きを投げたているかどうか
-	private bool m_isFishing;       // 釣り中かどうか
 	private bool m_isHit;          // 魚にヒットしたかどうか
 	private bool m_setDistance;		// プレイヤーとの距離を調整するためのフラグ
 
@@ -143,9 +143,15 @@ public class FishingRod : MonoBehaviour
 			SetHitTime();
 		}
 
-		if (other.transform.CompareTag("Player"))
+		if (other.transform.CompareTag("Wall"))
 		{
-			FishingEnd(m_isHit); // プレイヤーに当たったら釣りを終了
+			FishingEnd(false); // プレイヤーに当たったら釣りを終了
+		}
+
+		// まだ釣りが始まっていないときにいかだに当たったら
+		if (other.transform.CompareTag("raft") && !m_isFishing)
+		{
+			FishingEnd(false);
 		}
 	}
 
@@ -191,7 +197,7 @@ public class FishingRod : MonoBehaviour
 		m_rigidbody.velocity = Vector3.zero;	// AddForceを0に戻す
     }
 
-	public bool IsFishing()
+	static public bool IsFishing()
 	{
 		return m_isFishing;
 	}

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sea
   - raft
+  - Wall
   layers:
   - Default
   - TransparentFX

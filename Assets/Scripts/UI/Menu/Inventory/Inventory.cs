@@ -81,6 +81,7 @@ public class Inventory : MonoBehaviour
 			SellItem(); // ƒAƒCƒeƒ€‚ð”„‚é
 		}
 	}
+
 	public void SetClickIcon(GameObject icon)
 	{
 		for (int i = 0; i < MaxInventorySize; ++i)

@@ -48,7 +48,7 @@ public class FishMove : MonoBehaviour
         // �ނ蒆
         if (m_isReturnFish)
         {
-            if (!m_rodFloat.IsFishing())
+            if (!FishingRod.IsFishing())
             {
                 m_isReturnFish = false;
                 transform.position = m_startPos;

@@ -66,7 +66,7 @@ public class Fishing : MonoBehaviour
                 m_rod.FishingStart(transform.forward);
 			}
 			// “Š‚°‚Ä‚¢‚éÅ’†‚¶‚á‚È‚­‹›‚ª‚©‚©‚Á‚Ä‚¢‚È‚¢‚È‚ç•‚‚«‚ğ‰ñû‚·‚é
-			else if(m_rod.IsFishing() && !m_isHit)
+			else if(FishingRod.IsFishing() && !m_isHit)
 			{
                 m_rod.FishingEnd(false);
 			}

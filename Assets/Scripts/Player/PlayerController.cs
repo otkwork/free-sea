@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 		EndGame();
 
 		// Tabキーoptionが押されたらポーズ画面を表示/非表示にする
-		if (InputSystem.Pause())
+		if (!FishingRod.IsFishing() && InputSystem.Pause())
 		{
             m_pause = !m_pause;
 			
