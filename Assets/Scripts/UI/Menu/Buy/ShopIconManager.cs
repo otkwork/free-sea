@@ -5,6 +5,8 @@ public class ShopIconManager : MonoBehaviour
 {
 	[SerializeField] private GameObject[] m_shopIcon;
 	[SerializeField] private GameObject m_confirmation;
+	[SerializeField] private AudioClip m_selectIconSe;
+	[SerializeField] private AudioClip m_clickIconSe;
 	private ShopClick[] m_clickIcons = new ShopClick[ShopIconAmount]; // 各魚データオブジェクトに対応するクリックアイコン
 
 	private const int ShopIconAmount = 3; // ショップアイコンの数
@@ -46,10 +48,12 @@ public class ShopIconManager : MonoBehaviour
 		// パッドの入力によるアイコン選択
 		if (InputSystem.GetInputMenuButtonDown("Left"))
 		{
+			SoundEffect.Play2D(m_selectIconSe);
 			m_padIconIndex = (m_padIconIndex - 1 + ShopIconAmount) % ShopIconAmount; // 左に移動
 		}
 		else if (InputSystem.GetInputMenuButtonDown("Right"))
 		{
+			SoundEffect.Play2D(m_selectIconSe);
 			m_padIconIndex = (m_padIconIndex + 1) % ShopIconAmount; // 右に移動
 		}
 
@@ -66,6 +70,7 @@ public class ShopIconManager : MonoBehaviour
 		{
 			// 押されたアイコンだけをクリック状態にする
 			m_clickIcons[i].SetClick(icon != null && m_shopIcon[i] == icon);
-		}
-	}
+        }
+        SoundEffect.Play2D(m_clickIconSe);
+    }
 }

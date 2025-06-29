@@ -8,7 +8,10 @@ public class VisualDictionary : MonoBehaviour
 	[SerializeField] private VisualDictionaryPage m_page; // ページ管理のためのVisualDictionaryPageスクリプト
 	[SerializeField] private DescriptionText m_descriptionText; // 説明テキストを表示するためのDescriptionTextスクリプト
 	[SerializeField] private bool m_isDebugFishData = false; // デバッグモードのフラグ
-	private VisualDictionaryIcon[] m_clickIcons = new VisualDictionaryIcon[MaxInventorySize]; // 各魚データオブジェクトに対応するクリックアイコン
+	[SerializeField] private AudioClip m_pageChange;
+    [SerializeField] private AudioClip m_selectIconSe;
+    [SerializeField] private AudioClip m_clickIconSe;
+    private VisualDictionaryIcon[] m_clickIcons = new VisualDictionaryIcon[MaxInventorySize]; // 各魚データオブジェクトに対応するクリックアイコン
 	private Image[] m_iconFishImage = new Image[MaxInventorySize]; // 各アイコンに表示する魚の画像
 
 	public const int MaxInventorySize = 25; // 表示インベントリの最大サイズ
@@ -74,19 +77,23 @@ public class VisualDictionary : MonoBehaviour
 		// パッドの入力によるアイコン選択
 		if (InputSystem.GetInputMenuButtonDown("Up"))
 		{
+			SoundEffect.Play2D(m_selectIconSe);
 			m_padIconIndex = (m_padIconIndex - 5 + MaxInventorySize) % MaxInventorySize; // 上に移動
 		}
 		else if (InputSystem.GetInputMenuButtonDown("Down"))
-		{
-			m_padIconIndex = (m_padIconIndex + 5) % MaxInventorySize; // 下に移動
+        {
+            SoundEffect.Play2D(m_selectIconSe);
+            m_padIconIndex = (m_padIconIndex + 5) % MaxInventorySize; // 下に移動
 		}
 		else if (InputSystem.GetInputMenuButtonDown("Left"))
-		{
-			m_padIconIndex = (m_padIconIndex - 1 + MaxInventorySize) % MaxInventorySize; // 左に移動
+        {
+            SoundEffect.Play2D(m_selectIconSe);
+            m_padIconIndex = (m_padIconIndex - 1 + MaxInventorySize) % MaxInventorySize; // 左に移動
 		}
 		else if (InputSystem.GetInputMenuButtonDown("Right"))
-		{
-			m_padIconIndex = (m_padIconIndex + 1) % MaxInventorySize; // 右に移動
+        {
+            SoundEffect.Play2D(m_selectIconSe);
+            m_padIconIndex = (m_padIconIndex + 1) % MaxInventorySize; // 右に移動
 		}
 
 		// 決定
@@ -97,15 +104,17 @@ public class VisualDictionary : MonoBehaviour
 
 		// 次のページへ
 		if (InputSystem.GetInputMenuButtonDown("Next"))
-		{
-			m_page.NextPage(); // 次のページへ移動
+        {
+            SoundEffect.Play2D(m_pageChange);
+            m_page.NextPage(); // 次のページへ移動
 			m_padIconIndex = 0; // アイコン選択をリセット
 		}
 
 		// 前のページへ
 		if (InputSystem.GetInputMenuButtonDown("Prev"))
-		{
-			m_page.PrevPage(); // 前のページへ移動
+        {
+            SoundEffect.Play2D(m_pageChange);
+            m_page.PrevPage(); // 前のページへ移動
 			m_padIconIndex = 0; // アイコン選択をリセット
 		}
 	}
@@ -117,8 +126,13 @@ public class VisualDictionary : MonoBehaviour
             // 押されたアイコンだけをクリック状態にする
             m_clickIcons[i].SetClick(icon != null && m_fishDataObjects[i] == icon);
 		}
-		if (icon == null) m_descriptionText.ReSetDescription();
-	}
+		if (icon == null)
+		{
+			m_descriptionText.ReSetDescription();
+			return;
+		}
+		SoundEffect.Play2D(m_clickIconSe);
+    }
 
 
 	// アイテムを追加するメソッド  

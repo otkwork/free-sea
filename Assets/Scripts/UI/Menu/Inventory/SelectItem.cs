@@ -16,8 +16,8 @@ public class SelectItem : MonoBehaviour
 	
 	[SerializeField] private SelectItemIcon[] m_selectItem; // アイテムの画像を格納する配列
 	[SerializeField] private TextMeshProUGUI m_haveGourndText; // 所持しているいかだの数を表示するテキスト
-	
-	private const int MaxDisplayNum = 99999; // 表示上限の定数
+
+    private const int MaxDisplayNum = 99999; // 表示上限の定数
 
 	static private int m_selectItemIndex;
 	static private bool m_isHaveHammer; // ハンマーを持っているかどうか

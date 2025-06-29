@@ -2,12 +2,16 @@ using UnityEngine;
 
 public class FishingRod : MonoBehaviour
 {
+	[SerializeField] private GameSound m_sound;
 	[SerializeField] private GameObject m_player;
 	[SerializeField] private ExcelData m_excelData;
 	[SerializeField] private HitFishMove m_hitFish; // かかった魚の動きのスクリプト
 	[SerializeField] private float m_fishEndDistance = 3; // プレイヤーとの距離がこれ以上近づいたら釣りを終了する距離
 	[SerializeField] private float m_fishStartDistance = 15; // 釣り開始時は必ずこれ以上の距離から始まるようにする
 	[SerializeField] private float m_fishStartMoveSpeed = 7; // 釣り開始時にプレイヤーから離れる速度
+	[SerializeField] private AudioClip m_waterSe; // 着水音
+	[SerializeField] private AudioClip m_hitSe;
+	[SerializeField] private AudioClip m_hitVoice;
 	private Fishing m_fishing;
 	private FishDataEntity m_fishData;
 	private Rigidbody m_rigidbody;
@@ -86,6 +90,9 @@ public class FishingRod : MonoBehaviour
 				m_isHit = true;
 				m_fishing.IsHit();
                 m_hitFish.IsHit();
+				m_sound.ChangeBGM(true);
+				SoundEffect.Play2D(m_hitSe, false, 0.5f);
+				SoundEffect.Play2D(m_hitVoice);
 			}
 			float RodHeight = m_isHit ? HitHeight : NotHitHeight;
 
@@ -134,6 +141,7 @@ public class FishingRod : MonoBehaviour
 		if (m_throw && other.transform.CompareTag("Sea"))
 		{
 			// 動きを止めて、魚のデータを取得
+			SoundEffect.Play2D(m_waterSe);
 			m_throw = false;
 			m_rigidbody.isKinematic = true;
 			m_rigidbody.useGravity = false; // 重力を無効化
@@ -183,7 +191,7 @@ public class FishingRod : MonoBehaviour
 
 	public void FishingEnd(bool isSuccess)
     {
-		m_fishing.FishingEnd(isSuccess, m_fishData);
+		if(m_isHit) m_fishing.FishingEnd(isSuccess, m_fishData);
         m_hitFish.FishingEnd();
 		m_isPaused = false; // ポーズ状態をリセット
 		m_throw = false;	// 投げたフラグをリセット
@@ -194,7 +202,8 @@ public class FishingRod : MonoBehaviour
         m_rigidbody.isKinematic = false; // 浮きを動かせるように戻す
 		m_rigidbody.useGravity = true; // 重力を有効化
 		gameObject.SetActive(false); // 浮きを消す
-		m_rigidbody.velocity = Vector3.zero;	// AddForceを0に戻す
+		m_rigidbody.velocity = Vector3.zero;    // AddForceを0に戻す
+        if (m_isHit) m_sound.ChangeBGM(false);
     }
 
 	static public bool IsFishing()

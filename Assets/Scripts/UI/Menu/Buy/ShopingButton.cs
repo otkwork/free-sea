@@ -7,7 +7,10 @@ public class ShopingButton : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 	[SerializeField] private ConfirmationPanel m_confirmationPanel; // 確認パネルへの参照
 	[SerializeField] private GameObject m_panel; // 確認パネルのGameObjectへの参照
 	[SerializeField] private ButtonType m_buttonType; // ボタンの種類（Yes/No）
-	private Image m_image; // アイコンのImageコンポーネントへの参照
+	[SerializeField] private AudioClip m_failureBuySe;
+	[SerializeField] private AudioClip m_buySe;
+
+    private Image m_image; // アイコンのImageコンポーネントへの参照
 
 	private bool m_isOnClick = false; // クリック状態を管理するフラグ
 
@@ -84,7 +87,12 @@ public class ShopingButton : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 		// 購入
 		if (m_buttonType == ButtonType.Yes)
 		{
-			if (Money.GetMoney() < m_confirmationPanel.GetPrice()) return; // 所持金が足りない場合は何もしない
+			if (Money.GetMoney() < m_confirmationPanel.GetPrice())
+			{
+				SoundEffect.Play2D(m_failureBuySe);
+				return; // 所持金が足りない場合は何もしない
+			}
+			SoundEffect.Play2D(m_buySe);
 			Money.UseMoney(m_confirmationPanel.GetPrice()); // 確認パネルから価格を取得してお金を使用
 			RayGround.AddGround(m_confirmationPanel.GetAmount()); // 確認パネルから数量を取得して地面を追加
 		}

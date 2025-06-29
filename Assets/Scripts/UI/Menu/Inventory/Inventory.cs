@@ -5,7 +5,10 @@ public class Inventory : MonoBehaviour
 {
 	[SerializeField] private DescriptionText m_descriptionText;
 	[SerializeField] private GameObject[] m_fishDataObjects; // UIに表示するための魚データオブジェクト  
-	private static List<FishDataEntity> m_fishDataList = new List<FishDataEntity>();
+	[SerializeField] private AudioClip m_sellSe;
+    [SerializeField] private AudioClip m_selectIconSe;
+    [SerializeField] private AudioClip m_clickIconSe;
+    private static List<FishDataEntity> m_fishDataList = new List<FishDataEntity>();
 	private static FishDataEntity m_clickIconData;
 	private ClickIcon[] m_clickIcons = new ClickIcon[MaxInventorySize]; // 各魚データオブジェクトに対応するクリックアイコン
 	
@@ -55,19 +58,23 @@ public class Inventory : MonoBehaviour
 		// パッドの入力によるアイコン選択
 		if (InputSystem.GetInputMenuButtonDown("Up"))
 		{
+			SoundEffect.Play2D(m_selectIconSe);
 			m_padIconIndex = (m_padIconIndex - 5 + MaxInventorySize) % MaxInventorySize; // 上に移動
 		}
 		else if (InputSystem.GetInputMenuButtonDown("Down"))
-		{
-			m_padIconIndex = (m_padIconIndex + 5) % MaxInventorySize; // 下に移動
+        {
+            SoundEffect.Play2D(m_selectIconSe);
+            m_padIconIndex = (m_padIconIndex + 5) % MaxInventorySize; // 下に移動
 		}
 		else if (InputSystem.GetInputMenuButtonDown("Left"))
-		{
-			m_padIconIndex = (m_padIconIndex - 1 + MaxInventorySize) % MaxInventorySize; // 左に移動
+        {
+            SoundEffect.Play2D(m_selectIconSe);
+            m_padIconIndex = (m_padIconIndex - 1 + MaxInventorySize) % MaxInventorySize; // 左に移動
 		}
 		else if (InputSystem.GetInputMenuButtonDown("Right"))
-		{
-			m_padIconIndex = (m_padIconIndex + 1) % MaxInventorySize; // 右に移動
+        {
+            SoundEffect.Play2D(m_selectIconSe);
+            m_padIconIndex = (m_padIconIndex + 1) % MaxInventorySize; // 右に移動
 		}
 
 		// 決定
@@ -99,8 +106,9 @@ public class Inventory : MonoBehaviour
 			{
 				m_clickIcons[i].SetClick(false);
 			}
-		}
-	}
+        }
+        SoundEffect.Play2D(m_clickIconSe);
+    }
 
 	// アイテムを追加するメソッド  
 	static public void AddItem(FishDataEntity fish)
@@ -113,6 +121,7 @@ public class Inventory : MonoBehaviour
 	public void SellItem()
 	{
 		if (m_clickIconData == null) return; // インベントリが空の場合は何もしない
+		SoundEffect.Play2D(m_sellSe);
 		Money.AddMoney(m_clickIconData.price);
 
         m_fishDataList.Remove(m_clickIconData);

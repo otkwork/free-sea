@@ -1,13 +1,13 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public class FishGet : MonoBehaviour
 {
 	[SerializeField] private GameObject m_backGround; // ”wŒi
 	[SerializeField] private Image m_fishImage;
 	[SerializeField] private TextMeshProUGUI m_fishName;
+	[SerializeField] private AudioClip m_getFishSe;
 
 	private const float ActiveTime = 3.0f; // •\Ž¦‚·‚éŽžŠÔ
 
@@ -43,5 +43,6 @@ public class FishGet : MonoBehaviour
 		ImageLoader.LoadSpriteAsync(fishData.fishName).Completed += op =>
         m_fishImage.sprite = op.Result;
 		m_fishName.text = fishData.displayName;
+		SoundEffect.Play2D(m_getFishSe);
 	}
 }

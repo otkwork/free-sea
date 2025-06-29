@@ -1,6 +1,3 @@
-using System.Runtime.CompilerServices;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RayGround : MonoBehaviour
@@ -8,6 +5,7 @@ public class RayGround : MonoBehaviour
 	[SerializeField] private Transform m_groundParent;
 	[SerializeField] private GameObject m_ground;   // 設置する地面オブジェクト
 	[SerializeField] private Animator m_hammerAnime; // ハンマーのアニメーション
+	[SerializeField] private AudioClip m_makeGroundSe;
 	private GameObject[] m_startGround = new GameObject[(int)AroundWall.WallType.Length]; // 初期の地面オブジェクト
 							  
 	// レイの最大距離
@@ -70,6 +68,7 @@ public class RayGround : MonoBehaviour
 
 			if (hasNeighbor)
 			{
+				SoundEffect.Play2D(m_makeGroundSe);
                 m_hammerAnime.SetTrigger("Create"); // ハンマーのアニメーションを再生
 				GameObject ground = Instantiate(m_ground, new Vector3(gridPos.x, SetGroundHeight, gridPos.y), Quaternion.identity, m_groundParent);
 				GridObjectManager.AddObject(gridPos, ground); // グリッド座標に地面オブジェクトを登録

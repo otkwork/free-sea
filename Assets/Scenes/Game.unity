@@ -1053,6 +1053,8 @@ MonoBehaviour:
   - {fileID: 1558678289}
   - {fileID: 1335691250}
   m_confirmation: {fileID: 321653481}
+  m_selectIconSe: {fileID: 8300000, guid: c50e7c21ea052a34a9fa483bb2859244, type: 3}
+  m_clickIconSe: {fileID: 8300000, guid: cf0b4d1dd1efd494d9daa6f1cef293c0, type: 3}
 --- !u!1001 &60990219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6651,10 +6653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_verRot: {fileID: 766947667}
   m_horRot: {fileID: 298210022}
-  m_moveSpeed: 5
-  m_sensX: 2
-  m_sensY: 2
-  m_padSens: 2
+  m_openMenuSe: {fileID: 8300000, guid: cd34af2886d649e42bf6cb7212e3f9af, type: 3}
   m_pauseMenu: {fileID: 716936181}
 --- !u!143 &298210020
 CharacterController:
@@ -6716,6 +6715,9 @@ MonoBehaviour:
   m_rodGrip: {fileID: 177940965}
   m_hitFishMove: {fileID: 1654989974}
   m_fishGet: {fileID: 1769387332}
+  m_fishingSe: {fileID: 8300000, guid: 557df7c2ab84833409395859a9f104c4, type: 3}
+  m_getFishSe: {fileID: 8300000, guid: cbc2cb2e12806414bba6623d01366452, type: 3}
+  m_failureSe: {fileID: 8300000, guid: 78be99bc775140148b97a5c18fd98167, type: 3}
 --- !u!114 &298210024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6732,6 +6734,7 @@ MonoBehaviour:
   m_ground: {fileID: 1535753029537761721, guid: 042bcbf0c43d96e4aad9ab8718e0276d,
     type: 3}
   m_hammerAnime: {fileID: 885171114}
+  m_makeGroundSe: {fileID: 8300000, guid: 70447d6ae09bc8e4f84388c1ce5f1052, type: 3}
 --- !u!1001 &303921427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8226,6 +8229,8 @@ MonoBehaviour:
   m_confirmationPanel: {fileID: 321653485}
   m_panel: {fileID: 321653481}
   m_buttonType: 0
+  m_failureBuySe: {fileID: 8300000, guid: 7b6e4c84aea503a4a99d7ffd9792d252, type: 3}
+  m_buySe: {fileID: 8300000, guid: 679390b986d3a294289bfa22a561d621, type: 3}
 --- !u!1 &394861879 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b2fdb43dd95820479f65a802d0cc22d,
@@ -21113,12 +21118,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55da0044c08ee84bbf282b53712c1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_sound: {fileID: 1847082736}
   m_player: {fileID: 298210018}
   m_excelData: {fileID: 11400000, guid: 01db52cf7042ec341976a8ab658e0456, type: 2}
   m_hitFish: {fileID: 1654989974}
   m_fishEndDistance: 3
   m_fishStartDistance: 15
   m_fishStartMoveSpeed: 7
+  m_waterSe: {fileID: 8300000, guid: b593bcb1da08ab4438a9988af56bccf7, type: 3}
+  m_hitSe: {fileID: 8300000, guid: 867691045ceca7c4c9fa6290ccd1e401, type: 3}
+  m_hitVoice: {fileID: 8300000, guid: 470d3032c9d6e9c4c824db8c29edf36b, type: 3}
 --- !u!1 &1029652246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b2fdb43dd95820479f65a802d0cc22d,
@@ -23650,6 +23659,8 @@ MonoBehaviour:
   m_confirmationPanel: {fileID: 321653485}
   m_panel: {fileID: 321653481}
   m_buttonType: 1
+  m_failureBuySe: {fileID: 8300000, guid: 7b6e4c84aea503a4a99d7ffd9792d252, type: 3}
+  m_buySe: {fileID: 8300000, guid: 679390b986d3a294289bfa22a561d621, type: 3}
 --- !u!1001 &1182590840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24944,8 +24955,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 679142618}
   - {fileID: 59246712}
+  - {fileID: 679142618}
   - {fileID: 321653482}
   m_Father: {fileID: 686759140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34015,6 +34026,9 @@ MonoBehaviour:
   m_page: {fileID: 1959971568}
   m_descriptionText: {fileID: 242472276}
   m_isDebugFishData: 0
+  m_pageChange: {fileID: 8300000, guid: 1945f4020fb89834c882c0a297f634de, type: 3}
+  m_selectIconSe: {fileID: 8300000, guid: c50e7c21ea052a34a9fa483bb2859244, type: 3}
+  m_clickIconSe: {fileID: 8300000, guid: cf0b4d1dd1efd494d9daa6f1cef293c0, type: 3}
 --- !u!1 &1762007267 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b2fdb43dd95820479f65a802d0cc22d,
@@ -34171,6 +34185,7 @@ MonoBehaviour:
   m_backGround: {fileID: 1911469410}
   m_fishImage: {fileID: 648837685}
   m_fishName: {fileID: 407455783}
+  m_getFishSe: {fileID: 8300000, guid: a5ab74b92dea3de478f0cc94d00a23fd, type: 3}
 --- !u!1 &1782183571 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b2fdb43dd95820479f65a802d0cc22d,
@@ -35506,6 +35521,53 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1047789416}
   m_SourcePrefab: {fileID: 100100000, guid: 9b2fdb43dd95820479f65a802d0cc22d, type: 3}
+--- !u!1 &1847082735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1847082737}
+  - component: {fileID: 1847082736}
+  m_Layer: 0
+  m_Name: EnvironmentalSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1847082736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847082735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47efd1c66a080442b27a210d1a662df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bgm: {fileID: 8300000, guid: da087263b765f914ba7965b446853f84, type: 3}
+  m_hitBgm: {fileID: 8300000, guid: 838a2f26437954b409763ea292537cdf, type: 3}
+  m_seaSe: {fileID: 8300000, guid: 331336c6637da8f43b9588f197707d4f, type: 3}
+--- !u!4 &1847082737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847082735}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 506, y: 284.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1847103247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36348,6 +36410,9 @@ MonoBehaviour:
   - {fileID: 1552724422}
   - {fileID: 227997260}
   - {fileID: 1978086707}
+  m_sellSe: {fileID: 8300000, guid: 679390b986d3a294289bfa22a561d621, type: 3}
+  m_selectIconSe: {fileID: 8300000, guid: c50e7c21ea052a34a9fa483bb2859244, type: 3}
+  m_clickIconSe: {fileID: 8300000, guid: cf0b4d1dd1efd494d9daa6f1cef293c0, type: 3}
 --- !u!1 &1866902796 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b2fdb43dd95820479f65a802d0cc22d,
@@ -40603,6 +40668,7 @@ MonoBehaviour:
   - {fileID: 8519410335173377304}
   - {fileID: 775762908}
   m_haveGourndText: {fileID: 517270301}
+  m_changeItemSe: {fileID: 8300000, guid: 54641f543ae5d0a4f93012885154394d, type: 3}
 --- !u!1001 &2086588386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42543,3 +42609,4 @@ SceneRoots:
   - {fileID: 648360567}
   - {fileID: 152199842}
   - {fileID: 1837872813}
+  - {fileID: 1847082737}

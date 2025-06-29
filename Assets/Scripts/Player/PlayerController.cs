@@ -1,15 +1,16 @@
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private Transform m_verRot;  //縦の視点移動の変数(カメラに合わせる)
 	[SerializeField] private Transform m_horRot;  //横の視点移動の変数(プレイヤーに合わせる)
-	[SerializeField] private float m_moveSpeed = 5.0f;  //移動速度
-	[SerializeField] private float m_sensX = 2.0f;
-	[SerializeField] private float m_sensY = 2.0f;
-	[SerializeField] private float m_padSens = 2.0f;  //パッドの感度
+	[SerializeField] private AudioClip m_openMenuSe;
 	private CharacterController m_characterController;  // CharacterController型の変数
+	
+	private const float MoveSpeed = 5.0f;  //移動速度
+	private const float SensX = 2.0f;
+	private const float SensY = 2.0f;
+	private const float PadSens = 2.0f;  //パッドの感度
 	
 	private Vector3 m_moveVelocity;  // キャラクターコントローラーを動かすためのVector3型の変数
 	private float m_rotationY, m_rotationX;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
 			
 			Cursor.lockState = m_pause ? CursorLockMode.None : CursorLockMode.Locked;
 			Cursor.visible = m_pause;
+			SoundEffect.Play2D(m_openMenuSe);
 		}
 
         m_pauseMenu.SetActive(m_pause); // ポーズメニューのUIを表示/非表示にする
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
 	private void Camera()
 	{
-		Vector2 mouseInput = InputSystem.CameraGetAxis(m_sensX, m_sensY, m_padSens);
+		Vector2 mouseInput = InputSystem.CameraGetAxis(SensX, SensY, PadSens);
 
         m_rotationX -= mouseInput.y;
         m_rotationY += mouseInput.x;
@@ -80,22 +82,22 @@ public class PlayerController : MonoBehaviour
 		//Wキーがおされたら
 		if (InputSystem.MoveUp())
 		{
-            m_characterController.Move(gameObject.transform.forward * m_moveSpeed * Time.deltaTime);
+            m_characterController.Move(gameObject.transform.forward * MoveSpeed * Time.deltaTime);
 		}
 		//Sキーがおされたら
 		if (InputSystem.MoveDown())
 		{
-            m_characterController.Move(gameObject.transform.forward * -1f * m_moveSpeed * Time.deltaTime);
+            m_characterController.Move(gameObject.transform.forward * -1f * MoveSpeed * Time.deltaTime);
 		}
 		//Aキーがおされたら
 		if (InputSystem.MoveLeft())
 		{
-            m_characterController.Move(gameObject.transform.right * -1 * m_moveSpeed * Time.deltaTime);
+            m_characterController.Move(gameObject.transform.right * -1 * MoveSpeed * Time.deltaTime);
 		}
 		//Dキーがおされたら
 		if (InputSystem.MoveRight())
 		{
-            m_characterController.Move(gameObject.transform.right * m_moveSpeed * Time.deltaTime);
+            m_characterController.Move(gameObject.transform.right * MoveSpeed * Time.deltaTime);
 		}
 
         // 重力をかける

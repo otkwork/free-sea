@@ -4,16 +4,20 @@ using UnityEngine.SceneManagement;
 public class TitleUI : MonoBehaviour
 {
 	[SerializeField] private float m_fadeInDuration = 3.0f; // フェードインの時間
+	[SerializeField] private AudioClip m_bgm;
+	[SerializeField] private AudioClip m_startSe;
 	private CanvasGroup m_uiGroup;
+	private AudioSource m_audioSource;
 
-	private static bool m_isActive = false; // UIがアクティブかどうか
-	private float m_alpha = 0.0f; // UIの透明度
+	private bool m_isPlaying;
 
 	private void Start()
 	{
+		SoundEffect.Play2D(m_bgm, true);
 		m_uiGroup = GetComponent<CanvasGroup>();
-		m_alpha = 0.0f; // 初期透明度
-		m_uiGroup.alpha = m_alpha;
+		m_uiGroup.alpha = 0.0f;
+		m_audioSource = null;
+		m_isPlaying = false;
 
 		Cursor.lockState = CursorLockMode.Locked; // カーソルをロック
 		Cursor.visible = false; // カーソルを非表示にする
@@ -21,33 +25,16 @@ public class TitleUI : MonoBehaviour
 
 	private void Update()
 	{
-		if (InputSystem.GetInputMenuButtonDown("Any"))
+		// サウンドがなってからサウンドが消えたら
+		if (m_isPlaying && m_audioSource == null) SceneManager.LoadScene("Game"); // ゲームシーンに遷移
+
+        if (InputSystem.GetInputMenuButtonDown("Any") || Input.GetMouseButtonDown(0) && !m_isPlaying)
 		{
-			if (m_isActive)
-			{
-				SceneManager.LoadScene("Game"); // ゲームシーンに遷移
-			}
-			else
-			{
-				m_isActive = true; // UIがアクティブになる
-			}
+			m_isPlaying = true;
+			m_audioSource = SoundEffect.Play2D(m_startSe);
 		}
 
 		// フェードインの処理
-		m_alpha += Time.deltaTime / m_fadeInDuration;
-		if (m_isActive)
-		{
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true; // UIがアクティブな場合はカーソルを表示
-			m_alpha = 1.0f; // アクティブな場合は最大値に設定
-		}
-
-		// 1.0を超えている場合は1.0に制限
-		if (m_alpha >= 1.0f)
-		{
-			m_isActive = true; // UIが完全に表示されるまでは操作不可
-			m_alpha = 1.0f; // 最大値を超えないようにする
-		}
-		m_uiGroup.alpha = m_alpha;
-	}
+		m_uiGroup.alpha += Time.deltaTime / m_fadeInDuration;
+    }
 }

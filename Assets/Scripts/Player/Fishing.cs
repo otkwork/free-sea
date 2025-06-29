@@ -8,7 +8,11 @@ public class Fishing : MonoBehaviour
 	[SerializeField] private GameObject m_rodGrip;
 	[SerializeField] private HitFishMove m_hitFishMove;
 	[SerializeField] private FishGet m_fishGet;  // 釣り成功時に画面に表示する魚の情報を管理するスクリプト
-	private FishingRod m_rod;
+	[SerializeField] private AudioClip m_fishingSe;
+	[SerializeField] private AudioClip m_getFishSe;
+	[SerializeField] private AudioClip m_failureSe;
+
+    private FishingRod m_rod;
 	private PlayerController m_playerController;
 
 	private static readonly Vector3 FloatOffset = new Vector3(0, 5, 0); // 浮きを投げるときのオフセット
@@ -43,8 +47,8 @@ public class Fishing : MonoBehaviour
 		if (SelectItem.GetItemType() != SelectItem.ItemType.FishingRod)
 		{
             m_rodAnime.gameObject.SetActive(false); // 釣り竿を選択していない場合はアニメーションを無効にする
+            if(m_rodFloat.activeSelf) m_rod.FishingEnd(false); // 釣りを終了する
             m_rodFloat.SetActive(false); // 浮きを非表示にする
-            m_rod.FishingEnd(false); // 釣りを終了する
 			return; // 釣り竿を選択していない場合は何もしない
 		}
 		else
@@ -61,6 +65,7 @@ public class Fishing : MonoBehaviour
 			{
                 // 釣り開始
                 m_rodAnime.SetTrigger("Throw");
+				SoundEffect.Play2D(m_fishingSe);
                 m_rodFloat.transform.position = m_playerHead.position + FloatOffset + transform.forward * -3;
                 m_rodFloat.SetActive(true);
                 m_rod.FishingStart(transform.forward);
@@ -130,6 +135,7 @@ public class Fishing : MonoBehaviour
 		// 釣り成功してハンマーのIDじゃない場合
 		if (isSuccess)
 		{
+			SoundEffect.Play2D(m_getFishSe);
 			// 画面に表示する
 			m_fishGet.FishingEnd(fish);
 
@@ -143,6 +149,10 @@ public class Fishing : MonoBehaviour
 			{
 				SelectItem.SetHammer();
 			}
+		}
+		else
+		{
+			SoundEffect.Play2D(m_failureSe);
 		}
         m_rodAnime.enabled = true;
         m_isHit = false;

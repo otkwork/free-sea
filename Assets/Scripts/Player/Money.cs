@@ -30,6 +30,11 @@ public class Money : MonoBehaviour
         m_moneyText.text = "$" + m_displayMoney.ToString();
     }
 
+    private void OnDisable()
+    {
+        m_displayMoney = m_money;
+    }
+
     static public void AddMoney(int value)
     {
         m_money += value;
